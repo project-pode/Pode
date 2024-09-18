@@ -1,6 +1,10 @@
-import { FlatList, View } from "react-native";
+import { Button, FlatList, Linking, Pressable, View } from "react-native";
 import Text from "./Text";
-const UserList = ({ users }) => {
+import { useNavigate } from "react-router-native";
+import theme from "../theme";
+
+const UserList = ({ users, loggedInUser, onLogout }) => {
+    const navigate = useNavigate();
     // Check if users is undefined or null, and render a message or return null
     if (!users) {
         return (
@@ -9,24 +13,32 @@ const UserList = ({ users }) => {
                     No users found
                 </Text>
             </View>
-        ) // Or any other message you want to display
+        ); // Or any other message you want to display
     }
 
-    const UserView = ({ user }) => {
-        return (
-            <View>
-                <Text>{user.id}</Text>
-            </View>
-        )
-    }
+    
+    const onPress = () => {
+        navigate("/login");
+    };
+
+    const onPressLogout = () => {
+        onLogout();
+        navigate("/");
+    };
 
 
     return (
         <View>
-            <Text>test</Text>
+            <Text>Users:</Text>
             {users.map((user, index) => {
-                return <Text key={index}> {user.username}</Text>
+                return <Text key={index}> {user.username}</Text>;
             })}
+            <Text>Conditional render depending on user</Text>
+            { loggedInUser ?
+            ( <Pressable style={theme.button} onPress={onPressLogout}><Text>logout</Text></Pressable>)
+            : (<Pressable style={theme.button} onPress={onPress}><Text>login</Text></Pressable>)
+            }
+           
         </View>
     );
 };

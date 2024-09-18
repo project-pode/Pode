@@ -10,7 +10,7 @@ module.exports = {
         'env': {
           'node': true,
           'jest':true
-  
+
         },
         'files': [
           '.eslintrc.{js,cjs}'
@@ -24,9 +24,6 @@ module.exports = {
       'ecmaVersion': 'latest'
     },
     'rules': {
-      'indent': [
-        'error', 2
-      ],
       'linebreak-style': [
         'error',
         'windows'
@@ -36,8 +33,7 @@ module.exports = {
         'single'
       ],
       'semi': [
-        'error',
-        'never'
+        'error'
       ],
       'eqeqeq':'error',
       'no-trailing-spaces':'error',
@@ -49,4 +45,4 @@ module.exports = {
       ],
       'no-console':0
     }
-  }
+  };

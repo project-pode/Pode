@@ -4,9 +4,7 @@ import { useFormik } from 'formik';
 import theme from "../theme";
 import Text from "./Text";
 import * as yup from "yup";
-import { useNavigate } from "react-router-native";
-import useAuthStorage from "../hooks/useAuthStorage";
-import loginService from "../services/login";
+
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
@@ -33,31 +31,23 @@ const validationSchema = yup.object().shape({
         .required('Password is required'),
 });
 
-export const SignInForm = ({ onSubmit }) => {
-    const authStorage = useAuthStorage();
-
+const SignIn = ({onSignIn}) => {
     
     const formik = useFormik({
         initialValues,
-        onSubmit,
         validationSchema,
+        onSubmit: async () => {
+            if (!formik.isValid) {
+                console.log("not valid");
+                return;
+            }
+            try {
+                await onSignIn(formik.values.username, formik.values.password);
+            } catch (error) {
+                console.error(error);
+            }
+        },
     });
-
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        try {
-          const user = await loginService.login(
-            formik.values.username, formik.values.password
-            
-        );
-          /* window.localStorage.setItem(
-            'user', JSON.stringify(user)
-          ) */
-          authStorage.setUser(user, JSON.stringify(user));
-        } catch (exception) {
-          console.log(exception);
-        }
-      };
 
     return (
         <View style={styles.container}>
@@ -81,29 +71,12 @@ export const SignInForm = ({ onSubmit }) => {
                 {formik.touched.password && formik.errors.password && (
                     <Text style={styles.errorText}>{formik.errors.password}</Text>
                 )}
-                <Pressable style={theme.button} onPress={handleLogin}>
+                <Pressable style={theme.button} onPress={formik.handleSubmit}>
                     <Text style={{ color: "white" }}>Sign in</Text>
                 </Pressable>
             </View>
         </View>
     );
-};
-
-
-const SignIn = () => {
-    const navigate = useNavigate();
-
-    const onSubmit = async (values) => {
-      const { username, password } = values;
-  
-      try {
-        navigate("/");
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    return <SignInForm onSubmit={onSubmit} />;
 };
 
 export default SignIn;

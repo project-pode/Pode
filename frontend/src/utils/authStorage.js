@@ -14,7 +14,7 @@ class AuthStorage {
   async setUser(user){
     await AsyncStorage.setItem(
         `${this.namespace}:user`,
-        user
+        user.username
     );
   }
 
