@@ -6,11 +6,13 @@ Use .env.template as template for variables
 Database URI can be retrieved from admin
 
 1. Frontend
+
 Navigate to frontend: ```cd frontend```
 Run ```npm install```
 Start app with ```npm start``` and choose platform
 
 2. Backend
+
 Navigate to backend: ```cd backend```
 Run ```npm install```
 Start app with ```npm run dev```
