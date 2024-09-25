@@ -6,7 +6,7 @@ class AuthStorage {
   }
 
   async getUser(){
-    await AsyncStorage.getItem(
+    return await AsyncStorage.getItem( //return user so it stays on reload
         `${this.namespace}:user`
     );
   }

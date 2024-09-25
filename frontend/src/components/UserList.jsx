@@ -16,9 +16,13 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
         ); // Or any other message you want to display
     }
 
-    
+
     const onPress = () => {
         navigate("/login");
+    };
+
+    const onPressSignUp = () => {
+        navigate("/users");
     };
 
     const onPressLogout = () => {
@@ -34,11 +38,18 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
                 return <Text key={index}> {user.username}</Text>;
             })}
             <Text>Conditional render depending on user</Text>
-            { loggedInUser ?
-            ( <Pressable style={theme.button} onPress={onPressLogout}><Text>logout</Text></Pressable>)
-            : (<Pressable style={theme.button} onPress={onPress}><Text>login</Text></Pressable>)
+            {loggedInUser ?
+                (
+                    <Pressable style={theme.button} onPress={onPressLogout}><Text>logout</Text></Pressable>
+                )
+                : (
+                    <>
+                        <Pressable style={theme.button} onPress={onPressSignUp}><Text>Sign up</Text></Pressable>
+                        <Pressable style={theme.button} onPress={onPress}><Text>login</Text></Pressable>
+                    </>
+                )
             }
-           
+
         </View>
     );
 };

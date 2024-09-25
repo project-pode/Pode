@@ -8,6 +8,7 @@ import UserList from './components/UserList';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
+import SignUp from './components/SignUp';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -19,18 +20,28 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Add a loading state
   const authStorage = useAuthStorage();
   const navigate = useNavigate();
 
   useEffect(() => {
 
     const fetchUserFromStorage = async () => {
+      try {
       const asyncStorageUser = await authStorage.getUser();
+      console.log(asyncStorageUser);
+      console.log(user);
       if (asyncStorageUser) {
-        const user = asyncStorageUser;
-        setUser(user);
+
+        setUser(asyncStorageUser);
       }
+    } catch (error) {
+      console.log('Error fetching user from storage', error);
+    } finally {
+      setLoading(false);
+    }
+
     };
     const fetchUsers = async () => {
       const users = await userService.getAll();
@@ -46,8 +57,21 @@ const Main = () => {
       const user = await loginService.login({
         username, password
       });
-      authStorage.setUser(user, JSON.stringify(user));
+      authStorage.setUser(user);
       setUser(user);
+      navigate("/");
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const handleSignUp = async (username, password) => {
+    try {
+      const user = await userService.create({
+        username, password
+      });
+      authStorage.setUser(user);
+      setUser(user); 
       navigate("/");
     } catch (exception) {
       console.log(exception);
@@ -65,6 +89,7 @@ const Main = () => {
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<UserList users={users} loggedInUser={user} onLogout={handleLogout} />} />
+        <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
       </Routes>
     </View>
   );
