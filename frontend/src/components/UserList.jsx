@@ -25,6 +25,10 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
         navigate("/users");
     };
 
+    const onPressLessons = () => {
+        navigate("/lessons");
+    };
+
     const onPressLogout = () => {
         onLogout();
         navigate("/");
@@ -40,7 +44,10 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
             <Text>Conditional render depending on user</Text>
             {loggedInUser ?
                 (
+                    <>
                     <Pressable style={theme.button} onPress={onPressLogout}><Text>logout</Text></Pressable>
+                    <Pressable style={theme.button} onPress={onPressLessons}><Text>lessons</Text></Pressable>
+                    </>
                 )
                 : (
                     <>

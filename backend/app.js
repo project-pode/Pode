@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const loginRouter = require('./controllers/login');
 const usersRouter = require('./controllers/users');
+const lessonsRouter = require('./controllers/lessons');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
@@ -29,6 +30,7 @@ app.use(middleware.tokenExtractor);
 
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/lessons', lessonsRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

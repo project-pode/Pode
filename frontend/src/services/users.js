@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { apiBaseUrl } from '../constants';
+import Constants from "expo-constants";
+const apiBaseUrl = Constants.expoConfig.extra.API_URL;
 
 
 let token=null;

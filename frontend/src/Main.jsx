@@ -9,6 +9,9 @@ import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
 import SignUp from './components/SignUp';
+import Lesson from './components/LessonList';
+import LessonList from './components/LessonList';
+import LessonView from './components/LessonView';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -90,6 +93,8 @@ const Main = () => {
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<UserList users={users} loggedInUser={user} onLogout={handleLogout} />} />
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
+        <Route path="/lessons" element={<LessonList/>}/>
+        <Route path="/lessons/:id" element={<LessonView/>}/>
       </Routes>
     </View>
   );
