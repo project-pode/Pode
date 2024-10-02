@@ -1,4 +1,4 @@
-import { View } from "react-native-web";
+import { View } from "react-native";
 import Text from "./Text";
 import { useParams } from "react-router-native";
 import { useEffect, useState } from "react";
