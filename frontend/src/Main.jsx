@@ -12,6 +12,7 @@ import SignUp from './components/SignUp';
 import Lesson from './components/LessonList';
 import LessonList from './components/LessonList';
 import LessonView from './components/LessonView';
+import SingleExerciseView from './components/SingleExerciseView';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -95,6 +96,7 @@ const Main = () => {
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
         <Route path="/lessons" element={<LessonList/>}/>
         <Route path="/lessons/:id" element={<LessonView/>}/>
+        <Route path="/lessons/:id/exercises/:id2" element={<SingleExerciseView/>}/>
       </Routes>
     </View>
   );

@@ -1,8 +1,9 @@
-import { View } from "react-native";
+import { View, FlatList } from "react-native";
 import Text from "./Text";
 import { useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
+import ExerciseItem from "./ExerciseItem";
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
     const { id } = useParams();
@@ -32,6 +33,10 @@ const LessonView = () => {
             </Text>
             <Text>description: {lesson.description}</Text>
             <Text>id: {lesson.id}</Text>
+            <Text>Exercises for this lesson:</Text>
+            <FlatList data={lesson.exercises}
+          renderItem={({item})=> 
+          <ExerciseItem item={item}/>}/>
 
         </View>
     );

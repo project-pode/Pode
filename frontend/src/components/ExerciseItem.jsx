@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-native";
-import LessonView from "./LessonView";
 import { Pressable, View, StyleSheet } from "react-native";
 import Text from "./Text";
-const LessonItem = ({ item }) => {
+import { useNavigate } from "react-router-native";
+const ExerciseItem = ({ item }) => {
     const navigate = useNavigate();
     const onPress = () => {
-        navigate(`/lessons/${item.id}`);
+        navigate(`/lessons/${item.lesson}/exercises/${item.id}`);
     };
     const styles = StyleSheet.create({
         container: {
@@ -25,4 +24,4 @@ const LessonItem = ({ item }) => {
         </Pressable>
     );
 };
-export default LessonItem;
+export default ExerciseItem;
