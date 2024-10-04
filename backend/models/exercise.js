@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 
-const lessonSchema = new mongoose.Schema({
+const exerciseSchema = new mongoose.Schema({
   title: {
     type:String,
     required:true,
   },
   description: String,
-  exercises: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Exercise'
-    }
-  ]
+  difficulty: Number,
+  correctAnswer: String,
+  lesson: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Lesson'
+  }
 });
 
-lessonSchema.set('toJSON', {
+exerciseSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -22,6 +22,6 @@ lessonSchema.set('toJSON', {
   }
 });
 
-const Lesson = mongoose.model('Lesson', lessonSchema);
+const Exercise = mongoose.model('Exercise', exerciseSchema);
 
-module.exports = Lesson;
+module.exports = Exercise;

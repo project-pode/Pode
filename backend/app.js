@@ -10,6 +10,7 @@ const lessonsRouter = require('./controllers/lessons');
 
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
+const exercisesRouter = require('./controllers/exercises');
 
 
 logger.info('connecting to', config.MONGODB_URI);
@@ -30,7 +31,7 @@ app.use(middleware.tokenExtractor);
 
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/lessons', lessonsRouter);
+app.use('/api/lessons', lessonsRouter, exercisesRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

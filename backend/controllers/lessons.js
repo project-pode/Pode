@@ -7,7 +7,7 @@ lessonsRouter.get('/', async (request, response) => {
 });
 
 lessonsRouter.get('/:id',  async (request, response) => {
-    const lesson = await Lesson.findById(request.params.id);
+    const lesson = await Lesson.findById(request.params.id).populate('exercises');
     if (lesson) {
         response.json(lesson);
     } else {
