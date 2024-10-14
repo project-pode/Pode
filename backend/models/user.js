@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema({
   },
   name: String,
   passwordHash: String,
+  completedLessons: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Lesson'
+    }
+  ]
 });
 userSchema.plugin(uniqueValidator);
 

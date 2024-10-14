@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
+const Lesson = require('../models/lesson');
 
 usersRouter.post('/', async (request, response) => {
   const { username, name, password } = request.body;
@@ -43,6 +44,25 @@ usersRouter.get('/:id', async (request, response) => {
   } else {
     response.status(404).end();
   }
+});
+
+// get the users uncompleted lessons
+usersRouter.get('/:id/lessons', async (request, response) => {
+  const user = await User.findById(request.params.id).populate('completedLessons');
+
+  //completed lessons
+  const completedLessons = user?.completedLessons?.map(lesson => lesson.id) || [];
+
+  //all lessons
+  const lessons = await Lesson.find();
+
+  //filter out completed ones, to only show uncompleted lessons for user
+  const uncompleted = lessons.filter(lesson =>
+    !completedLessons.some(completedId => completedId.equals(lesson.id))
+  );
+
+  response.json(uncompleted);
+
 });
 
 module.exports = usersRouter;

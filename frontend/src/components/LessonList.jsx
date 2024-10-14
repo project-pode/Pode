@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import LessonView from "./LessonView";
 import LessonItem from "./LessonItem";
+import userService from "../services/users"
 
 
-const LessonList = () => {
+const LessonList = ({user}) => {
     const [lessons, setLessons] = useState([]);
-
+    
     useEffect(() => {
         const fetchLessons = async () => {
-          const lessons = await lessonService.getAll();
+          const lessons = await userService.getLessons(user.id);
           setLessons(lessons);
     
         };

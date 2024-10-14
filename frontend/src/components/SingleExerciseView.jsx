@@ -3,7 +3,6 @@ import Text from "./Text";
 import { useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import exerciseService from "../services/exercises";
-import ExerciseItem from "./ExerciseItem";
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
     const { id, id2 } = useParams();

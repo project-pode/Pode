@@ -22,7 +22,13 @@ const create = async newObject => {
   return response.data;
 };
 
+//users uncompleted lessons
+const getLessons = async (userId) => {
+  const response = await axios.get(`${apiBaseUrl}/users/${userId}/lessons`);
+  return response.data;
+}
 
 
 
-export default { getAll, create };
+
+export default { getAll, create, getLessons };

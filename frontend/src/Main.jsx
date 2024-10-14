@@ -94,7 +94,7 @@ const Main = () => {
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<UserList users={users} loggedInUser={user} onLogout={handleLogout} />} />
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
-        <Route path="/lessons" element={<LessonList/>}/>
+        <Route path="/lessons" element={<LessonList user={user}/>}/>
         <Route path="/lessons/:id" element={<LessonView/>}/>
         <Route path="/lessons/:id/exercises/:id2" element={<SingleExerciseView/>}/>
       </Routes>
