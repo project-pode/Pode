@@ -12,7 +12,7 @@ const LessonList = ({user}) => {
     
     useEffect(() => {
         const fetchLessons = async () => {
-          const lessons = await userService.getLessons(user.id);
+          const lessons = await lessonService.getLessons(user.id);
           setLessons(lessons);
     
         };

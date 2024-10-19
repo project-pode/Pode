@@ -13,6 +13,7 @@ import Lesson from './components/LessonList';
 import LessonList from './components/LessonList';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
+import tokenService from './services/tokenService';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -38,7 +39,7 @@ const Main = () => {
       console.log(user);
       if (asyncStorageUser) {
         setUser(asyncStorageUser);
-        userService.setToken(asyncStorageUser.token)
+        tokenService.setToken(asyncStorageUser.token)
       }
     } catch (error) {
       console.log('Error fetching user from storage', error);
@@ -61,7 +62,7 @@ const Main = () => {
       const user = await loginService.login({
         username, password
       });
-      userService.setToken(user.token)
+      tokenService.setToken(user.token)
       authStorage.setUser(user);
       setUser(user);
       navigate("/");
@@ -75,7 +76,7 @@ const Main = () => {
       const user = await userService.create({
         username, password
       });
-      userService.setToken(user.token)
+      tokenService.setToken(user.token)
       authStorage.setUser(user);
       setUser(user); 
       navigate("/");
@@ -87,7 +88,6 @@ const Main = () => {
   const handleLogout = () => {
     authStorage.removeUser();
     setUser(null);
-    console.log(authStorage.getUser());
   };
   return (
     <View style={styles.container}>

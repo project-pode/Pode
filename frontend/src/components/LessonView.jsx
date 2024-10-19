@@ -12,7 +12,7 @@ const LessonView = () => {
     const navigate = useNavigate();
     const handleCompleteLesson = async () => {
         try {
-          await userService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
+          await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
           navigate("/users/lessons")
         } catch (error) {
           console.error('Error completing lesson:', error);
@@ -22,7 +22,7 @@ const LessonView = () => {
 
     useEffect(() => {
         const fetchLesson = async () => {
-            const lesson = await userService.getLesson(userId, lessonId);
+            const lesson = await lessonService.getLesson(userId, lessonId);
             setLesson(lesson);
         };
         void fetchLesson();
