@@ -26,7 +26,7 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
     };
 
     const onPressLessons = () => {
-        navigate("/lessons");
+        navigate("/users/lessons");
     };
 
     const onPressLogout = () => {

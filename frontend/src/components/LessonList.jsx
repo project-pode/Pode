@@ -32,7 +32,7 @@ const LessonList = ({user}) => {
         <View>
            <FlatList data={lessons}
           renderItem={({item})=> 
-          <LessonItem item={item}/>}/>
+          <LessonItem item={item} user={user}/>}/>
         </View>
       );
 };

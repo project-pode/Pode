@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 const Lesson = require('../models/lesson');
+const jwt = require('jsonwebtoken');
 
 usersRouter.post('/', async (request, response) => {
   const { username, name, password } = request.body;
@@ -28,7 +29,23 @@ usersRouter.post('/', async (request, response) => {
 
   const savedUser = await user.save();
 
-  response.status(201).json(savedUser);
+   // Generate JWT token after saving user
+   const userForToken = {
+    username: savedUser.username,
+    id: savedUser._id
+  };
+
+  const token = jwt.sign(userForToken, process.env.SECRET,
+    { expiresIn:60*60 });
+
+
+  // Return the user details along with the JWT token
+  response.status(201).json({
+    token,
+    username: savedUser.username,
+    name: savedUser.name,
+    id: savedUser._id
+  });
 });
 
 usersRouter.get('/', async (request, response) => {
@@ -46,23 +63,5 @@ usersRouter.get('/:id', async (request, response) => {
   }
 });
 
-// get the users uncompleted lessons
-usersRouter.get('/:id/lessons', async (request, response) => {
-  const user = await User.findById(request.params.id).populate('completedLessons');
-
-  //completed lessons
-  const completedLessons = user?.completedLessons?.map(lesson => lesson.id) || [];
-
-  //all lessons
-  const lessons = await Lesson.find();
-
-  //filter out completed ones, to only show uncompleted lessons for user
-  const uncompleted = lessons.filter(lesson =>
-    !completedLessons.some(completedId => completedId.equals(lesson.id))
-  );
-
-  response.json(uncompleted);
-
-});
 
 module.exports = usersRouter;

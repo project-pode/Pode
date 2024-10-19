@@ -1,16 +1,28 @@
-import { View, FlatList } from "react-native";
+import { View, FlatList, Pressable } from "react-native";
 import Text from "./Text";
-import { useParams } from "react-router-native";
+import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
+import userService from "../services/users"
 import ExerciseItem from "./ExerciseItem";
+import theme from "../theme";
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
-    const { id } = useParams();
+    const { userId, lessonId } = useParams();
+    const navigate = useNavigate();
+    const handleCompleteLesson = async () => {
+        try {
+          await userService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
+          navigate("/users/lessons")
+        } catch (error) {
+          console.error('Error completing lesson:', error);
+        }
+      };
+
 
     useEffect(() => {
         const fetchLesson = async () => {
-            const lesson = await lessonService.getOne(id);
+            const lesson = await userService.getLesson(userId, lessonId);
             setLesson(lesson);
         };
         void fetchLesson();
@@ -37,7 +49,9 @@ const LessonView = () => {
             <FlatList data={lesson.exercises}
           renderItem={({item})=> 
           <ExerciseItem item={item}/>}/>
-
+        <Pressable style={theme.button} onPress={handleCompleteLesson}>
+            <Text>complete lesson</Text>
+        </Pressable>
         </View>
     );
 };
