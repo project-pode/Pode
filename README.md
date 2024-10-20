@@ -47,6 +47,7 @@ Name you branch SCRUM-X where X is the number on your jira ticket. For example, 
 Push and Commit your build to the branch.
 
 Go to Github, then go to Pode, and make a PULL REQUEST (should be visible on Pode homescreen in a big yellow box with a smaller green box inside it).
+IF no box box appreas, head over to Pull Requests, which is located on the TopBar between Issues and Actions. In Pull Requests, you should see a green button labled "New Pull Request". Click it and choose what branch you wish to send to the review process.
 
 Team members will review your changes/build before it is added to the Main-branch.
 
