@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-native";
 import LessonView from "./LessonView";
 import { Pressable, View, StyleSheet } from "react-native";
 import Text from "./Text";
-const LessonItem = ({ item }) => {
+const LessonItem = ({ item, user }) => {
     const navigate = useNavigate();
     const onPress = () => {
-        navigate(`/lessons/${item.id}`);
+        navigate(`/users/${user.id}/lessons/${item.id}`);
     };
     const styles = StyleSheet.create({
         container: {

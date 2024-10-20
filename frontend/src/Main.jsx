@@ -13,6 +13,7 @@ import Lesson from './components/LessonList';
 import LessonList from './components/LessonList';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
+import tokenService from './services/tokenService';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -37,8 +38,8 @@ const Main = () => {
       console.log(asyncStorageUser);
       console.log(user);
       if (asyncStorageUser) {
-
         setUser(asyncStorageUser);
+        tokenService.setToken(asyncStorageUser.token)
       }
     } catch (error) {
       console.log('Error fetching user from storage', error);
@@ -61,6 +62,7 @@ const Main = () => {
       const user = await loginService.login({
         username, password
       });
+      tokenService.setToken(user.token)
       authStorage.setUser(user);
       setUser(user);
       navigate("/");
@@ -74,6 +76,7 @@ const Main = () => {
       const user = await userService.create({
         username, password
       });
+      tokenService.setToken(user.token)
       authStorage.setUser(user);
       setUser(user); 
       navigate("/");
@@ -85,7 +88,6 @@ const Main = () => {
   const handleLogout = () => {
     authStorage.removeUser();
     setUser(null);
-    console.log(authStorage.getUser());
   };
   return (
     <View style={styles.container}>
@@ -94,8 +96,8 @@ const Main = () => {
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<UserList users={users} loggedInUser={user} onLogout={handleLogout} />} />
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
-        <Route path="/lessons" element={<LessonList/>}/>
-        <Route path="/lessons/:id" element={<LessonView/>}/>
+        <Route path="/users/lessons" element={<LessonList user={user}/>}/>
+        <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
         <Route path="/lessons/:id/exercises/:id2" element={<SingleExerciseView/>}/>
       </Routes>
     </View>
