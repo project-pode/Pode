@@ -52,8 +52,3 @@ IF no box box appreas, head over to Pull Requests, which is located on the TopBa
 Team members will review your changes/build before it is added to the Main-branch.
 
 Once it has been reviewed and accepted, YOU need to merge it to Main-branch (AKA Master-branch) on Github's website.
-
-## TEST
-
-HELLO EVERYONE!!!
-
