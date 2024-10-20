@@ -34,10 +34,15 @@ Start app with ```npm start``` and choose platform.
 
 Open up an additional terminal.
 Navigate to backend: ```cd backend```
-Start app with ```npm run dev`
+Start app with ```npm run dev```
 
 If everything worked fine terminal should print Server running on Port... and connected to MongoDB
 
-## How to make a branch
+## How to push your build
 
+Create a branch.
 Name you branch SCRUM-X where X is the number on your jira ticket. For example, SCRUM-98's branch would be called "SCRUM-98".
+Push and Commit your build to the branch.
+Go to Github, then go to Pode, and make a PULL REQUEST (should be visible on Pode homescreen in a big yellow box with a smaller green box inside it).
+Team members will review your changes/build before it is added to the Main-branch.
+Once it has been reviewed and accepted, YOU need to merge it to Main-branch (AKA Master-branch) on Github's website.
