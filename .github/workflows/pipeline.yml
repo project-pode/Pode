@@ -1,0 +1,34 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check_frontend:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4 # get the code
+      - uses: actions/setup-node@v4 # set up node
+        with:
+          node-version: '20'
+      - name: navigate to frontend
+        run: cd frontend
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run eslint
+  check_backend:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4 # get the code
+      - uses: actions/setup-node@v4 # set up node
+        with:
+          node-version: '20'
+      - name: navigate to backend
+        run: cd backend
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run eslint
