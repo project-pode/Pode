@@ -1,16 +1,17 @@
-import { View, FlatList } from "react-native";
+import { View, FlatList, Pressable } from "react-native";
 import Text from "./Text";
-import { useParams } from "react-router-native";
+import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import exerciseService from "../services/exercises";
+import theme from "../theme";
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
-    const { id, id2 } = useParams();
+    const { userId, lessonId, exerciseId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchExercise = async () => {
-            const exercise = await exerciseService.getOne(id, id2);
-            console.log(exercise);
+            const exercise = await exerciseService.getOne(userId, lessonId, exerciseId);
             setExercise(exercise);
         };
         void fetchExercise();
@@ -25,6 +26,15 @@ const SingleExerciseView = () => {
         ); // Or any other message you want to display
     }
 
+    const handleComplete = async () => {
+        try {
+          await exerciseService.completeExercise(userId, lessonId, exerciseId);  // Call the Axios service to mark as completed
+          navigate(`/users/${userId}/lessons/${lessonId}`);
+        } catch (error) {
+          console.error('Error completing lesson:', error);
+        }
+      };
+
 
     return (
         <View>
@@ -37,7 +47,9 @@ const SingleExerciseView = () => {
             <Text>correct answer: {exercise.correctAnswer}</Text>
 
             <Text>from lesson: {exercise.lesson}</Text>
-
+            <Pressable onPress={handleComplete} style={theme.button}>
+                <Text>complete exercise</Text>
+            </Pressable>
         </View>
     );
 };

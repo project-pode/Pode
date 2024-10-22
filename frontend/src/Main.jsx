@@ -9,7 +9,6 @@ import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
 import SignUp from './components/SignUp';
-import Lesson from './components/LessonList';
 import LessonList from './components/LessonList';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
@@ -39,7 +38,7 @@ const Main = () => {
       console.log(user);
       if (asyncStorageUser) {
         setUser(asyncStorageUser);
-        tokenService.setToken(asyncStorageUser.token)
+        tokenService.setToken(asyncStorageUser.token);
       }
     } catch (error) {
       console.log('Error fetching user from storage', error);
@@ -62,7 +61,7 @@ const Main = () => {
       const user = await loginService.login({
         username, password
       });
-      tokenService.setToken(user.token)
+      tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user);
       navigate("/");
@@ -76,7 +75,7 @@ const Main = () => {
       const user = await userService.create({
         username, password
       });
-      tokenService.setToken(user.token)
+      tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user); 
       navigate("/");
@@ -98,7 +97,7 @@ const Main = () => {
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
         <Route path="/users/lessons" element={<LessonList user={user}/>}/>
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
-        <Route path="/lessons/:id/exercises/:id2" element={<SingleExerciseView/>}/>
+        <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
       </Routes>
     </View>
   );

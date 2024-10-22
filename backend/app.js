@@ -30,8 +30,7 @@ app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);
 
 app.use('/api/login', loginRouter);
-app.use('/api/users', middleware.userExtractor, usersRouter, lessonsRouter);
-app.use('/api/lessons', exercisesRouter);
+app.use('/api/users', middleware.userExtractor, usersRouter, lessonsRouter, exercisesRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

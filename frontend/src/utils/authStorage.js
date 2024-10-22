@@ -9,7 +9,7 @@ class AuthStorage {
     const userData = await AsyncStorage.getItem(
         `${this.namespace}:user`
     );
-    return userData ? JSON.parse(userData) : null //return user so it stays on page reload
+    return userData ? JSON.parse(userData) : null; //return user so it stays on page reload
   }
 
   async setUser(user){

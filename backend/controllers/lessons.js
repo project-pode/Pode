@@ -1,6 +1,6 @@
 const lessonsRouter = require('express').Router();
 const Lesson = require('../models/lesson');
-const User = require('../models/user')
+const User = require('../models/user');
 // get the users uncompleted lessons
 lessonsRouter.get('/:id/lessons', async (request, response) => {
     const user = await User.findById(request.params.id).populate('completedLessons');
@@ -20,7 +20,7 @@ lessonsRouter.get('/:id/lessons', async (request, response) => {
 
 });
 
-lessonsRouter.get('/:id/lessons/:lessonId', async (request, response) => {
+lessonsRouter.get('/:userId/lessons/:lessonId', async (request, response) => {
     //const user = await User.findById(request.params.id)
     const lesson = await Lesson.findById(request.params.lessonId).populate('exercises');
 
@@ -36,19 +36,26 @@ lessonsRouter.get('/:id/lessons/:lessonId', async (request, response) => {
 lessonsRouter.put('/:userId/lessons/:lessonId/complete', async (request, response) => {
 
     try {
-        const user = request.user
+        const user = request.user;
 
         // Find the lesson
-        const lesson = await Lesson.findById(request.params.lessonId);
-        if (!lesson) return res.status(404).json({ error: 'Lesson not found' });
+        const lesson = await Lesson.findById(request.params.lessonId).populate('exercises');
+        if (!lesson) return response.status(404).json({ error: 'Lesson not found' });
+
+         // Check if all exercises are completed
+        const completedExerciseIds = user.completedExercises.map(ex => ex.toString());
+        const allExercisesCompleted = lesson.exercises.every(exercise => completedExerciseIds.includes(exercise._id.toString()));
+
+        if (!allExercisesCompleted) {
+            return response.status(400).json({ error: 'Not all exercises are completed' });
+        }
 
         // Mark the lesson as completed if not already
         if (!user.completedLessons.includes(request.params.lessonId)) {
             user.completedLessons.push(request.params.lessonId);
+            // Save the updated user
+            await user.save();
         }
-
-        // Save the updated user
-        await user.save();
 
         response.status(200).json({ message: 'Lesson marked as completed', user });
     } catch (error) {

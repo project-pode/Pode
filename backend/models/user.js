@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Lesson'
     }
+  ],
+  completedExercises: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Exercise'
+    }
   ]
 });
 userSchema.plugin(uniqueValidator);

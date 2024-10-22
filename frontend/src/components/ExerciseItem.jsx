@@ -1,10 +1,10 @@
 import { Pressable, View, StyleSheet } from "react-native";
 import Text from "./Text";
 import { useNavigate } from "react-router-native";
-const ExerciseItem = ({ item }) => {
+const ExerciseItem = ({ item, userId, isCompleted }) => {
     const navigate = useNavigate();
     const onPress = () => {
-        navigate(`/lessons/${item.lesson}/exercises/${item.id}`);
+        navigate(`/users/${userId}/lessons/${item.lesson}/exercises/${item.id}`);
     };
     const styles = StyleSheet.create({
         container: {
@@ -19,7 +19,7 @@ const ExerciseItem = ({ item }) => {
     return (
         <Pressable onPress={onPress}>
             <View style={styles.container}>
-                <Text>{item.title}</Text>
+                <Text>{item.title} {isCompleted && <Text>COMPLETED!!!!!</Text>}</Text>
             </View>
         </Pressable>
     );

@@ -7,7 +7,7 @@ const apiBaseUrl = Constants.expoConfig.extra.API_URL;
 const getLessons = async (userId) => {
   const response = await axios.get(`${apiBaseUrl}/users/${userId}/lessons`);
   return response.data;
-}
+};
 
 const getLesson = async (userId, lessonId) => {
   const response = await axios.get(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}`);
@@ -18,7 +18,7 @@ const getLesson = async (userId, lessonId) => {
 const completeLesson = async (userId, lessonId) => {
   try {
     const config = tokenService.getConfig();
-    const response = await axios.put(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}/complete`, {}, config)
+    const response = await axios.put(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}/complete`, {}, config);
     return response.data;
   } catch (error) {
     console.error('Error marking lesson as completed:', error);
