@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import theme from "../theme";
 import Text from "./Text";
 import * as yup from "yup";
-import { useNavigate } from "react-router-native";
 
 const styles = StyleSheet.create({
     container: {

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Constants from "expo-constants";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import tokenService from './tokenService';
 const apiBaseUrl = Constants.expoConfig.extra.API_URL;
 

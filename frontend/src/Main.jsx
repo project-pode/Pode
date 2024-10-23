@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Route, Routes, Navigate, useParams, useNavigate } from 'react-router-native';
+import { Route, Routes, useNavigate } from 'react-router-native';
 import { useEffect, useState } from 'react';
 import userService from "./services/users";
 import SignIn from './components/SignIn';
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 const Main = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true); // Add a loading state
   const authStorage = useAuthStorage();
   const navigate = useNavigate();
@@ -34,8 +35,6 @@ const Main = () => {
     const fetchUserFromStorage = async () => {
       try {
       const asyncStorageUser = await authStorage.getUser();
-      console.log(asyncStorageUser);
-      console.log(user);
       if (asyncStorageUser) {
         setUser(asyncStorageUser);
         tokenService.setToken(asyncStorageUser.token);

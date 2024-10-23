@@ -1,4 +1,4 @@
-import { Button, FlatList, Linking, Pressable, View } from "react-native";
+import {Pressable, View, Image } from "react-native";
 import Text from "./Text";
 import { useNavigate } from "react-router-native";
 import theme from "../theme";
@@ -37,6 +37,7 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
 
     return (
         <View>
+            <Image source= {require("../resources/pode.png")}/>
             <Text>Users:</Text>
             {users.map((user, index) => {
                 return <Text key={index}> {user.username}</Text>;

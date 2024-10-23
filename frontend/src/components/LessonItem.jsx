@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-native";
-import LessonView from "./LessonView";
 import { Pressable, View, StyleSheet } from "react-native";
 import Text from "./Text";
 const LessonItem = ({ item, user }) => {

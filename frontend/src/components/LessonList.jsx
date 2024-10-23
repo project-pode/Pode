@@ -1,10 +1,8 @@
-import { View, FlatList, Pressable } from "react-native";
+import { View, FlatList } from "react-native";
 import Text from "./Text";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
-import LessonView from "./LessonView";
 import LessonItem from "./LessonItem";
-import userService from "../services/users";
 
 
 const LessonList = ({user}) => {

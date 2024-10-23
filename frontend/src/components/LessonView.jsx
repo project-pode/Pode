@@ -6,14 +6,11 @@ import lessonService from "../services/lessons";
 import userService from "../services/users";
 import ExerciseItem from "./ExerciseItem";
 import theme from "../theme";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAuthStorage from "../hooks/useAuthStorage";
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
     const [completedExercises, setCompletedExercises] = useState([]);
     const { userId, lessonId } = useParams();
     const navigate = useNavigate();
-    const authStorage = useAuthStorage();
 
     const handleCompleteLesson = async () => {
         try {
