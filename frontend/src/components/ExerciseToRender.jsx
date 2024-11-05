@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
 
-const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer }) => {
+const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExerciseRef }) => {
     const renderExerciseType = () => {
         // Check if exercise is defined and has a type
         if (!exercise || !exercise.type) {
@@ -28,6 +28,7 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer }) => {
                 <BoxExercise options={exercise.options || []}
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
+                ref={boxExerciseRef}
                 />
                 </View>
                 );

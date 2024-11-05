@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
 
-const BoxExercise = ({ options, selectedAnswer, setSelectedAnswer, onReset }) => {
+const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef(options.map(() => new Animated.Value(0))).current;
 
     const handlePress = (block, index) => {
@@ -16,15 +16,18 @@ const BoxExercise = ({ options, selectedAnswer, setSelectedAnswer, onReset }) =>
         setSelectedAnswer(newOrder);
     };
 
-    const resetAnimations = () => {
-        animations.forEach((anim) => {
-            Animated.timing(anim, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }).start();
-        });
-    };
+    // Expose resetAnimations to the parent
+    useImperativeHandle(ref, () => ({
+        resetAnimations: () => {
+            animations.forEach((anim) => {
+                Animated.timing(anim, {
+                    toValue: 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                }).start();
+            });
+        },
+    }));
 
     return (
         <View style={styles.container}>
@@ -46,7 +49,7 @@ const BoxExercise = ({ options, selectedAnswer, setSelectedAnswer, onReset }) =>
             </View>
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -77,11 +80,6 @@ const styles = StyleSheet.create({
     blockText: {
         fontSize: 16,
         color: '#333',
-    },
-    feedbackText: {
-        fontSize: 16,
-        color: 'green',
-        marginTop: 20,
     },
 });
 

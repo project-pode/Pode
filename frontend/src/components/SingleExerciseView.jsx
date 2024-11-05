@@ -1,6 +1,6 @@
 import { View, Pressable, Text } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import exerciseService from "../services/exercises";
 import theme from "../theme";
 import ExerciseToRender from "./ExerciseToRender";
@@ -11,6 +11,7 @@ const SingleExerciseView = () => {
     const [feedback, setFeedback] = useState('');
     const { userId, lessonId, exerciseId } = useParams();
     const navigate = useNavigate();
+    const boxExerciseRef = useRef();
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -31,18 +32,18 @@ const SingleExerciseView = () => {
     const handleComplete = async () => {
         if (selectedAnswer.length === 0) {
             setFeedback("Please select an answer before completing the exercise.");
-            return; // Prevent submission if no answer is selected
+            return;
         }
 
         // Check if correctAnswer is an array or a string
         const correctAnswer = exercise.correctAnswer;
         const isCorrectAnswerArray = Array.isArray(correctAnswer);
-
+    
         // Validate against the correct answer
         if (isCorrectAnswerArray) {
-            // Handle array case
             if (selectedAnswer.length === correctAnswer.length &&
                 selectedAnswer.join(' ') === correctAnswer.join(' ')) {
+                // Correct answer
                 try {
                     await exerciseService.completeExercise(userId, lessonId, exerciseId);
                     setFeedback("Correct answer! Exercise completed.");
@@ -51,11 +52,14 @@ const SingleExerciseView = () => {
                     console.error('Error completing exercise:', error);
                 }
             } else {
+                // Incorrect answer
                 setFeedback("Incorrect answer. Please try again.");
+                boxExerciseRef.current.resetAnimations();
+                setSelectedAnswer([]);
             }
         } else {
-            // Handle string case
             if (selectedAnswer === correctAnswer) {
+                // Correct answer
                 try {
                     await exerciseService.completeExercise(userId, lessonId, exerciseId);
                     setFeedback("Correct answer! Exercise completed.");
@@ -64,10 +68,12 @@ const SingleExerciseView = () => {
                     console.error('Error completing exercise:', error);
                 }
             } else {
+                // Incorrect answer
                 setFeedback("Incorrect answer. Please try again.");
             }
         }
     };
+    
 
     return (
         <View>
@@ -80,7 +86,8 @@ const SingleExerciseView = () => {
             <ExerciseToRender
                 exercise={exercise}
                 selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer} // Pass down the state setter
+                setSelectedAnswer={setSelectedAnswer}
+                boxExerciseRef={boxExerciseRef} // Pass down the state setter
             />
             <Pressable onPress={handleComplete} style={theme.button}>
                 <Text>Complete Exercise</Text>
