@@ -1,5 +1,4 @@
-import { Pressable, View, StyleSheet } from "react-native";
-import Text from "./Text";
+import { Pressable, View, StyleSheet, Text } from "react-native";
 import { useNavigate } from "react-router-native";
 const ExerciseItem = ({ item, userId, isCompleted }) => {
     const navigate = useNavigate();

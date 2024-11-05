@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-native";
-import { Pressable, View, StyleSheet } from "react-native";
-import Text from "./Text";
+import { Pressable, View, StyleSheet, Text } from "react-native";
 const LessonItem = ({ item, user }) => {
     const navigate = useNavigate();
     const onPress = () => {

@@ -35,7 +35,7 @@ usersRouter.post('/', async (request, response) => {
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET,
-    { expiresIn:60*60 });
+    { expiresIn:60000*60000 });
 
 
   // Return the user details along with the JWT token

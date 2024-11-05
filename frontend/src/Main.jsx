@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import userService from "./services/users";
 import SignIn from './components/SignIn';
 import theme from './theme';
-import UserList from './components/UserList';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
@@ -13,6 +12,7 @@ import LessonList from './components/LessonList';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
 import tokenService from './services/tokenService';
+import WelcomeView from './components/WelcomeView';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -92,7 +92,7 @@ const Main = () => {
       <AppBar />
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
-        <Route path="/" element={<UserList users={users} loggedInUser={user} onLogout={handleLogout} />} />
+        <Route path="/" element={<WelcomeView users={users} loggedInUser={user} onLogout={handleLogout} />} />
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
         <Route path="/users/lessons" element={<LessonList user={user}/>}/>
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>

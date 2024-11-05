@@ -1,9 +1,8 @@
-import {Pressable, View, Image } from "react-native";
-import Text from "./Text";
+import {Pressable, View, Image, Text } from "react-native";
 import { useNavigate } from "react-router-native";
 import theme from "../theme";
 
-const UserList = ({ users, loggedInUser, onLogout }) => {
+const WelcomeView = ({ users, loggedInUser, onLogout }) => {
     const navigate = useNavigate();
     // Check if users is undefined or null, and render a message or return null
     if (!users) {
@@ -62,4 +61,4 @@ const UserList = ({ users, loggedInUser, onLogout }) => {
     );
 };
 
-export default UserList;
+export default WelcomeView;

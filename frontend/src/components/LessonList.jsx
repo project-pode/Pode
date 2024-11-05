@@ -1,5 +1,4 @@
-import { View, FlatList } from "react-native";
-import Text from "./Text";
+import { View, FlatList, Text } from "react-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import LessonItem from "./LessonItem";

@@ -1,5 +1,4 @@
-import { View, FlatList, Pressable } from "react-native";
-import Text from "./Text";
+import { View, FlatList, Pressable, Text } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";

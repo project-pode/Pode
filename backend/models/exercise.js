@@ -11,7 +11,10 @@ const exerciseSchema = new mongoose.Schema({
   lesson: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Lesson'
-  }
+  },
+  type: String,
+  options: [String],
+  question: String,
 });
 
 exerciseSchema.set('toJSON', {
