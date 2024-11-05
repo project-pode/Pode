@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
+import BoxExercise from "./BoxExercise";
 
 const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer }) => {
     const renderExerciseType = () => {
@@ -24,6 +25,10 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer }) => {
                 return (
                 <View>
                 <Text>Box exercise</Text>
+                <BoxExercise options={exercise.options || []}
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
+                />
                 </View>
                 );
             default:

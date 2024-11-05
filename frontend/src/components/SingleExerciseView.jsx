@@ -7,7 +7,7 @@ import ExerciseToRender from "./ExerciseToRender";
 
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
-    const [selectedAnswer, setSelectedAnswer] = useState('');
+    const [selectedAnswer, setSelectedAnswer] = useState([]);
     const [feedback, setFeedback] = useState('');
     const { userId, lessonId, exerciseId } = useParams();
     const navigate = useNavigate();
@@ -29,22 +29,43 @@ const SingleExerciseView = () => {
     }
 
     const handleComplete = async () => {
-        if (!selectedAnswer) {
+        if (selectedAnswer.length === 0) {
             setFeedback("Please select an answer before completing the exercise.");
             return; // Prevent submission if no answer is selected
         }
 
+        // Check if correctAnswer is an array or a string
+        const correctAnswer = exercise.correctAnswer;
+        const isCorrectAnswerArray = Array.isArray(correctAnswer);
+
         // Validate against the correct answer
-        if (selectedAnswer === exercise.correctAnswer) {
-            try {
-                await exerciseService.completeExercise(userId, lessonId, exerciseId);
-                setFeedback("Correct answer! Exercise completed.");
-                navigate(`/users/${userId}/lessons/${lessonId}`);
-            } catch (error) {
-                console.error('Error completing exercise:', error);
+        if (isCorrectAnswerArray) {
+            // Handle array case
+            if (selectedAnswer.length === correctAnswer.length &&
+                selectedAnswer.join(' ') === correctAnswer.join(' ')) {
+                try {
+                    await exerciseService.completeExercise(userId, lessonId, exerciseId);
+                    setFeedback("Correct answer! Exercise completed.");
+                    navigate(`/users/${userId}/lessons/${lessonId}`);
+                } catch (error) {
+                    console.error('Error completing exercise:', error);
+                }
+            } else {
+                setFeedback("Incorrect answer. Please try again.");
             }
         } else {
-            setFeedback("Incorrect answer. Please try again.");
+            // Handle string case
+            if (selectedAnswer === correctAnswer) {
+                try {
+                    await exerciseService.completeExercise(userId, lessonId, exerciseId);
+                    setFeedback("Correct answer! Exercise completed.");
+                    navigate(`/users/${userId}/lessons/${lessonId}`);
+                } catch (error) {
+                    console.error('Error completing exercise:', error);
+                }
+            } else {
+                setFeedback("Incorrect answer. Please try again.");
+            }
         }
     };
 

@@ -7,7 +7,7 @@ const exerciseSchema = new mongoose.Schema({
   },
   description: String,
   difficulty: Number,
-  correctAnswer: String,
+  correctAnswer: mongoose.Schema.Types.Mixed, //can be any type, since we have different exercises
   lesson: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Lesson'
