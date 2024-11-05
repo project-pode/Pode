@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Route, Routes, Navigate, useParams, useNavigate } from 'react-router-native';
+import { Route, Routes, useNavigate } from 'react-router-native';
 import { useEffect, useState } from 'react';
 import userService from "./services/users";
 import SignIn from './components/SignIn';
@@ -9,10 +9,12 @@ import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
 import SignUp from './components/SignUp';
-import Lesson from './components/LessonList';
 import LessonList from './components/LessonList';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
+import tokenService from './services/tokenService';
+import WelcomePage from './components/WelcomePage';
+
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
 const Main = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true); // Add a loading state
   const authStorage = useAuthStorage();
   const navigate = useNavigate();
@@ -34,11 +37,9 @@ const Main = () => {
     const fetchUserFromStorage = async () => {
       try {
       const asyncStorageUser = await authStorage.getUser();
-      console.log(asyncStorageUser);
-      console.log(user);
       if (asyncStorageUser) {
-
         setUser(asyncStorageUser);
+        tokenService.setToken(asyncStorageUser.token);
       }
     } catch (error) {
       console.log('Error fetching user from storage', error);
@@ -61,6 +62,7 @@ const Main = () => {
       const user = await loginService.login({
         username, password
       });
+      tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user);
       navigate("/");
@@ -74,6 +76,7 @@ const Main = () => {
       const user = await userService.create({
         username, password
       });
+      tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user); 
       navigate("/");
@@ -85,18 +88,17 @@ const Main = () => {
   const handleLogout = () => {
     authStorage.removeUser();
     setUser(null);
-    console.log(authStorage.getUser());
   };
   return (
     <View style={styles.container}>
       <AppBar />
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
-        <Route path="/" element={<UserList users={users} loggedInUser={user} onLogout={handleLogout} />} />
+        <Route path="/" element={<WelcomePage users={users} loggedInUser={user} onLogout={handleLogout} />} />
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
-        <Route path="/lessons" element={<LessonList/>}/>
-        <Route path="/lessons/:id" element={<LessonView/>}/>
-        <Route path="/lessons/:id/exercises/:id2" element={<SingleExerciseView/>}/>
+        <Route path="/users/lessons" element={<LessonList user={user}/>}/>
+        <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
+        <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
       </Routes>
     </View>
   );
