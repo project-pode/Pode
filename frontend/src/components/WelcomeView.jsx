@@ -27,8 +27,10 @@ const styles = StyleSheet.create({
         color: "rgba(135,105,155,1)",
         fontSize: 45,
         textAlign: "center",
+        fontFamily: "AlfaSlabOne"
     },
     pode: {
+        fontFamily: "AlfaSlabOne",
         color: "rgba(75,113,123,1)",
         fontSize: 80,
         textAlign: "center",

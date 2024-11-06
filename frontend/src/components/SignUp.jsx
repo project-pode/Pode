@@ -4,6 +4,7 @@ import TextInput from "./TextInput";
 import { useFormik } from 'formik';
 import theme from "../theme";
 
+
 import * as yup from "yup";
 import { useNavigate } from "react-router-native";
 
@@ -42,12 +43,14 @@ const styles = StyleSheet.create({
         color: "rgba(135,105,155,1)",
         fontSize: 45,
         textAlign: "center",
+        fontFamily: "AlfaSlabOne",
     },
     pode: {
         color: "rgba(75,113,123,1)",
         fontSize: 80,
         textAlign: "center",
         paddingVertical: 10,
+        fontFamily: "AlfaSlabOne",
     },
     inputField: {
         paddingVertical: 10,
@@ -90,7 +93,8 @@ const validationSchema = yup.object().shape({
         .string()
         .required('Password is required'),
     passwordConfirmation: yup
-        .string().oneOf([yup.ref('password'), null]) //check that the value matches reference to password
+        .string()
+        .oneOf([yup.ref('password'), null], "Password and password confirmation don't match") //check that the value matches reference to password
         .required('Password confirmation is required')
 });
 
