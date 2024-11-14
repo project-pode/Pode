@@ -16,6 +16,7 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "expo": "^51.0.35",
+    "expo-splash-screen": "^0.29.9",
     "expo-status-bar": "~1.12.1",
     "formik": "^2.4.6",
     "react": "18.2.0",
