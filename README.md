@@ -12,7 +12,9 @@ Open up a terminal.
 Navigate to frontend: ```cd frontend```
 Run ```npm install```
 Run ```npx expo install expo-splash-screen``` (this is needed for showing fonts)
-Start app with ```npm start``` and choose platform
+Start app with ```npm start``` and choose platform.
+
+Sometimes changing the .env in frontend does not work and you may have to run command ```npx expo start --clear```
 
 2. Backend
 
