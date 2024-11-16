@@ -23,20 +23,20 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
                 );
             case "box":
                 return (
-                <View>
-                <Text>Box exercise</Text>
-                <BoxExercise options={exercise.options || []}
-                selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer}
-                ref={boxExerciseRef}
-                />
-                </View>
+                    <View>
+                        <Text>Box exercise</Text>
+                        <BoxExercise options={exercise.options || []}
+                            selectedAnswer={selectedAnswer}
+                            setSelectedAnswer={setSelectedAnswer}
+                            ref={boxExerciseRef}
+                        />
+                    </View>
                 );
             default:
                 return (
-                <View>
-                <Text>No valid exercise type!</Text>
-                </View>
+                    <View>
+                        <Text>No valid exercise type!</Text>
+                    </View>
                 );
         }
     };
