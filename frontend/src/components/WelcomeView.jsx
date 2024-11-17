@@ -1,10 +1,10 @@
-import {Pressable, View, Image, Text, ImageBackground, StyleSheet } from "react-native";
+import {Pressable, View, Text, ImageBackground, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-native";
 import theme from "../theme";
 
 
 
-const background = "../assets/BackgroundBinary.png"
+const background = "../assets/BackgroundBinary.png";
 
 const styles = StyleSheet.create({
     container: {
@@ -67,7 +67,7 @@ const WelcomeView = ({ users, loggedInUser, onLogout }) => {
     };
 
     const onPressLessons = () => {
-        navigate("/users/lessons");
+        navigate("/progressmap");
     };
 
     const onPressLogout = () => {

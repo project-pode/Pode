@@ -13,6 +13,8 @@ import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
 import tokenService from './services/tokenService';
 import WelcomeView from './components/WelcomeView';
+import ProgressMapView from './components/ProgressMapView';
+
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -97,6 +99,7 @@ const Main = () => {
         <Route path="/users/lessons" element={<LessonList user={user}/>}/>
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
         <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
+        <Route path="/progressmap" element={<ProgressMapView user={user} onLogout={handleLogout}/>}/>
       </Routes>
     </View>
   );

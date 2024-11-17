@@ -80,8 +80,8 @@ const theme = {
       alignItems: 'center',
     },
     cloudImage: {
-      width: width,
-      height: height * 0.2,
+      width: width * 0.55,
+      height: height * 0.3,
       resizeMode: 'contain', // Maintains aspect ratio of images
       marginVertical: 1,  // Perhaps it shouldn't be negative LOL but it works
     },
@@ -97,6 +97,13 @@ const theme = {
     selectedCloud: {
       borderWidth: 2,
       borderColor: 'yellow'
+    },
+
+    cloudText: {
+      color: "#BB90D6",
+      fontSize: 20,
+      textAlign: "center",
+      fontFamily: "AlfaSlabOne",
     },
 
     greenButtonDeselected: {

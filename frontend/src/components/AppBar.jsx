@@ -25,7 +25,7 @@ const AppBar = () => {
         <View style={styles.container}>
             <Text style={styles.text}>Temporary</Text>
             <Pressable>
-                <Link to="/progressmap">
+                <Link to="/">
                 <Text style={styles.text}>Home</Text>
                 </Link>
             </Pressable>
