@@ -14,11 +14,15 @@ const LessonView = () => {
     const handleCompleteLesson = async () => {
         try {
             await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
-            navigate("/users/lessons");
+            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
         } catch (error) {
             console.error('Error completing lesson:', error);
         }
     };
+
+    const handleBackPress = () => {
+        navigate("/users/lessons");
+    }
 
 
     useEffect(() => {
@@ -51,6 +55,9 @@ const LessonView = () => {
 
     return (
         <View>
+            <Pressable style={{borderWidth:1, alignSelf:"flex-end"}} onPress={handleBackPress}>
+                <Text>X</Text>
+            </Pressable>
             <Text>
                 title: {lesson.title}
             </Text>

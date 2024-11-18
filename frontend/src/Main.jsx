@@ -8,7 +8,7 @@ import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
 import SignUp from './components/SignUp';
-import LessonList from './components/LessonList';
+import ProgressMap from './components/ProgressMap';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
 import tokenService from './services/tokenService';
@@ -96,10 +96,10 @@ const Main = () => {
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<WelcomeView users={users} loggedInUser={user} onLogout={handleLogout} />} />
         <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
-        <Route path="/users/lessons" element={<LessonList user={user}/>}/>
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
         <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
-        <Route path="/progressmap" element={<ProgressMapView user={user} onLogout={handleLogout}/>}/>
+        <Route path="/users/lessons" element={<ProgressMapView user={user} onLogout={handleLogout}/>}/>
+        <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview/>}/>
       </Routes>
     </View>
   );
