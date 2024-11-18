@@ -39,6 +39,12 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
     },
+    letsCodeText: {
+      fontFamily: "AlfaSlabOne",
+      color: "rgba(74,128,85,1)",
+      textAlign: "center",
+      fontSize: 28
+    },
     titlePode: {
         color: "rgba(75,113,123,1)",
         fontSize: 80,
@@ -69,6 +75,49 @@ const theme = {
         resizeMode: 'cover',
         justifyContent: 'center',
     },
+  lessonTitle: {
+      color: "rgba(75,113,123,1)",
+      fontSize: 30,
+      textAlign: "left",
+      paddingVertical: 10,
+      fontFamily: "AlfaSlabOne",
+      lineHeight: 24,
+    },
+    lessonDescription: {
+        color: "rgba(75,113,123,1)",
+        fontSize: 18,
+        textAlign: "left",
+        paddingVertical: 10,
+        fontFamily: "AlfaSlabOne",
+        lineHeight: 24,
+    },
+    whiteContainer: {
+      marginVertical: 18, 
+      marginHorizontal: 18, 
+      backgroundColor: "rgba(255,255,255,1)",
+      borderColor: "rgba(75,113,123,1)",
+      borderRadius: 48,
+      borderWidth: 7,
+      alignContent: "center",
+      padding: 10,
+    },
+    greenButton: { 
+      padding: 10,
+      backgroundColor: "rgba(132,220,149,1)",
+      borderRadius: 33,
+      borderWidth: 6,
+      borderColor: "rgba(74,128,85,1)",
+    },
+    podeAndLetsGoButtonContainer: {
+      flexDirection: "row",
+      justifyContent: "center",
+    },
+  
+    podeIcon: {
+      height: 200,
+      width: 134,
+      borderRadius: 98
+  },
 
 
     //TODO: check if old themes are used anywhere
@@ -99,7 +148,13 @@ const theme = {
       paddingVertical: 10,
       margin: 10,
       borderRadius: 6
-    }
+    },
+    pinkContainerSansBorder: { 
+      backgroundColor: "rgba(237,220,249,1)",
+      borderRadius: 33,
+      alignContent: "center",
+      padding: 18,
+    },
   };
   
   export default theme;
