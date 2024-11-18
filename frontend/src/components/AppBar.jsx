@@ -20,15 +20,19 @@ const styles = StyleSheet.create({
 });
 
 
-const AppBar = () => {
+const AppBar = ({ user }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Temporary</Text>
-            <Pressable>
-                <Link to="/">
-                <Text style={styles.text}>Home</Text>
-                </Link>
-            </Pressable>
+            {user &&
+                (
+                    <Pressable>
+                        <Link to="/home">
+                            <Text style={styles.text}>Home</Text>
+                        </Link>
+                    </Pressable>
+                )
+            }
         </View>
     );
 };

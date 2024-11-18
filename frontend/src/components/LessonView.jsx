@@ -21,8 +21,8 @@ const LessonView = () => {
     };
 
     const handleBackPress = () => {
-        navigate("/users/lessons");
-    }
+        navigate(`/users/${userId}/lessons`);
+    };
 
 
     useEffect(() => {

@@ -80,18 +80,18 @@ const theme = {
       alignItems: 'center',
     },
     cloudImage: {
-      width: width * 0.55,
-      height: height * 0.3,
-      resizeMode: 'contain', // Maintains aspect ratio of images
-      marginVertical: 1,  // Perhaps it shouldn't be negative LOL but it works
-    },
+      width: width * 0.6,
+      height: height * 0.15,
+      resizeMode: 'cover',
+      marginVertical: 1,
+    },    
     cloudLeft: {
       alignSelf: 'flex-start',
-      marginLeft: width * 0.1,
+      marginLeft: width * 0.05,
     },
     cloudRight: {
       alignSelf: 'flex-end',
-      marginRight: width * 0.1,
+      marginRight: width * 0.05,
     },
 
     selectedCloud: {

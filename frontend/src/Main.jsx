@@ -8,12 +8,13 @@ import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import AppBar from './components/AppBar';
 import SignUp from './components/SignUp';
-import ProgressMap from './components/ProgressMap';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
 import tokenService from './services/tokenService';
 import WelcomeView from './components/WelcomeView';
 import ProgressMapView from './components/ProgressMapView';
+import LessonOverview from './components/LessonOverview';
+import StartView from './components/StartView';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  // eslint-disable-next-line no-unused-vars
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
   // eslint-disable-next-line no-unused-vars
@@ -65,7 +67,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user);
-      navigate("/");
+      navigate("/home");
     } catch (exception) {
       console.log(exception);
     }
@@ -79,7 +81,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user); 
-      navigate("/");
+      navigate("/home");
     } catch (exception) {
       console.log(exception);
     }
@@ -91,15 +93,16 @@ const Main = () => {
   };
   return (
     <View style={styles.container}>
-      <AppBar />
+      <AppBar user={user} />
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
-        <Route path="/" element={<WelcomeView users={users} loggedInUser={user} onLogout={handleLogout} />} />
-        <Route path="/users" element={<SignUp onSignUp={handleSignUp}/>}/>
+        <Route path="/" element={<StartView user={user}/>} />
+        <Route path="/home" element={<WelcomeView user={user} onLogout={handleLogout}/>}/>
+        <Route path="/signUp" element={<SignUp onSignUp={handleSignUp}/>}/>
+        <Route path="/users/:userId/lessons" element={<ProgressMapView user={user} onLogout={handleLogout}/>}/>
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
         <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
-        <Route path="/users/lessons" element={<ProgressMapView user={user} onLogout={handleLogout}/>}/>
-        <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview/>}/>
+        <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview user={user}/>}/>
       </Routes>
     </View>
   );

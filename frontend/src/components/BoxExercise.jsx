@@ -1,4 +1,4 @@
-import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
 
 const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, ref) => {
@@ -124,5 +124,5 @@ const styles = StyleSheet.create({
         color: '#333',
     },
 });
-
+BoxExercise.displayName = 'BoxExercise';
 export default BoxExercise;
