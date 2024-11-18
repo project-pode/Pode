@@ -1,4 +1,7 @@
-import { Platform } from "react-native";
+import { Dimensions, Platform } from "react-native";
+
+const { width, height } = Dimensions.get('window');
+
 const theme = {
     // General themes 
 
@@ -70,6 +73,70 @@ const theme = {
         justifyContent: 'center',
     },
 
+    // Progress Map View
+
+    cloudContainer: {
+      padding: 1,
+      alignItems: 'center',
+    },
+    cloudImage: {
+      width: width * 0.55,
+      height: height * 0.3,
+      resizeMode: 'contain', // Maintains aspect ratio of images
+      marginVertical: 1,  // Perhaps it shouldn't be negative LOL but it works
+    },
+    cloudLeft: {
+      alignSelf: 'flex-start',
+      marginLeft: width * 0.1,
+    },
+    cloudRight: {
+      alignSelf: 'flex-end',
+      marginRight: width * 0.1,
+    },
+
+    selectedCloud: {
+      borderWidth: 2,
+      borderColor: 'yellow'
+    },
+
+    cloudText: {
+      color: "#BB90D6",
+      fontSize: 20,
+      textAlign: "center",
+      fontFamily: "AlfaSlabOne",
+    },
+
+    greenButtonDeselected: {
+      margin: 20, 
+      padding: 10,
+      backgroundColor: "#C2D6C6",
+      borderRadius: 33,
+      borderWidth: 6,
+      borderColor: "#A2B1A5",
+  },
+
+    greenButton: {
+      margin: 20, 
+      padding: 10,
+      backgroundColor: "#84DC95",
+      borderRadius: 33,
+      borderWidth: 6,
+      borderColor: "#4A8055",
+    },
+
+    greenButtonTextDeselected: {
+      color: "#A2B1A5",
+      fontSize: 45,
+      textAlign: "center",
+      fontFamily: "AlfaSlabOne",
+  },
+
+    greenButtonText: {
+      color: "#4A8055",
+      fontSize: 45,
+      textAlign: "center",
+      fontFamily: "AlfaSlabOne",
+},
 
     //TODO: check if old themes are used anywhere
     colors: {

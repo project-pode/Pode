@@ -2,7 +2,7 @@
 
 ## Guide for developers (Initial set-up)
 Start by setting up env variables in .env file, both in frontend and backend. 
-Use .env.template as template for variables
+Use .env.template as template for variables. 
 
 Database URI can be retrieved from admin
 
@@ -11,7 +11,7 @@ Database URI can be retrieved from admin
 Open up a terminal.
 Navigate to frontend: ```cd frontend```
 Run ```npm install```
-Start app with ```npm start``` and choose platform.
+Start app with ```npm start``` and choose platform
 
 Sometimes changing the .env in frontend does not work and you may have to run command ```npx expo start --clear```
 
