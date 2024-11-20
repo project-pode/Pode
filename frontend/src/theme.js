@@ -100,16 +100,21 @@ const theme = {
       borderWidth: 7,
       alignContent: "center",
       padding: 10,
+      flex: 1,
     },
     greenButton: { 
-      padding: 10,
+      padding: 20,
       backgroundColor: "rgba(132,220,149,1)",
       borderRadius: 33,
       borderWidth: 6,
       borderColor: "rgba(74,128,85,1)",
     },
-    podeAndLetsGoButtonContainer: {
+    podeAndLetsCodeButtonContainer: {
       flexDirection: "row",
+      justifyContent: "center",
+    },
+    letsCodeButtonContainer: {
+      flexDirection: "column",
       justifyContent: "center",
     },
   
@@ -117,7 +122,8 @@ const theme = {
       height: 200,
       width: 134,
       borderRadius: 98
-  },
+    },
+
 
 
     //TODO: check if old themes are used anywhere
@@ -154,6 +160,7 @@ const theme = {
       borderRadius: 33,
       alignContent: "center",
       padding: 18,
+      flex: 1,
     },
   };
   
