@@ -108,10 +108,12 @@ const theme = {
       borderRadius: 33,
       borderWidth: 6,
       borderColor: "rgba(74,128,85,1)",
+      margin: 5,
     },
     podeAndLetsCodeButtonContainer: {
       flexDirection: "row",
       justifyContent: "center",
+      padding: 5,
     },
     letsCodeButtonContainer: {
       flexDirection: "column",
@@ -121,7 +123,8 @@ const theme = {
     podeIcon: {
       height: 200,
       width: 134,
-      borderRadius: 98
+      borderRadius: 98,
+      margin: 5,
     },
 
 

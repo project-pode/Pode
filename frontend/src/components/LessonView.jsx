@@ -24,6 +24,10 @@ const LessonView = () => {
         navigate("/users/lessons");
     }
 
+    const moveToExercise = () => {
+        // navigate("/users/:userId/lessons/:lessonId/exercises");
+    }
+
 
     useEffect(() => {
         const fetchLesson = async () => {
@@ -56,7 +60,7 @@ const LessonView = () => {
     return (
         <View style = {theme.blueContainer}>
             <Pressable style={{borderWidth:1, alignSelf:"flex-end"}} onPress={handleBackPress}>
-                <Text>X</Text>
+                <Text style = {{fontSize: 27}}>X</Text>
             </Pressable>
             <View style = {theme.whiteContainer} >
                 <View style = {theme.pinkContainerSansBorder}> 
@@ -66,8 +70,7 @@ const LessonView = () => {
                     <ScrollView>
 
                     <Text style = {theme.lessonDescription}>
-
-    In hac habitasse platea dictumst. Maecenas ut pharetra risus. Proin eu erat eget neque ullamcorper mattis vel quis ex. Morbi at mauris metus. Nulla sollicitudin turpis ac rutrum maximus. Fusce ultricies commodo ipsum, accumsan dapibus lorem vestibulum vel. Nullam vitae efficitur tellus. Quisque in orci nec magna finibus vestibulum. Mauris est lectus, luctus in auctor at, tempus quis nisi. Suspendisse et condimentum ex. Duis egestas, tortor eu lobortis porttitor, dui turpis sodales diam, ut ultricies nulla orci ut ligula. Donec non dictum ligula. Nam tempus ligula id odio porta, ac laoreet erat elementum. 
+                        {lesson.description}
                     </Text>
                     
                     </ScrollView>
@@ -76,9 +79,9 @@ const LessonView = () => {
             <View style = {theme.podeAndLetsCodeButtonContainer}> 
             <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIcon}/>   
                 <View style = {theme.letsCodeButtonContainer}>
-                <Pressable style = {theme.greenButton}>
-                    <Text style = {theme.letsCodeText}>Let's code!</Text>
-                </Pressable>
+                    <Pressable style = {theme.greenButton} onPress={moveToExercise}>
+                        <Text style = {theme.letsCodeText}>Let's code!</Text>
+                    </Pressable>
                 </View> 
             </View>
         </View>
