@@ -5,7 +5,7 @@ const theme = {
 
     // Themes used in SignUp, SignIn and WelcomeView
 
-    blueContainer: {
+    blueContainer: {  // Theme used in: LessonView
       flexGrow: 1,
       flexShrink: 1,
       backgroundColor: "rgba(127,222,255,1)",
@@ -39,7 +39,7 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
     },
-    letsCodeText: {
+    letsCodeText: {   // Theme used in: LessonView
       fontFamily: "AlfaSlabOne",
       color: "rgba(74,128,85,1)",
       textAlign: "center",
@@ -75,7 +75,7 @@ const theme = {
         resizeMode: 'cover',
         justifyContent: 'center',
     },
-  lessonTitle: {
+  lessonTitle: {    // Theme used in: LessonView
       color: "rgba(75,113,123,1)",
       fontSize: 30,
       textAlign: "left",
@@ -83,7 +83,7 @@ const theme = {
       fontFamily: "AlfaSlabOne",
       lineHeight: 24,
     },
-    lessonDescription: {
+    lessonDescription: {    // Theme used in: LessonView
         color: "rgba(75,113,123,1)",
         fontSize: 18,
         textAlign: "left",
@@ -91,7 +91,7 @@ const theme = {
         fontFamily: "AlfaSlabOne",
         lineHeight: 24,
     },
-    whiteContainer: {
+    whiteContainer: {     // Theme used in: LessonView
       marginVertical: 18, 
       marginHorizontal: 18, 
       backgroundColor: "rgba(255,255,255,1)",
@@ -102,7 +102,7 @@ const theme = {
       padding: 10,
       flex: 1,
     },
-    greenButton: { 
+    greenButton: {    // Theme used in: LessonView
       padding: 20,
       backgroundColor: "rgba(132,220,149,1)",
       borderRadius: 33,
@@ -110,12 +110,12 @@ const theme = {
       borderColor: "rgba(74,128,85,1)",
       margin: 5,
     },
-    podeAndLetsCodeButtonContainer: {
-      flexDirection: "row",
+    podeAndLetsCodeButtonContainer: {   // Theme used in: LessonView
+      flexDirection: "row", 
       justifyContent: "center",
       padding: 5,
     },
-    letsCodeButtonContainer: {
+    letsCodeButtonContainer: {    // Theme used in: LessonView
       flexDirection: "column",
       justifyContent: "center",
     },
@@ -158,7 +158,7 @@ const theme = {
       margin: 10,
       borderRadius: 6
     },
-    pinkContainerSansBorder: { 
+    pinkContainerSansBorder: {      // Theme used in: LessonView
       backgroundColor: "rgba(237,220,249,1)",
       borderRadius: 33,
       alignContent: "center",
