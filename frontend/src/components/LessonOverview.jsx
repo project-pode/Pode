@@ -1,8 +1,8 @@
-import { Pressable, Text, View } from "react-native"
-import { useNavigate, useParams } from "react-router-native"
+import { Pressable, Text, View } from "react-native";
+import { useNavigate, useParams } from "react-router-native";
 import lessonService from "../services/lessons";
 import { useState, useEffect } from "react";
-const LessonOverview = () => {
+const LessonOverview = ({user}) => {
     const [lesson, setLesson] = useState(null);
 
     const navigate = useNavigate();
@@ -10,8 +10,8 @@ const LessonOverview = () => {
 
 
     const handlePress = () => {
-        navigate("/users/lessons");
-    }
+        navigate(`/users/${user.id}/lessons`);
+    };
 
     useEffect(() => {
         const fetchLesson = async () => {
@@ -31,9 +31,9 @@ const LessonOverview = () => {
         ); // Or any other message you want to display
     }
 
-    const status = () => {
+    /* const status = () => {
         //lesson.c
-    }
+    }; */
 
     return (
         <View>
@@ -44,6 +44,6 @@ const LessonOverview = () => {
                 <Text>Return to progress map</Text>
             </Pressable>
         </View>
-    )
-}
-export default LessonOverview
+    );
+};
+export default LessonOverview;

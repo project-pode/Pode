@@ -5,7 +5,6 @@ import AuthStorage from './src/utils/authStorage';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
-import { Text} from 'react-native-web';
 const authStorage = new AuthStorage();
 export default function App() {
   

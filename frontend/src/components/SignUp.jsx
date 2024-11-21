@@ -1,12 +1,11 @@
-import { StyleSheet, View, Pressable, ImageBackground, Text } from "react-native";
+import { View, Pressable, ImageBackground, Text } from "react-native";
 import { Link } from 'react-router-native';
 import TextInput from "./TextInput";
 import { useFormik } from 'formik';
 import theme from "../theme";
 import * as yup from "yup";
-import { useNavigate } from "react-router-native";
 
-const background = "../assets/BackgroundBinary.png"
+const background = "../assets/BackgroundBinary.png";
 
 const initialValues = {
     username: '',
