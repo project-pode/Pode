@@ -21,8 +21,8 @@ const LessonView = () => {
     };
 
     const handleBackPress = () => {
-        navigate('/users/${userId}/lessons');
-    }
+        navigate(`/users/${userId}/lessons`);
+    };
 
     const moveToExercise = () => {
         if (lesson && lesson.exercises && lesson.exercises.length > 0) {
