@@ -5,6 +5,8 @@ import lessonService from "../services/lessons";
 import userService from "../services/users";
 import ExerciseItem from "./ExerciseItem";
 import theme from "../theme";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
     const [completedExercises, setCompletedExercises] = useState([]);
@@ -64,8 +66,8 @@ const LessonView = () => {
 
     return (
         <View style = {theme.blueContainer}>
-            <Pressable style={{borderWidth:1, alignSelf:"flex-end"}} onPress={handleBackPress}>
-                <Text style = {{fontSize: 27}}>X</Text>
+            <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
+                <MaterialIcons name="close" size={40}></MaterialIcons>
             </Pressable>
             <View style = {theme.whiteContainer} >
                 <View style = {theme.pinkContainerSansBorder}> 
@@ -82,7 +84,9 @@ const LessonView = () => {
                 </View>
             </View>
             <View style = {theme.podeAndLetsCodeButtonContainer}> 
-            <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIcon}/>   
+                <View style = {theme.podeContainer}>
+                    <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIcon}/>   
+                </View>
                 <View style = {theme.letsCodeButtonContainer}>
                     <Pressable style = {theme.greenButton} onPress={moveToExercise}>
                         <Text style = {theme.letsCodeText}>Let's code!</Text>

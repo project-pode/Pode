@@ -46,7 +46,8 @@ const theme = {
       fontFamily: "AlfaSlabOne",
       color: "rgba(74,128,85,1)",
       textAlign: "center",
-      fontSize: 28
+      fontSize: 28,
+      padding: 10,
     },
     titlePode: {
         color: "rgba(75,113,123,1)",
@@ -95,7 +96,7 @@ const theme = {
         lineHeight: 24,
     },
     whiteContainer: {     // Theme used in: LessonView
-      marginVertical: 18, 
+      marginVertical: 0, 
       marginHorizontal: 18, 
       backgroundColor: "rgba(255,255,255,1)",
       borderColor: "rgba(75,113,123,1)",
@@ -105,14 +106,14 @@ const theme = {
       padding: 10,
       flex: 1,
     },
-    greenButton: {    // Theme used in: LessonView
+    /*greenButton: {    // Theme used in: LessonView
       padding: 20,
       backgroundColor: "rgba(132,220,149,1)",
       borderRadius: 33,
       borderWidth: 6,
       borderColor: "rgba(74,128,85,1)",
       margin: 5,
-    },
+    }, */
     podeAndLetsCodeButtonContainer: {   // Theme used in: LessonView
       flexDirection: "row", 
       justifyContent: "center",
@@ -127,9 +128,13 @@ const theme = {
       height: 200,
       width: 134,
       borderRadius: 98,
+      marginHorizontal: 20,
+    },
+    podeContainer: {
+      width: 134,
+      height: 200,
       margin: 5,
     },
-
 
     // Progress Map View
 
@@ -173,7 +178,7 @@ const theme = {
       borderColor: "#A2B1A5",
   },
 
-    greenButton: {
+    greenButton: {    // Theme used in: LessonView
       margin: 20, 
       padding: 10,
       backgroundColor: "#84DC95",
