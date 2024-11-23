@@ -1,7 +1,7 @@
 import React, { useRef, forwardRef, useImperativeHandle, useState } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
 
-const FillInTheBlanksExercise = forwardRef(({ options, question }, ref) => {
+const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
     const boxLayouts = useRef([]); // Store layouts of boxes
     const blankLayouts = useRef([]); // Store layouts of blanks
@@ -9,12 +9,16 @@ const FillInTheBlanksExercise = forwardRef(({ options, question }, ref) => {
 
     const handlePress = (box, index) => {
         const blankIndex = blanks.findIndex((item) => item === box);
-    
+        let newOrder = [];
+
         if (blankIndex !== -1) {
             // Remove the box from the blank
             const newBlanks = [...blanks];
             newBlanks[blankIndex] = null; // Clear the blank
             setBlanks(newBlanks);
+
+            newOrder = selectedAnswer.filter(item => item !== box);
+            setSelectedAnswer(newOrder);
     
             // Move the box back to its original position
             Animated.timing(animations[index], {
@@ -23,6 +27,9 @@ const FillInTheBlanksExercise = forwardRef(({ options, question }, ref) => {
                 useNativeDriver: true,
             }).start();
         } else {
+
+            newOrder = [...selectedAnswer, box];
+            setSelectedAnswer(newOrder);
             // Find the first available blank
             const emptyBlankIndex = blanks.indexOf(null);
             if (
@@ -138,14 +145,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginHorizontal: 5,
     },
+    //if we want the boxes to fill the blanks, we need to make sure that they are similar in size
     blankBox: {
         borderWidth: 1,
         borderColor: '#007bff',
         borderRadius: 8,
-        padding: 10,
+        padding: 12, // Adjust padding to match the box
         margin: 5,
         minWidth: 50,
         alignItems: 'center',
+        justifyContent: 'center', // Center the text vertically
     },
     blankText: {
         fontSize: 16,
@@ -159,14 +168,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#333',
         borderRadius: 8,
-        padding: 12,
+        padding: 12, // Match padding with blankBox
         backgroundColor: '#f9f9f9',
+        minWidth: 50,
+        alignItems: 'center',
+        justifyContent: 'center', // Center the text vertically
     },
     boxText: {
         fontSize: 16,
         color: '#333',
     },
 });
+
 
 FillInTheBlanksExercise.displayName = 'FillInTheBlanksExercise';
 export default FillInTheBlanksExercise;
