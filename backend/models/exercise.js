@@ -14,7 +14,7 @@ const exerciseSchema = new mongoose.Schema({
   },
   type: String,
   options: [String],
-  question: String,
+  question: mongoose.Schema.Types.Mixed, //should be any type, since blanks questions are formed as arrays
 });
 
 exerciseSchema.set('toJSON', {
