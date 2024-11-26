@@ -78,7 +78,7 @@ const ProgressMapView = ({ onLogout }) => {
     <View style={theme.blueContainer}>
       <View style={styles.buttonsContainer}>
         <Pressable onPress={HandleSettingsPress}>
-          <MaterialIcons style={styles.settingsButton} name="catching-pokemon" size={40}></MaterialIcons>
+          <MaterialIcons style={styles.settingsButton} name="settings" size={40}></MaterialIcons>
         </Pressable>
         <Pressable onPress={HandleProfilePress}>
           <MaterialIcons style={styles.profileButton} name="account-circle" size={40}></MaterialIcons>

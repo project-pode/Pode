@@ -1,27 +1,28 @@
-import { View, FlatList, Pressable, Text } from "react-native";
+import { View, FlatList, Pressable, Text, Image, ScrollView } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import userService from "../services/users";
 import ExerciseItem from "./ExerciseItem";
 import theme from "../theme";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
     const [completedExercises, setCompletedExercises] = useState([]);
     const { userId, lessonId } = useParams();
     const navigate = useNavigate();
-
-    const handleCompleteLesson = async () => {
-        try {
-            await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
-            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
-        } catch (error) {
-            console.error('Error completing lesson:', error);
-        }
-    };
-
     const handleBackPress = () => {
         navigate(`/users/${userId}/lessons`);
+    };
+
+    const moveToExercise = () => {
+        if (lesson && lesson.exercises && lesson.exercises.length > 0) {
+            const firstExerciseId = lesson.exercises[0].id; // Get the first exercise's ID
+            navigate(`/users/${userId}/lessons/${lessonId}/exercises/${firstExerciseId}`);
+        } else {
+            console.error("No exercises found in the lesson."); // Handle edge case
+        }
     };
 
 
@@ -54,22 +55,34 @@ const LessonView = () => {
     };
 
     return (
-        <View>
-            <Pressable style={{borderWidth:1, alignSelf:"flex-end"}} onPress={handleBackPress}>
-                <Text>X</Text>
+        <View style = {theme.blueContainer}>
+            <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
+                <MaterialIcons name="close" size={40}></MaterialIcons>
             </Pressable>
-            <Text>
-                title: {lesson.title}
-            </Text>
-            <Text>description: {lesson.description}</Text>
-            <Text>id: {lesson.id}</Text>
-            <Text>Exercises for this lesson:</Text>
-            <FlatList data={lesson.exercises}
-                renderItem={({ item }) =>
-                    <ExerciseItem item={item} userId={userId} isCompleted={isExerciseCompleted(item.id)} />} />
-            <Pressable style={theme.button} onPress={handleCompleteLesson}>
-                <Text>complete lesson</Text>
-            </Pressable>
+            <View style = {theme.whiteContainer} >
+                <View style = {theme.pinkContainerSansBorder}> 
+                <Text style = {theme.lessonTitle}>
+                        {lesson.title}
+                    </Text>
+                    <ScrollView>
+
+                    <Text style = {theme.lessonDescription}>
+                        {lesson.description}
+                    </Text>
+                    
+                    </ScrollView>
+                </View>
+            </View>
+            <View style = {theme.podeAndLetsCodeButtonContainer}> 
+                <View style = {theme.podeContainer}>
+                    <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIcon}/>   
+                </View>
+                <View style = {theme.letsCodeButtonContainer}>
+                    <Pressable style = {theme.greenButton} onPress={moveToExercise}>
+                        <Text style = {theme.letsCodeText}>Let's code!</Text>
+                    </Pressable>
+                </View> 
+            </View>
         </View>
     );
 };
