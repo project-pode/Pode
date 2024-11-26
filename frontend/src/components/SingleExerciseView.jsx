@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-native';
 import exerciseService from '../services/exercises';
 import theme from '../theme';
 import ExerciseToRender from './ExerciseToRender';
-import LessonView from './LessonView';
 import lessonService from "../services/lessons";
 
 const SingleExerciseView = () => {
@@ -57,69 +56,48 @@ const SingleExerciseView = () => {
         const correctAnswer = exercise.correctAnswer;
         const isCorrectAnswerArray = Array.isArray(correctAnswer);
     
-        if (isCorrectAnswerArray) {
-            if (
-                selectedAnswer.length === correctAnswer.length &&
-                selectedAnswer.join(' ') === correctAnswer.join(' ')
-            ) {
-                try {
-                    await exerciseService.completeExercise(userId, lessonId, exerciseId);
-                    setFeedback('Correct answer! Exercise completed.');
+        // Verify if the answer is correct
+        const isAnswerCorrect = isCorrectAnswerArray
+            ? selectedAnswer.length === correctAnswer.length &&
+              selectedAnswer.every((val, index) => val === correctAnswer[index])
+            : selectedAnswer === correctAnswer;
     
-                    // Calculate the next index manually
-                    const nextIndex = index + 1;
-                    if (nextIndex < lesson.exercises.length) {
-                        const nextExerciseID = lesson.exercises[nextIndex].id;
+        if (isAnswerCorrect) {
+            try {
+                // Mark the exercise as completed
+                await exerciseService.completeExercise(userId, lessonId, exerciseId);
     
-                        console.log("Next: ", nextExerciseID);
-                        console.log("Current: ", exerciseId);
-                        console.log("Index: ", nextIndex);
+                setFeedback('Correct answer! Exercise completed.');
     
-                        // Update the index and navigate
-                        setIndex(nextIndex);
-                        navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
-                    } else {
-                        console.log("No more exercises in the lesson.");
-                        handleCompleteLesson();
-                    }
-                } catch (error) {
-                    console.error('Error completing exercise:', error);
+                // Determine the next exercise index
+                const nextIndex = index + 1;
+    
+                // Navigate to the next exercise if it exists
+                if (lesson && nextIndex < lesson.exercises.length) {
+                    const nextExerciseID = lesson.exercises[nextIndex].id;
+    
+                    // Navigate before updating state to avoid stale state issues
+                    navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
+                    
+                    // Update the index AFTER navigation
+                    setIndex(nextIndex);
+
+                    setSelectedAnswer([]);
+                } else {
+                    // If no more exercises, complete the lesson
+                    handleCompleteLesson();
                 }
-            } else {
-                setFeedback('Incorrect answer. Please try again.');
-                boxExerciseRef.current.resetAnimations();
-                setSelectedAnswer([]);
+            } catch (error) {
+                console.error('Error completing exercise:', error);
+                setFeedback('An error occurred while completing the exercise.');
             }
         } else {
-            if (selectedAnswer === correctAnswer) {
-                try {
-                    await exerciseService.completeExercise(userId, lessonId, exerciseId);
-                    setFeedback('Correct answer! Exercise completed.');
-    
-                    // Calculate the next index manually
-                    const nextIndex = index + 1;
-                    if (nextIndex < lesson.exercises.length) {
-                        const nextExerciseID = lesson.exercises[nextIndex].id;
-    
-                        console.log("Next: ", nextExerciseID);
-                        console.log("Current: ", exerciseId);
-                        console.log("Index: ", nextIndex);
-    
-                        // Update the index and navigate
-                        setIndex(nextIndex);
-                        navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
-                    } else {
-                        console.log("No more exercises in the lesson.");
-                        handleCompleteLesson();
-                    }
-                } catch (error) {
-                    console.error('Error completing exercise:', error);
-                }
-            } else {
-                setFeedback('Incorrect answer. Please try again.');
-            }
+            setFeedback('Incorrect answer. Please try again.');
+            boxExerciseRef.current?.resetAnimations();
+            setSelectedAnswer([]); // Reset selected answer for retry
         }
     };
+    
     
 
     return (

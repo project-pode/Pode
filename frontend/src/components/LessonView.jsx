@@ -12,16 +12,6 @@ const LessonView = () => {
     const [completedExercises, setCompletedExercises] = useState([]);
     const { userId, lessonId } = useParams();
     const navigate = useNavigate();
-
-    const handleCompleteLesson = async () => {
-        try {
-            await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
-            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
-        } catch (error) {
-            console.error('Error completing lesson:', error);
-        }
-    };
-
     const handleBackPress = () => {
         navigate(`/users/${userId}/lessons`);
     };
