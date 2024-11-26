@@ -1,20 +1,39 @@
-import React, { useRef, forwardRef, useImperativeHandle, useState } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
 
 const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
     const boxLayouts = useRef([]); // Store layouts of boxes
     const blankLayouts = useRef([]); // Store layouts of blanks
+    const boxRefs = useRef(options.map(() => React.createRef())); // Store refs of boxes
+    const blankRefs = useRef(question.map(() => React.createRef())); // Store refs of blanks
     const [blanks, setBlanks] = useState(question.map((item) => (item === "blank" ? null : item))); // Track blanks
 
-    const measureLayoutWithDelay = (ref, index, layoutStore) => {
+    const measureLayoutWithDelay = (layoutRef, index, layoutStore) => {
         setTimeout(() => {
-            ref.measure((x, y, width, height, pageX, pageY) => {
-                layoutStore.current[index] = { x: pageX, y: pageY, width, height };
-                console.log(`Measured position for index ${index}:`, layoutStore.current[index]);
-            });
-        }, 100); // This is so that the layouts wont be wonky when loading up. Adjust delay as needed 
+            if (layoutRef[index]?.current?.measure) {
+                layoutRef[index].current.measure((x, y, width, height, pageX, pageY) => {
+                    layoutStore.current[index] = { x: pageX, y: pageY, width, height };
+                    console.log(`Measured position for index ${index}:`, layoutStore.current[index]);
+                });
+            }
+        }, 100); // Delay is used to prevent wonky layout calculations. Adjust as needed
     };
+
+    const measureAllLayouts = () => {
+        options.forEach((_, index) => {
+            measureLayoutWithDelay(boxRefs.current, index, boxLayouts);
+        });
+        question.forEach((_, index) => {
+            if (question[index] === 'blank') {
+                measureLayoutWithDelay(blankRefs.current, index, blankLayouts);
+            }
+        });
+    };
+
+    useEffect(() => {
+        measureAllLayouts();
+    }, [blanks, selectedAnswer]);
 
     const handlePress = (box, index) => {
         const blankIndex = blanks.findIndex((item) => item === box);
@@ -73,14 +92,17 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
 
     useImperativeHandle(ref, () => ({
         resetAnimations: () => {
-            animations.forEach((anim) => {
-                Animated.timing(anim, {
-                    toValue: { x: 0, y: 0 },
-                    duration: 300,
-                    useNativeDriver: true,
-                }).start();
+            animations.forEach((anim, index) => {
+                anim.stopAnimation(() => {
+                    anim.setValue({ x: 0, y: 0 });
+                });
             });
+
             setBlanks(question.map((item) => (item === "blank" ? null : item)));
+
+            setTimeout(() => {
+                measureAllLayouts();
+            }, 800); // Delay is used to prevent wonky layout calculations. Adjust as needed
         },
     }));
 
@@ -92,11 +114,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                         key={index}
                         style={styles.blankBox}
                         onLayout={() => {}}
-                        ref={(ref) => {
-                            if (ref) {
-                                measureLayoutWithDelay(ref, index, blankLayouts);
-                            }
-                        }}
+                        ref={blankRefs.current[index]}
                     >
                         <Text style={styles.blankText}>{blanks[index] || "[ ]"}</Text>
                     </View>
@@ -125,11 +143,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                                 { transform: animations[index].getTranslateTransform() },
                             ]}
                             onLayout={() => {}}
-                            ref={(ref) => {
-                                if (ref) {
-                                    measureLayoutWithDelay(ref, index, boxLayouts);
-                                }
-                            }}
+                            ref={boxRefs.current[index]}
                         >
                             <Text style={styles.boxText}>{box}</Text>
                         </Animated.View>
