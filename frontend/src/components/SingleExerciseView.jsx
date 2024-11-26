@@ -39,6 +39,15 @@ const SingleExerciseView = () => {
         );
     }
 
+    const handleCompleteLesson = async () => {
+        try {
+            await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
+            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
+        } catch (error) {
+            console.error('Error completing lesson:', error);
+        }
+    };
+
     const handleComplete = async () => {
         if (selectedAnswer.length === 0) {
             setFeedback('Please select an answer before completing the exercise.');
@@ -71,8 +80,7 @@ const SingleExerciseView = () => {
                         navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
                     } else {
                         console.log("No more exercises in the lesson.");
-                        // Optionally navigate to a "lesson completed" page
-                        navigate(`/users/${userId}/lessons/${lessonId}/completed`);
+                        handleCompleteLesson();
                     }
                 } catch (error) {
                     console.error('Error completing exercise:', error);
@@ -102,7 +110,7 @@ const SingleExerciseView = () => {
                         navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
                     } else {
                         console.log("No more exercises in the lesson.");
-                        navigate(`/users/${userId}/lessons/${lessonId}/completed`);
+                        handleCompleteLesson();
                     }
                 } catch (error) {
                     console.error('Error completing exercise:', error);
