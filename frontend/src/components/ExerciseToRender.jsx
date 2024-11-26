@@ -42,7 +42,7 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
                             ref={boxExerciseRef}
                             question={exercise.question}/>
                     </View>
-                )
+                );
             default:
                 return (
                     <View>
