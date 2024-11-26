@@ -99,7 +99,7 @@ const Main = () => {
         <Route path="/" element={<StartView user={user}/>} />
         <Route path="/home" element={<WelcomeView user={user} onLogout={handleLogout}/>}/>
         <Route path="/signUp" element={<SignUp onSignUp={handleSignUp}/>}/>
-        <Route path="/users/:userId/lessons" element={<ProgressMapView user={user} onLogout={handleLogout}/>}/>
+        <Route path="/users/:userId/lessons" element={<ProgressMapView onLogout={handleLogout}/>}/>
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
         <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
         <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview user={user}/>}/>

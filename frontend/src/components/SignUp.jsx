@@ -5,8 +5,6 @@ import { useFormik } from 'formik';
 import theme from "../theme";
 import * as yup from "yup";
 
-const background = "../assets/BackgroundBinary.png";
-
 const initialValues = {
     username: '',
     password: '',
@@ -45,7 +43,7 @@ const SignUp = ({ onSignUp }) => {
 
     return (
         <View style={theme.blueContainer}>
-            <ImageBackground source= {background} style={theme.backgroundImage} >
+            <ImageBackground source= {require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage} >
                 <View style={theme.pinkContainer}>
                     <View style= {theme.arrowContainer}>
                     <Pressable>

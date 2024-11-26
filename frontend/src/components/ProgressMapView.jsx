@@ -2,12 +2,13 @@ import { View, ImageBackground, Pressable, Text, ScrollView, StyleSheet } from "
 import theme from "../theme";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
-import { useNavigate } from "react-router-native";
+import { useNavigate, useParams } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+import userService from "../services/users";
 
 const styles = StyleSheet.create({
   buttonsContainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
@@ -21,23 +22,31 @@ const styles = StyleSheet.create({
 });
 
 
-const ProgressMapView = ({ user, onLogout }) => {
+const ProgressMapView = ({ onLogout }) => {
   const navigate = useNavigate();
   const [lessons, setLessons] = useState([]);
+  const [completedLessons, setCompletedLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
+  const { userId } = useParams();
 
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const lessons = await lessonService.getLessons(user.id);
+        const lessons = await lessonService.getLessons(userId);
         setLessons(lessons);
         console.log('Lessons fetched:', lessons); // Log the lessons
       } catch (error) {
         console.error('Error fetching lessons:', error);
       }
     };
+
+    const fetchCompletedLessons = async () => {
+      const user = await userService.getOne(userId);
+      setCompletedLessons(user.completedLessons || []);
+    };
     void fetchLessons();
-  }, [user.id]);
+    void fetchCompletedLessons();
+  }, [userId]);
 
   const handleLessonPress = (lesson) => {
     setSelectedLesson(lesson);
@@ -46,7 +55,7 @@ const ProgressMapView = ({ user, onLogout }) => {
 
   const HandleStartPress = () => {
     if (selectedLesson) {
-      navigate(`/users/${user.id}/lessons/${selectedLesson.id}`);
+      navigate(`/users/${userId}/lessons/${selectedLesson.id}`);
       console.log('Navigating to lesson: ', selectedLesson);
     }
   };
@@ -59,6 +68,10 @@ const ProgressMapView = ({ user, onLogout }) => {
 
   const HandleSettingsPress = () => {
     console.log('Settings button has been pressed');
+  };
+
+  const isLessonCompleted = (lessonId) => {
+    return completedLessons.includes(lessonId);  // Check if the exercise is in the user's completed list
   };
 
   return (
@@ -85,7 +98,12 @@ const ProgressMapView = ({ user, onLogout }) => {
                   { justifyContent: 'center', alignItems: 'center' }
                 ]}
               >
-                <Text style={theme.cloudText}>{lesson.title}</Text>
+                <Text style={theme.cloudText}>
+                  {lesson.title}
+                  {isLessonCompleted(lesson.id) && (
+                    <Text style={theme.cloudText}>COMPLETED!!!</Text>
+                  )}
+                </Text>
               </ImageBackground>
             </Pressable>
           ))}

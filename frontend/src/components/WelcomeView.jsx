@@ -1,7 +1,6 @@
 import { Pressable, View, Text, ImageBackground } from "react-native";
 import { useNavigate } from "react-router-native";
 import theme from "../theme";
-const background = "../assets/BackgroundBinary.png";
 
 const WelcomeView = ({ user, onLogout }) => {
     const navigate = useNavigate();
@@ -17,7 +16,7 @@ const WelcomeView = ({ user, onLogout }) => {
 
     return (
         <View style={theme.blueContainer}>
-            <ImageBackground source={background} style={theme.backgroundImage}>
+            <ImageBackground source={require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage}>
                 <Text style={theme.titlePode}>{"<Pode/>"}</Text>
                 <Pressable style={theme.button} onPress={onPressLogout}><Text>logout</Text></Pressable>
                 <Pressable style={theme.button} onPress={onPressLessons}><Text>lessons</Text></Pressable>

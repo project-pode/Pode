@@ -6,11 +6,6 @@ import theme from "../theme";
 
 import * as yup from "yup";
 
-
-const background = "../assets/BackgroundBinary.png";
-
-
-
 const initialValues = {
     username: '',
     password: '',
@@ -25,8 +20,8 @@ const validationSchema = yup.object().shape({
         .required('Password is required'),
 });
 
-const SignIn = ({onSignIn}) => {
-    
+const SignIn = ({ onSignIn }) => {
+
     const formik = useFormik({
         initialValues,
         validationSchema,
@@ -45,20 +40,20 @@ const SignIn = ({onSignIn}) => {
 
     return (
         <View style={theme.blueContainer}>
-            <ImageBackground source = {background} style = {theme.backgroundImage}>
+            <ImageBackground source={require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage}>
                 <View style={theme.pinkContainer}>
-                    <View style= {theme.arrowContainer}>
-                    <Pressable>
-                        <Link to="/">
-                        <Text style={theme.arrow}>{"<"}</Text>
-                        </Link>
-                    </Pressable>
+                    <View style={theme.arrowContainer}>
+                        <Pressable>
+                            <Link to="/">
+                                <Text style={theme.arrow}>{"<"}</Text>
+                            </Link>
+                        </Pressable>
                     </View>
 
                     <Text style={theme.titlePode}>{"<Pode/>"}</Text>
 
                     <TextInput
-                        style = {theme.inputField}
+                        style={theme.inputField}
                         error={formik.errors.username}
                         placeholder="Username"
                         value={formik.values.username}
@@ -68,7 +63,7 @@ const SignIn = ({onSignIn}) => {
                         <Text style={theme.errorText}>{formik.errors.username}</Text>
                     )}
                     <TextInput
-                        style = {theme.inputField}
+                        style={theme.inputField}
                         error={formik.errors.password}
                         secureTextEntry={true}
                         placeholder="Password"

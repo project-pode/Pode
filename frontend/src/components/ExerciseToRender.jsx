@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
-
+import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
 const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExerciseRef }) => {
     const renderExerciseType = () => {
         // Check if exercise is defined and has a type
@@ -30,6 +30,17 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
                             setSelectedAnswer={setSelectedAnswer}
                             ref={boxExerciseRef}
                         />
+                    </View>
+                );
+            case "blanks":
+                return (
+                    <View>
+                        <Text>Fill in the blanks</Text>
+                        <FillInTheBlanksExercise options={exercise.options || []}
+                            selectedAnswer={selectedAnswer}
+                            setSelectedAnswer={setSelectedAnswer}
+                            ref={boxExerciseRef}
+                            question={exercise.question}/>
                     </View>
                 );
             default:

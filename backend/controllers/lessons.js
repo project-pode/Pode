@@ -1,23 +1,14 @@
 const lessonsRouter = require('express').Router();
 const Lesson = require('../models/lesson');
-const User = require('../models/user');
 // get the users uncompleted lessons
-lessonsRouter.get('/:id/lessons', async (request, response) => {
-    const user = await User.findById(request.params.id).populate('completedLessons');
-
-    //completed lessons
-    const completedLessons = user?.completedLessons?.map(lesson => lesson.id.toString()) || [];
-
-    //all lessons
-    const lessons = await Lesson.find();
-
-    //filter out completed ones, to only show uncompleted lessons for user
-    const uncompleted = lessons.filter(lesson =>
-        !completedLessons.some(completedId => completedId === lesson._id.toString())
-    );
-
-    response.json(uncompleted);
-
+lessonsRouter.get('/:userId/lessons', async (request, response) => {
+    try {
+        const lessons = await Lesson.find({});
+        response.json(lessons); // all lessons
+    } catch (error) {
+        console.error('Error fetching lessons:', error);
+        response.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 lessonsRouter.get('/:userId/lessons/:lessonId', async (request, response) => {

@@ -88,9 +88,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
         <View style={styles.container}>
             <Text style={styles.instructionText}>Tap the boxes to create your answer</Text>
 
-            <View style={styles.dropZone} onLayout={(event) => (dropZoneLayout.current = event.nativeEvent.layout)}>
-                <Text style={styles.dropZoneText}>Drop Zone</Text>
-            </View>
+            <View style={styles.dropZone} onLayout={(event) => (dropZoneLayout.current = event.nativeEvent.layout)}/>
 
             <View style={styles.boxesContainer}>
                 {options.map((box, index) => (
@@ -131,12 +129,6 @@ const styles = StyleSheet.create({
         visibility: "hidden",
         height: 60,
         marginVertical: 20,
-        borderWidth: 2,
-        borderColor: '#007bff',
-        borderRadius: 8,
-        backgroundColor: '#e7f3ff',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     dropZoneText: {
         fontSize: 16,
