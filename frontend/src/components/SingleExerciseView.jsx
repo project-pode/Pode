@@ -4,20 +4,30 @@ import { useNavigate, useParams } from 'react-router-native';
 import exerciseService from '../services/exercises';
 import theme from '../theme';
 import ExerciseToRender from './ExerciseToRender';
+import LessonView from './LessonView';
+import lessonService from "../services/lessons";
 
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
+    const [lesson, setLesson] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState([]);
     const [feedback, setFeedback] = useState('');
     const { userId, lessonId, exerciseId } = useParams();
     const navigate = useNavigate();
     const boxExerciseRef = useRef();
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         const fetchExercise = async () => {
             const exercise = await exerciseService.getOne(userId, lessonId, exerciseId);
             setExercise(exercise);
         };
+        const fetchLesson = async () => {
+            const lesson = await lessonService.getLesson(userId, lessonId);
+            setLesson(lesson);
+        };
+        
+        fetchLesson();
         fetchExercise();
     }, [userId, lessonId, exerciseId]);
 
@@ -34,10 +44,10 @@ const SingleExerciseView = () => {
             setFeedback('Please select an answer before completing the exercise.');
             return;
         }
-
+    
         const correctAnswer = exercise.correctAnswer;
         const isCorrectAnswerArray = Array.isArray(correctAnswer);
-
+    
         if (isCorrectAnswerArray) {
             if (
                 selectedAnswer.length === correctAnswer.length &&
@@ -46,7 +56,24 @@ const SingleExerciseView = () => {
                 try {
                     await exerciseService.completeExercise(userId, lessonId, exerciseId);
                     setFeedback('Correct answer! Exercise completed.');
-                    navigate(`/users/${userId}/lessons/${lessonId}`);
+    
+                    // Calculate the next index manually
+                    const nextIndex = index + 1;
+                    if (nextIndex < lesson.exercises.length) {
+                        const nextExerciseID = lesson.exercises[nextIndex].id;
+    
+                        console.log("Next: ", nextExerciseID);
+                        console.log("Current: ", exerciseId);
+                        console.log("Index: ", nextIndex);
+    
+                        // Update the index and navigate
+                        setIndex(nextIndex);
+                        navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
+                    } else {
+                        console.log("No more exercises in the lesson.");
+                        // Optionally navigate to a "lesson completed" page
+                        navigate(`/users/${userId}/lessons/${lessonId}/completed`);
+                    }
                 } catch (error) {
                     console.error('Error completing exercise:', error);
                 }
@@ -60,7 +87,23 @@ const SingleExerciseView = () => {
                 try {
                     await exerciseService.completeExercise(userId, lessonId, exerciseId);
                     setFeedback('Correct answer! Exercise completed.');
-                    navigate(`/users/${userId}/lessons/${lessonId}`);
+    
+                    // Calculate the next index manually
+                    const nextIndex = index + 1;
+                    if (nextIndex < lesson.exercises.length) {
+                        const nextExerciseID = lesson.exercises[nextIndex].id;
+    
+                        console.log("Next: ", nextExerciseID);
+                        console.log("Current: ", exerciseId);
+                        console.log("Index: ", nextIndex);
+    
+                        // Update the index and navigate
+                        setIndex(nextIndex);
+                        navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
+                    } else {
+                        console.log("No more exercises in the lesson.");
+                        navigate(`/users/${userId}/lessons/${lessonId}/completed`);
+                    }
                 } catch (error) {
                     console.error('Error completing exercise:', error);
                 }
@@ -69,6 +112,7 @@ const SingleExerciseView = () => {
             }
         }
     };
+    
 
     return (
         <View style={styles.container}>
