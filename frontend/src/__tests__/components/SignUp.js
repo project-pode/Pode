@@ -1,19 +1,19 @@
-import  { render, fireEvent, waitFor } from '@testing-library/react-native';
+import  { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
 import SignUp from '../../components/SignUp';
 import { MemoryRouter } from 'react-router-native';
 
 describe('User sign up interaction', () => {
     it('calls onSignUp with valid inputs', async () => {
         const mockOnSignUp = jest.fn();
-        const { getByPlaceholderText, getByText } = render(
+        render(
             <MemoryRouter>
                 <SignUp onSignUp={mockOnSignUp}></SignUp>
             </MemoryRouter>
         );
-        const usernameInput = getByPlaceholderText('Username');
-        const passwordInput = getByPlaceholderText('Password');
-        const passwordConfirmationInput = getByPlaceholderText('Password confirmation');
-        const registerButton = getByText('Register');
+        const usernameInput = screen.getByPlaceholderText('Username');
+        const passwordInput = screen.getByPlaceholderText('Password');
+        const passwordConfirmationInput = screen.getByPlaceholderText('Password confirmation');
+        const registerButton = screen.getByText('Register');
 
         fireEvent.changeText(usernameInput, 'testuser');
         fireEvent.changeText(passwordInput, 'password123');
