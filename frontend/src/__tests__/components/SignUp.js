@@ -22,7 +22,7 @@ describe('User sign up interaction', () => {
 
         await waitFor(() => {
             expect(mockOnSignUp).toHaveBeenCalledTimes(1);
-            expect(mockOnSignUp).toHaveBeenCalledWith('testuser', 'password123', 'password123');
+            expect(mockOnSignUp).toHaveBeenCalledWith('testuser', 'password123');
         });
     });
 });
