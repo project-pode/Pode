@@ -36,7 +36,7 @@ const LessonOverview = ({user}) => {
     }; */
 
     return (
-        <View style = {theme.blueContainer}>
+        <View>
             <Text>
                 lesson Overview
             </Text>
