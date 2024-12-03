@@ -2,6 +2,7 @@ import { Pressable, Text, View } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import lessonService from "../services/lessons";
 import { useState, useEffect } from "react";
+import theme from "../theme";
 const LessonOverview = ({user}) => {
     const [lesson, setLesson] = useState(null);
 
@@ -36,7 +37,7 @@ const LessonOverview = ({user}) => {
     }; */
 
     return (
-        <View>
+        <View style = {theme.blueContainer}>
             <Text>
                 lesson Overview
             </Text>
