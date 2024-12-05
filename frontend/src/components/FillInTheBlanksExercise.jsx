@@ -92,7 +92,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
 
     useImperativeHandle(ref, () => ({
         resetAnimations: () => {
-            animations.forEach((anim, index) => {
+            animations.forEach((anim) => {
                 anim.stopAnimation(() => {
                     anim.setValue({ x: 0, y: 0 });
                 });

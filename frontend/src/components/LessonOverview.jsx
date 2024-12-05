@@ -2,15 +2,16 @@ import { Pressable, Text, View } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import lessonService from "../services/lessons";
 import { useState, useEffect } from "react";
-const LessonOverview = ({user}) => {
+import userService from "../services/users";
+const LessonOverview = () => {
     const [lesson, setLesson] = useState(null);
-
+    const [completedExercises, setCompletedExercises] = useState([]);
     const navigate = useNavigate();
     const { userId, lessonId } = useParams();
 
 
     const handlePress = () => {
-        navigate(`/users/${user.id}/lessons`);
+        navigate(`/users/${userId}/lessons`);
     };
 
     useEffect(() => {
@@ -19,8 +20,14 @@ const LessonOverview = ({user}) => {
             setLesson(lesson);
         };
 
+        const fetchCompletedExercises = async () => {
+            const user = await userService.getOne(userId);
+            setCompletedExercises(user.completedExercises || []);
+        };
+
         void fetchLesson();
-    }, [lessonId]);
+        void fetchCompletedExercises();
+    }, [lessonId, userId]);
     if (!lesson) {
         return (
             <View>
@@ -38,7 +45,7 @@ const LessonOverview = ({user}) => {
     return (
         <View>
             <Text>
-                lesson Overview
+            correct exercises: {completedExercises.length} out of {lesson.exercises.length}
             </Text>
             <Pressable onPress={handlePress}>
                 <Text>Return to progress map</Text>

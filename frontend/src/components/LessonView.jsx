@@ -1,14 +1,14 @@
-import { View, FlatList, Pressable, Text, Image, ScrollView } from "react-native";
+import { View, Pressable, Text, Image, ScrollView } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import userService from "../services/users";
-import ExerciseItem from "./ExerciseItem";
 import theme from "../theme";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
 
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
+      // eslint-disable-next-line no-unused-vars
     const [completedExercises, setCompletedExercises] = useState([]);
     const { userId, lessonId } = useParams();
     const navigate = useNavigate();
@@ -49,11 +49,7 @@ const LessonView = () => {
             </View>
         ); // Or any other message you want to display
     }
-
-    const isExerciseCompleted = (exerciseId) => {
-        return completedExercises.includes(exerciseId);  // Check if the exercise is in the user's completed list
-    };
-
+    
     return (
         <View style = {theme.blueContainer}>
             <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
@@ -79,7 +75,7 @@ const LessonView = () => {
                 </View>
                 <View style = {theme.letsCodeButtonContainer}>
                     <Pressable style = {theme.greenButton} onPress={moveToExercise}>
-                        <Text style = {theme.letsCodeText}>Let's code!</Text>
+                        <Text style = {theme.letsCodeText}>Let&apos;s code!</Text>
                     </Pressable>
                 </View> 
             </View>
