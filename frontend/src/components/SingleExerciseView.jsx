@@ -11,6 +11,7 @@ const SingleExerciseView = () => {
     const [lesson, setLesson] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState([]);
     const [feedback, setFeedback] = useState('');
+    const [isExerciseComplete, setIsExerciseComplete] = useState(false);
     const { userId, lessonId, exerciseId } = useParams();
     const navigate = useNavigate();
     const boxExerciseRef = useRef();
@@ -40,7 +41,7 @@ const SingleExerciseView = () => {
 
     const handleCompleteLesson = async () => {
         try {
-            await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
+            await lessonService.completeLesson(userId, lessonId);
             navigate(`/users/${userId}/lessons/${lessonId}/overview`);
         } catch (error) {
             console.error('Error completing lesson:', error);
@@ -55,8 +56,6 @@ const SingleExerciseView = () => {
     
         const correctAnswer = exercise.correctAnswer;
         const isCorrectAnswerArray = Array.isArray(correctAnswer);
-    
-        // Verify if the answer is correct
         const isAnswerCorrect = isCorrectAnswerArray
             ? selectedAnswer.length === correctAnswer.length &&
               selectedAnswer.every((val, index) => val === correctAnswer[index])
@@ -64,29 +63,9 @@ const SingleExerciseView = () => {
     
         if (isAnswerCorrect) {
             try {
-                // Mark the exercise as completed
                 await exerciseService.completeExercise(userId, lessonId, exerciseId);
-    
                 setFeedback('Correct answer! Exercise completed.');
-    
-                // Determine the next exercise index
-                const nextIndex = index + 1;
-    
-                // Navigate to the next exercise if it exists
-                if (lesson && nextIndex < lesson.exercises.length) {
-                    const nextExerciseID = lesson.exercises[nextIndex].id;
-    
-                    // Navigate before updating state to avoid stale state issues
-                    navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
-                    
-                    // Update the index AFTER navigation
-                    setIndex(nextIndex);
-
-                    setSelectedAnswer([]);
-                } else {
-                    // If no more exercises, complete the lesson
-                    handleCompleteLesson();
-                }
+                setIsExerciseComplete(true);
             } catch (error) {
                 console.error('Error completing exercise:', error);
                 setFeedback('An error occurred while completing the exercise.');
@@ -94,11 +73,23 @@ const SingleExerciseView = () => {
         } else {
             setFeedback('Incorrect answer. Please try again.');
             boxExerciseRef.current?.resetAnimations();
-            setSelectedAnswer([]); // Reset selected answer for retry
+            setSelectedAnswer([]);
         }
     };
-    
-    
+
+    const handleNextExercise = () => {
+        const nextIndex = index + 1;
+        if (lesson && nextIndex < lesson.exercises.length) {
+            const nextExerciseID = lesson.exercises[nextIndex].id;
+            navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
+            setIndex(nextIndex);
+            setSelectedAnswer([]);
+            setIsExerciseComplete(false);
+            setFeedback(null);
+        } else {
+            handleCompleteLesson();
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -110,9 +101,16 @@ const SingleExerciseView = () => {
                 setSelectedAnswer={setSelectedAnswer}
                 boxExerciseRef={boxExerciseRef}
             />
-            <Pressable onPress={handleComplete} style={theme.button}>
-                <Text style={theme.buttonText}>Complete Exercise</Text>
-            </Pressable>
+            {selectedAnswer.length > 0 && ( // Conditionally render the button
+                <Pressable
+                    onPress={isExerciseComplete ? handleNextExercise : handleComplete}
+                    style={theme.button}
+                >
+                    <Text style={theme.buttonText}>
+                        {isExerciseComplete ? 'Next Exercise' : 'Check'}
+                    </Text>
+                </Pressable>
+            )}
             {feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}
         </View>
     );
