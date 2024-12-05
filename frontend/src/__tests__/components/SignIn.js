@@ -1,4 +1,4 @@
-import  { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
 import SignIn from "../../components/SignIn";
 import { MemoryRouter } from 'react-router-native';
 
@@ -6,7 +6,7 @@ describe('User sign in interaction', () => {
     it('calls onSignIn with correct credentials when valid', async () => {
         const mockOnSignIn = jest.fn();
         render(
-            <MemoryRouter>
+            <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <SignIn onSignIn={mockOnSignIn}></SignIn>
             </MemoryRouter>
         );
@@ -21,6 +21,6 @@ describe('User sign in interaction', () => {
         await waitFor(() => {
             expect(mockOnSignIn).toHaveBeenCalledTimes(1);
             expect(mockOnSignIn).toHaveBeenCalledWith('testuser', 'password123');
-        }, {timeout: 15000});
-    });
+        });
+    }, 10000);
 });

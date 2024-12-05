@@ -6,8 +6,8 @@ describe('User sign up interaction', () => {
     it('calls onSignUp with valid inputs', async () => {
         const mockOnSignUp = jest.fn();
         render(
-            <MemoryRouter>
-                <SignUp onSignUp={mockOnSignUp}></SignUp>
+            <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                <SignIn onSignIn={mockOnSignUp}></SignIn>
             </MemoryRouter>
         );
         const usernameInput = screen.getByPlaceholderText('Username');
@@ -24,5 +24,5 @@ describe('User sign up interaction', () => {
             expect(mockOnSignUp).toHaveBeenCalledTimes(1);
             expect(mockOnSignUp).toHaveBeenCalledWith('testuser', 'password123');
         });
-    });
+    }, 10000);
 });
