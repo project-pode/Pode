@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  check_code:
+  deployment_pipeline:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -22,6 +22,7 @@ jobs:
       - name: Check style
         run: npm run lint
         working-directory: ${{ matrix.part }}
-      - name: test
+      - name: frontend test
+        if: ${{ matrix.part == 'frontend' }}  # only run in frontend for now
         run: npm run test
-        working-directory: ${{ matrix.part[0] }}
+        working-directory: ${{ matrix.part}}
