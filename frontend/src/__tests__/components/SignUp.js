@@ -7,7 +7,7 @@ describe('User sign up interaction', () => {
         const mockOnSignUp = jest.fn();
         render(
             <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-                <SignIn onSignIn={mockOnSignUp}></SignIn>
+                <SignUp onSignIn={mockOnSignUp}></SignUp>
             </MemoryRouter>
         );
         const usernameInput = screen.getByPlaceholderText('Username');
