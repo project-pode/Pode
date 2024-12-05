@@ -24,4 +24,4 @@ jobs:
         working-directory: ${{ matrix.part }}
       - name: test
         run: npm run test
-        working-directory: ${{ matrix.part }}
+        working-directory: ${{ matrix.part[0] }}
