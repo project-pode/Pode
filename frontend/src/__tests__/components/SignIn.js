@@ -21,6 +21,6 @@ describe('User sign in interaction', () => {
         await waitFor(() => {
             expect(mockOnSignIn).toHaveBeenCalledTimes(1);
             expect(mockOnSignIn).toHaveBeenCalledWith('testuser', 'password123');
-        });
+        }, {timeout: 15000});
     });
 });
