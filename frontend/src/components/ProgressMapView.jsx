@@ -89,9 +89,15 @@ const ProgressMapView = ({ onLogout }) => {
           {lessons.map((lesson, index) => (
             <Pressable key={lesson.id} onPress={() => handleLessonPress(lesson)}>
               <ImageBackground
-                source={selectedLesson?.id === lesson.id
-                  ? require('../../assets/cloudSelected.png')
-                  : require('../../assets/cloud.png')}
+                source={
+                  isLessonCompleted(lesson.id) && selectedLesson?.id === lesson.id
+                    ? require('../../assets/lessonCompletedSelected.png')
+                    : isLessonCompleted(lesson.id)
+                    ? require('../../assets/lessonCompleted.png')
+                    : selectedLesson?.id === lesson.id
+                    ? require('../../assets/cloudSelected.png')
+                    : require('../../assets/cloud.png')
+                }
                 style={[
                   theme.cloudImage,
                   index % 2 === 0 ? theme.cloudLeft : theme.cloudRight,
@@ -100,9 +106,6 @@ const ProgressMapView = ({ onLogout }) => {
               >
                 <Text style={theme.cloudText}>
                   {lesson.title}
-                  {isLessonCompleted(lesson.id) && (
-                    <Text style={theme.cloudText}>COMPLETED!!!</Text>
-                  )}
                 </Text>
               </ImageBackground>
             </Pressable>
