@@ -85,6 +85,7 @@ const SingleExerciseView = () => {
             setIndex(nextIndex);
             setSelectedAnswer([]);
             setIsExerciseComplete(false);
+            setFeedback(null);
         } else {
             handleCompleteLesson();
         }
