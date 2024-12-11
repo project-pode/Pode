@@ -237,6 +237,26 @@ const theme = {
       padding: 18,
       flex: 1,
     },
+    whiteContainerInDropdownForm: {     
+      marginVertical: 0, 
+      marginHorizontal: -12, 
+      backgroundColor: "rgba(255,255,255,1)",
+      borderColor: "rgba(75,113,123,1)",
+      borderRadius: 48,
+      borderWidth: 7,
+      alignContent: "center",
+      padding: 0,
+      flex: 0,
+    },
+    dropdownPill: {    
+      margin: 20, 
+      justifyContent: 'center', 
+      backgroundColor: "#E6E6E6",
+      borderRadius: 33,
+      alignItems: 'center',
+      flex: 1,
+
+    },
   };
   
   export default theme;
