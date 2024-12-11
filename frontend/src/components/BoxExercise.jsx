@@ -51,23 +51,25 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
         // Update positions of boxes in the drop zone
         newOrder.forEach((item, idx) => {
             const itemIndex = options.indexOf(item);
-            const boxX = boxLayouts.current[itemIndex].x;
-            const boxY = boxLayouts.current[itemIndex].y;
-            const dropZoneX = -dropZoneLayout.current.x;
-            const dropZoneY = -dropZoneLayout.current.y;
-            const boxWidth = boxLayouts.current[itemIndex].width;
+            if (boxLayouts.current[itemIndex] && dropZoneLayout.current) {
+                const boxX = boxLayouts.current[itemIndex].x;
+                const boxY = boxLayouts.current[itemIndex].y;
+                const dropZoneX = -dropZoneLayout.current.x;
+                const dropZoneY = -dropZoneLayout.current.y;
+                const boxWidth = boxLayouts.current[itemIndex].width;
 
-            const targetX = dropZoneX + idx * (boxWidth + 10);
-            const targetY = dropZoneY;
+                const targetX = dropZoneX + idx * (boxWidth + 10);
+                const targetY = dropZoneY;
 
-            const deltaX = targetX - boxX;
-            const deltaY = targetY - boxY;
+                const deltaX = targetX - boxX;
+                const deltaY = targetY - boxY;
 
-            Animated.timing(animations[itemIndex], {
-                toValue: { x: deltaX, y: deltaY },
-                duration: 500,
-                useNativeDriver: true,
-            }).start();
+                Animated.timing(animations[itemIndex], {
+                    toValue: { x: deltaX, y: deltaY },
+                    duration: 500,
+                    useNativeDriver: true,
+                }).start();
+            }
         });
     };
 
@@ -88,7 +90,12 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
         <View style={styles.container}>
             <Text style={styles.instructionText}>Tap the boxes to create your answer</Text>
 
-            <View style={styles.dropZone} onLayout={(event) => (dropZoneLayout.current = event.nativeEvent.layout)}/>
+            <View
+                style={styles.dropZone}
+                onLayout={(event) => {
+                    dropZoneLayout.current = event.nativeEvent.layout;
+                }}
+            />
 
             <View style={styles.boxesContainer}>
                 {options.map((box, index) => (
@@ -100,12 +107,18 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                         ]}
                         onLayout={(event) => (boxLayouts.current[index] = event.nativeEvent.layout)}
                     >
-                        <Pressable onPress={() => handlePress(box, index)}>
-                            <Text style={styles.boxText}>{box}</Text>
+                        <Pressable
+                            onPress={() => handlePress(box, index)}
+                            style={StyleSheet.absoluteFill} // Covers the entire box
+                        >
+                            <View style={styles.centeredContent}>
+                                <Text style={styles.boxText}>{box}</Text>
+                            </View>
                         </Pressable>
                     </Animated.View>
                 ))}
             </View>
+
         </View>
     );
 });
@@ -119,20 +132,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center',
     },
-    selectedAnswer: {
-        fontSize: 16,
-        marginVertical: 10,
-        textAlign: 'center',
-        color: '#555',
-    },
     dropZone: {
         visibility: "hidden",
         height: 60,
         marginVertical: 20,
-    },
-    dropZoneText: {
-        fontSize: 16,
-        color: '#007bff',
     },
     boxesContainer: {
         flexDirection: 'row',
@@ -142,13 +145,21 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#333',
         borderRadius: 8,
-        padding: 12,
+        width: 80, // Fixed width
+        height: 40, // Fixed height
         backgroundColor: '#f9f9f9',
+        overflow: 'hidden', // Ensures no content overflows the box
+    },
+    centeredContent: {
+        flex: 1, // Fills the parent Pressable
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'center', // Center content horizontally
     },
     boxText: {
         fontSize: 16,
         color: '#333',
     },
 });
+
 BoxExercise.displayName = 'BoxExercise';
 export default BoxExercise;
