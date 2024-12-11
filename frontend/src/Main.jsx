@@ -67,7 +67,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user);
-      navigate("/home");
+      navigate(`/users/${user.id}/lessons`);
     } catch (exception) {
       console.log(exception);
     }
