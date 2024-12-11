@@ -6,8 +6,10 @@ import theme from "../theme";
 const LessonOverview = ({user}) => {
     const [lesson, setLesson] = useState(null);
     const navigate = useNavigate();
+    const [completedExercises, setCompletedExercises] = useState([]);
     const { userId, lessonId } = useParams();
 
+    
 
     const handlePress = () => {
         navigate(`/users/${user.id}/lessons`);
@@ -44,10 +46,10 @@ const LessonOverview = ({user}) => {
                         </Text>
                             <View>
                                 <Text style = {theme.lessonOverviewDescription}>
-                                    You got 69/420 right!
+                                    You got {completedExercises.length} out of {lesson.exercises.length} right!
                                 </Text>
                                     <View style = {theme.pillBar}>
-                                        <View style={[theme.pillBarFill,  {width: '16%'} ]}>
+                                        <View style={[theme.pillBarFill,  {width: (completedExercises.length / lesson.exercises.length) * 100 + '%'} ]}>
                                         </View>
                                     </View>
                             </View>
