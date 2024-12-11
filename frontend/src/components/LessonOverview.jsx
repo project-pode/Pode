@@ -1,11 +1,10 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, View, Image } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import lessonService from "../services/lessons";
 import { useState, useEffect } from "react";
 import theme from "../theme";
 const LessonOverview = ({user}) => {
     const [lesson, setLesson] = useState(null);
-
     const navigate = useNavigate();
     const { userId, lessonId } = useParams();
 
@@ -38,13 +37,47 @@ const LessonOverview = ({user}) => {
 
     return (
         <View style = {theme.blueContainer}>
-            <Text>
-                lesson Overview
-            </Text>
-            <Pressable onPress={handlePress}>
-                <Text>Return to progress map</Text>
-            </Pressable>
+                <View style = {theme.whiteContainerInLessonOverview}>
+                    <View style = {theme.pinkContainerInLessnOverview}>
+                        <Text style = {theme.overviewTitle}>
+                            Congratulations!
+                        </Text>
+                            <View>
+                                <Text style = {theme.lessonOverviewDescription}>
+                                    You got 69/420 right!
+                                </Text>
+                                    <View style = {theme.pillBar}>
+                                        <View style={[theme.pillBarFill,  {width: '16%'} ]}>
+                                        </View>
+                                    </View>
+                            </View>
+                        <Text style = {theme.lessonOverviewDescription}>
+                            Pode is proud of you!
+                        </Text>
+                    </View>
+                        <View style = {theme.podeContainerInLessonView}>
+                            <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIcon}/>   
+                        </View>
+                </View>
+                    <View style = {theme.exitButtonContainerInLessonView}>
+                        <View style = {theme.emptySpaceFiller}> 
+                            <View style = {theme.greenButtonInLessonOverview}>
+                                
+                                    
+                                        <Pressable onPress={handlePress}>
+                                            <Text style = {theme.exitButtonText}>Exit</Text>
+                                        </Pressable>
+                                    
+                                
+                            </View>
+                                <View style = {theme.emptySpaceFiller}> 
+                        </View>
+                    </View>
         </View>
+        <View style = {{margin: 12}}>
+
+        </View>
+    </View>
     );
 };
 export default LessonOverview;

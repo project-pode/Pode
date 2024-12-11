@@ -15,6 +15,7 @@ const SingleExerciseView = () => {
     const navigate = useNavigate();
     const boxExerciseRef = useRef();
     const [index, setIndex] = useState(0);
+    
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -41,7 +42,7 @@ const SingleExerciseView = () => {
     const handleCompleteLesson = async () => {
         try {
             await lessonService.completeLesson(userId, lessonId);  // Call the Axios service to mark as completed
-            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
+            
         } catch (error) {
             console.error('Error completing lesson:', error);
         }

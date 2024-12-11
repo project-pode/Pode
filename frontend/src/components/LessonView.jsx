@@ -19,7 +19,7 @@ const LessonView = () => {
     const moveToExercise = () => {
         if (lesson && lesson.exercises && lesson.exercises.length > 0) {
             const firstExerciseId = lesson.exercises[0].id; // Get the first exercise's ID
-            navigate(`/users/${userId}/lessons/${lessonId}/exercises/${firstExerciseId}`);
+            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
         } else {
             console.error("No exercises found in the lesson."); // Handle edge case
         }
