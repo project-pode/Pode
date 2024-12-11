@@ -11,13 +11,15 @@ const DropdownForm = ({ options, selectedAnswer, setSelectedAnswer }) => {
 
     return (
         <View style={theme.whiteContainerInDropdownForm}>
-            <Text>
+            <Text style = {theme.exerciseQuestion}>
                 What is the value of a after running this code?
             </Text>
-            <View style={theme.pinkContainer}>
-                <Text>Diiba daaba bobbel dobbel
-                Diiba daaba bobbel dobbel
-                Diiba daaba bobbel dobbel
+            <View style={theme.pinkContainerInDropdownView}>
+                <Text style = {theme.exerciseFont}>
+                    a = 1 {"\n"}
+                    b = 4 {"\n"}
+                    b = a + b {"\n"}
+                    a = b + 2
                 </Text>
             </View>
             <View>
@@ -28,19 +30,20 @@ const DropdownForm = ({ options, selectedAnswer, setSelectedAnswer }) => {
                     search={false}
                     boxStyles={{
                         height: 50,
-                        marginVertical: 10,
-                        backgroundColor: 'white',
+                        marginVertical: 20,
+                        backgroundColor: '#E6E6E6',
                         borderColor: '#ccc',
-                        borderRadius: 5,
+                        borderRadius: 50,
                     }}
                     dropdownStyles={{
                         backgroundColor: 'white',
                         borderColor: '#ccc',
-                        borderRadius: 5,
+                        borderRadius: 0,
                     }}
                 />
             </View>
         </View>
+        
     );
 };
 

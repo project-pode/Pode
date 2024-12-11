@@ -239,7 +239,7 @@ const theme = {
     },
     whiteContainerInDropdownForm: {     
       marginVertical: 0, 
-      marginHorizontal: -12, 
+      marginHorizontal: 10, 
       backgroundColor: "rgba(255,255,255,1)",
       borderColor: "rgba(75,113,123,1)",
       borderRadius: 48,
@@ -257,6 +257,32 @@ const theme = {
       flex: 1,
 
     },
+    pinkContainerInDropdownView: {
+      marginHorizontal: 18, 
+      backgroundColor: "rgba(237,220,249,1)",
+      borderColor: "rgba(187,144,214,1)",
+      borderRadius: 48,
+      borderWidth: 7,
+      alignContent: "center",
+      padding: 10,
+    },
+    exerciseQuestion: {    
+      color: "rgba(75,113,123,1)",
+      fontSize: 26,
+      textAlign: "left",
+      paddingVertical: 10,
+      fontFamily: "AlfaSlabOne",
+      lineHeight: 35,
+      padding: 6,
+      margin: 12,
+    },
+    exerciseFont: {
+      color: "rgba(187,144,214,1)",
+      fontSize: 34,
+      fontWeight: "bold",
+      fontFamily: "AlfaSlabOne",
+      padding: 10,
+    }
   };
   
   export default theme;

@@ -13,7 +13,6 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
             case "simple":
                 return (
                     <View>
-                        <Text>{exercise.question}</Text>
                         <DropdownForm
                             options={exercise.options || []} // Default to an empty array if options are undefined
                             selectedAnswer={selectedAnswer}
