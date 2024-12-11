@@ -302,7 +302,7 @@ const theme = {
       width: 134,
       height: 200,
       margin: 5,
-      transform: [{ rotate: '90deg' }]
+      
     },
     pillBarFill: {
       height: '100%',
@@ -328,6 +328,13 @@ const theme = {
     },
     emptySpaceFiller: {
       marginHorizontal: 50,
+    },
+    podeIconInLessonView: {
+      height: 200,
+      width: 134,
+      borderRadius: 98,
+      marginHorizontal: 20,
+      transform: [{ rotate: '-75deg' }]
     },
     
   };

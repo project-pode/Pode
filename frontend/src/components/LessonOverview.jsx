@@ -64,7 +64,7 @@ const LessonOverview = () => {
                         </Text>
                     </View>
                         <View style = {theme.podeContainerInLessonView}>
-                            <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIcon}/>   
+                            <Image source={require("../../assets/placeHolderPode.png")} style = {theme.podeIconInLessonView}/>   
                         </View>
                 </View>
                     <View style = {theme.exitButtonContainerInLessonView}>
