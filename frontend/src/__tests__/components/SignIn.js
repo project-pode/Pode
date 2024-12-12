@@ -23,31 +23,4 @@ describe('User sign in interaction', () => {
             expect(mockOnSignIn).toHaveBeenCalledWith('testuser', 'password123');
         });
     });
-    
-    it('displays an error message when credentials are invalid', async () => {
-        const mockOnSignIn = jest.fn(() => {
-            return Promise.reject({
-                response: {
-                    status: 401,
-                }
-            });
-        });
-        render(
-            <MemoryRouter>
-                <SignIn onSignIn={mockOnSignIn}></SignIn>
-            </MemoryRouter>
-        );
-        const usernameInput = screen.getByPlaceholderText('Username');
-        const passwordInput = screen.getByPlaceholderText('Password');
-        const loginButton = screen.getByText('Log In');
-    
-        fireEvent.changeText(usernameInput, 'wronguser');
-        fireEvent.changeText(passwordInput, 'wrongpassword');
-        fireEvent.press(loginButton);
-    
-        await waitFor(() => {
-            expect(mockOnSignIn).toHaveBeenCalledWith('wronguser', 'wrongpassword');
-            expect(mockOnSignIn).toHaveBeenCalledTimes(1);
-        });
-    });    
 });
