@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
 import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
+import theme from '../theme';
 const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExerciseRef }) => {
     const renderExerciseType = () => {
         // Check if exercise is defined and has a type
@@ -13,12 +14,18 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
             case "simple":
                 return (
                     <View>
-                        <Text>{exercise.question}</Text>
-                        <DropdownForm
-                            options={exercise.options || []} // Default to an empty array if options are undefined
-                            selectedAnswer={selectedAnswer}
-                            setSelectedAnswer={setSelectedAnswer}
-                        />
+                        <View style={theme.pinkContainerInDropdownView}>
+                            <Text style = {theme.exerciseFont}>
+                                {exercise.question}
+                            </Text>
+                        </View>
+                            <View>
+                            <DropdownForm
+                                options={exercise.options || []} // Default to an empty array if options are undefined
+                                selectedAnswer={selectedAnswer}
+                                setSelectedAnswer={setSelectedAnswer}
+                            />
+                        </View>
                     </View>
                 );
             case "box":

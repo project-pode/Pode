@@ -50,7 +50,7 @@ const SingleExerciseView = () => {
 
     const handleComplete = async () => {
         if (selectedAnswer.length === 0) {
-            setFeedback('Please select an answer before completing the exercise.');
+            // setFeedback('Please select an answer before completing the exercise.');
             return;
         }
     
@@ -64,7 +64,7 @@ const SingleExerciseView = () => {
         if (isAnswerCorrect) {
             try {
                 await exerciseService.completeExercise(userId, lessonId, exerciseId);
-                setFeedback('Correct answer! Exercise completed.');
+                // setFeedback('Correct answer! Exercise completed.');
                 setIsExerciseComplete(true);
             } catch (error) {
                 console.error('Error completing exercise:', error);
@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
     feedback: {
         fontSize: 16,
         marginTop: 10,
+        marginBottom: 15,
+        alignSelf: "center",
         color: 'red',
     },
 });
