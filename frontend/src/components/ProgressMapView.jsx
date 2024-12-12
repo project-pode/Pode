@@ -91,9 +91,9 @@ const ProgressMapView = ({ onLogout }) => {
               <ImageBackground
                 source={
                   isLessonCompleted(lesson.id) && selectedLesson?.id === lesson.id
-                    ? require('../../assets/lessonCompletedSelected.png')
+                    ? require('../../assets/cloudCompletedSelected.png')
                     : isLessonCompleted(lesson.id)
-                    ? require('../../assets/lessonCompleted.png')
+                    ? require('../../assets/cloudCompleted.png')
                     : selectedLesson?.id === lesson.id
                     ? require('../../assets/cloudSelected.png')
                     : require('../../assets/cloud.png')
