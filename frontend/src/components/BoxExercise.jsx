@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
+import theme from '../theme';
 
 const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
@@ -34,7 +35,8 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                 const boxY = boxLayouts.current[index].y;
                 const boxWidth = boxLayouts.current[index].width;
 
-                const targetX = dropZoneX + targetIndex * (boxWidth + 10);
+                const targetX = Math.min(dropZoneX + targetIndex * (boxWidth + 10), dropZoneLayout.current.width - boxWidth);
+
                 const targetY = dropZoneY;
 
                 const deltaX = targetX - boxX;
@@ -54,8 +56,8 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
             if (boxLayouts.current[itemIndex] && dropZoneLayout.current) {
                 const boxX = boxLayouts.current[itemIndex].x;
                 const boxY = boxLayouts.current[itemIndex].y;
-                const dropZoneX = -dropZoneLayout.current.x;
-                const dropZoneY = -dropZoneLayout.current.y;
+                const dropZoneX = -dropZoneLayout.current.x +30;
+                const dropZoneY = -dropZoneLayout.current.y -70;
                 const boxWidth = boxLayouts.current[itemIndex].width;
 
                 const targetX = dropZoneX + idx * (boxWidth + 10);
@@ -87,8 +89,8 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
     }));
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.instructionText}>Tap the boxes to create your answer</Text>
+        <View>
+            
 
             <View
                 style={styles.dropZone}
@@ -102,7 +104,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                     <Animated.View
                         key={index}
                         style={[
-                            styles.box,
+                            theme.boxExerciseBox,
                             { transform: animations[index].getTranslateTransform() },
                         ]}
                         onLayout={(event) => (boxLayouts.current[index] = event.nativeEvent.layout)}
@@ -112,7 +114,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                             style={StyleSheet.absoluteFill} // Covers the entire box
                         >
                             <View style={styles.centeredContent}>
-                                <Text style={styles.boxText}>{box}</Text>
+                                <Text style={theme.boxExerciseBoxText}>{box}</Text>
                             </View>
                         </Pressable>
                     </Animated.View>
@@ -133,13 +135,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     dropZone: {
-        visibility: "hidden",
-        height: 60,
+        
+        height: 100,
         marginVertical: 20,
+        backgroundColor: "rgba(237,220,249,1)",
+        borderColor: "rgba(187,144,214,1)",
+        borderRadius: 48,
+        borderWidth: 7,
+        justifyContent: 'space-around'
+        
     },
     boxesContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        
+  
     },
     box: {
         borderWidth: 1,

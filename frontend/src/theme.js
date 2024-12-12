@@ -51,10 +51,11 @@ const theme = {
     },
     titlePode: {
         color: "rgba(75,113,123,1)",
-        fontSize: 80,
+        fontSize: 70,
         textAlign: "center",
         paddingVertical: 10,
         fontFamily: "AlfaSlabOne",
+        
     },
     inputField: {
         paddingVertical: 10,
@@ -237,26 +238,61 @@ const theme = {
       padding: 18,
       flex: 1,
     },
-    whiteContainerWIP: {
-        marginHorizontal: 18, 
-        backgroundColor: "rgba(237,220,249,1)",
-        borderColor: "rgba(187,144,214,1)",
-        borderRadius: 48,
-        borderWidth: 7,
-        alignContent: "center",
-        padding: 10,
-    },
-    greenButtonInLessonOverview: {   
-      margin: 20, 
-      padding: 10,
-      backgroundColor: "#84DC95",
-      borderRadius: 33,
-      borderWidth: 6,
-      borderColor: "#4A8055",
+    whiteContainerInDropdownForm: {     
+      marginVertical: 0, 
+      marginHorizontal: 10, 
+      backgroundColor: "rgba(255,255,255,1)",
+      borderColor: "rgba(75,113,123,1)",
+      borderRadius: 48,
+      borderWidth: 7,
+      alignContent: "center",
+      paddingVertical: 12,
+      flex: 0,
+      padding: 0,
       
     },
-    whiteContainerInLessonOverview: {    
-      marginVertical: 20, 
+    dropdownPill: {    
+      margin: 20, 
+      justifyContent: 'center', 
+      backgroundColor: "#E6E6E6",
+      borderRadius: 33,
+      alignItems: 'center',
+      flex: 1,
+
+    },
+    pinkContainerInDropdownView: {
+      marginHorizontal: 18, 
+      marginVertical: 10, 
+      backgroundColor: "rgba(237,220,249,1)",
+      borderColor: "rgba(187,144,214,1)",
+      borderRadius: 48,
+      borderWidth: 7,
+      alignContent: "center",
+      padding: 10,
+    },
+    exerciseQuestion: {    
+      alignSelf: "center",
+      color: "rgba(75,113,123,1)",
+      fontSize: 22,
+      textAlign: "left",
+      paddingVertical: 6,
+      fontFamily: "AlfaSlabOne",
+      lineHeight: 30,
+      padding: 6,
+      marginHorizontal: 12,
+    },
+    exerciseFont: {
+      color: "rgba(187,144,214,1)",
+      fontSize: 34,
+      fontWeight: "bold",
+      fontFamily: "AlfaSlabOne",
+      padding: 10,
+    },
+
+    // themes for exercises
+
+    whiteContainerExercises: {     // Theme used in: LessonView
+      marginVertical: 18, 
       marginHorizontal: 18, 
       backgroundColor: "rgba(255,255,255,1)",
       borderColor: "rgba(75,113,123,1)",
@@ -266,76 +302,66 @@ const theme = {
       padding: 10,
       flex: 1,
     },
-    pinkContainerInLessnOverview: {
+    exerciseDescription: {    // Theme used in: LessonView
+      color: "rgba(75,113,123,1)",
+      fontSize: 18,
+      textAlign: "left",
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+      fontFamily: "AlfaSlabOne",
+      lineHeight: 24,
+    },
+    boxExerciseBox: {
+      width: 80, // Fixed width
+      height: 40, // Fixed height 
+      overflow: 'hidden', // Ensures no content overflows the box
+      margin: 20, 
+      padding: 10,
+      backgroundColor: "rgba(230,230,230,255)",
+      borderRadius: 33,
+      padding: 10,
+      borderColor: "rgba(161,161,161,255)",
+      borderWidth: 2
+    },
+    boxExerciseBoxText: {
+      color: "rgba(187,144,214,1)",
+      fontSize: 16,
+      textAlign: "center",
+      fontFamily: "AlfaSlabOne",
+    },
+    notBlankBox: {
+      backgroundColor: "rgba(230,230,230,255)",
+      borderRadius: 20,
+      padding: 12,
+      margin: 5,
+      minWidth: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    blankBox: {
+      backgroundColor: 'rgba(161,161,161,255)',
+      borderRadius: 20,
+      padding: 12,
+      margin: 5,
+      minWidth: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    blankBoxText: {
+      color: 'rgba(161,161,161,255)',
+      fontSize: 16,
+      
+
+    },
+    pinkContainerBox: {
+      marginHorizontal: 10, 
       backgroundColor: "rgba(237,220,249,1)",
       borderColor: "rgba(187,144,214,1)",
       borderRadius: 48,
       borderWidth: 7,
-      alignContent: "center",
+      alignContent: "left",
       padding: 10,
-      flex: 1,
-    },
-      exitButtonText: {   
-        fontFamily: "AlfaSlabOne",
-        color: "rgba(74,128,85,1)",
-        textAlign: "center",
-        fontSize: 45,
-        padding: 10,
-      },
-      overviewTitle: {   
-        color: "rgba(75,113,123,1)",
-        fontSize: 30,
-        textAlign: "center",
-        paddingVertical: 30,
-        fontFamily: "AlfaSlabOne",
-        lineHeight: 24,
-      },
-      lessonOverviewDescription: {    
-        color: "rgba(75,113,123,1)",
-        fontSize: 18,
-        textAlign: "center",
-        paddingVertical: 10,
-        fontFamily: "AlfaSlabOne",
-        lineHeight: 24,
-    },
-    podeContainerInLessonView: {
-      width: 134,
-      height: 200,
-      margin: 5,
-      
-    },
-    pillBarFill: {
-      height: '100%',
-      borderRadius: 25, // Matches the parent for consistent pill shape
-      backgroundColor: '#84DC95', // Fill color
-      
-    },
-    pillBar: {   
-      borderWidth: 3,
-      borderRadius: 25,
-      height: 50,
-      borderColor: 'rgba(75,113,123,1)',
-      justifyContent: 'center',
-      alignItems: 'flex-start', // Align the fill to start from the left
-      overflow: 'hidden', // Ensure the fill stays within the pill container
-      width: '100%',
-      backgroundColor: 'white', // Optional: background color for the pill
-    },
-    exitButtonContainerInLessonView: {
-      flexDirection: "column",
-      justifyContent: "center",
-
-    },
-    emptySpaceFiller: {
-      marginHorizontal: 50,
-    },
-    podeIconInLessonView: {
-      height: 200,
-      width: 134,
-      borderRadius: 98,
-      marginHorizontal: 20,
-      transform: [{ rotate: '-75deg' }]
-    },
+  },
     
   };
   
