@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Route, Routes, useNavigate } from 'react-router-native';
 import { useEffect, useState } from 'react';
 import userService from "./services/users";
@@ -38,16 +38,16 @@ const Main = () => {
 
     const fetchUserFromStorage = async () => {
       try {
-      const asyncStorageUser = await authStorage.getUser();
-      if (asyncStorageUser) {
-        setUser(asyncStorageUser);
-        tokenService.setToken(asyncStorageUser.token);
+        const asyncStorageUser = await authStorage.getUser();
+        if (asyncStorageUser) {
+          setUser(asyncStorageUser);
+          tokenService.setToken(asyncStorageUser.token);
+        }
+      } catch (error) {
+        console.log('Error fetching user from storage', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log('Error fetching user from storage', error);
-    } finally {
-      setLoading(false);
-    }
 
     };
     const fetchUsers = async () => {
@@ -67,7 +67,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       authStorage.setUser(user);
       setUser(user);
-      navigate("/home");
+      navigate(`/users/${user.id}/lessons`);
     } catch (exception) {
       console.log(exception);
     }
@@ -80,7 +80,7 @@ const Main = () => {
       });
       tokenService.setToken(user.token);
       authStorage.setUser(user);
-      setUser(user); 
+      setUser(user);
       navigate("/home");
     } catch (exception) {
       console.log(exception);
@@ -93,16 +93,19 @@ const Main = () => {
   };
   return (
     <View style={styles.container}>
-      <AppBar user={user} />
+      {/* <AppBar user={user} /> */}
+      <View>
+        <Text style={{ backgroundColor: "rgba(127,222,255,1)", padding: 10 }}></Text> 
+      </View>
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
-        <Route path="/" element={<StartView user={user}/>} />
-        <Route path="/home" element={<WelcomeView user={user} onLogout={handleLogout}/>}/>
-        <Route path="/signUp" element={<SignUp onSignUp={handleSignUp}/>}/>
-        <Route path="/users/:userId/lessons" element={<ProgressMapView onLogout={handleLogout}/>}/>
-        <Route path="/users/:userId/lessons/:lessonId" element={<LessonView/>}/>
-        <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView/>}/>
-        <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview user={user}/>}/>
+        <Route path="/" element={<StartView user={user} />} />
+        <Route path="/home" element={<WelcomeView user={user} onLogout={handleLogout} />} />
+        <Route path="/signUp" element={<SignUp onSignUp={handleSignUp} />} />
+        <Route path="/users/:userId/lessons" element={<ProgressMapView onLogout={handleLogout} />} />
+        <Route path="/users/:userId/lessons/:lessonId" element={<LessonView />} />
+        <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView />} />
+        <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview user={user} />} />
       </Routes>
     </View>
   );

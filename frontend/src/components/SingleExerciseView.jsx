@@ -95,7 +95,7 @@ const SingleExerciseView = () => {
         <View style={theme.blueContainer}>
             <View style={theme.whiteContainerExercises}>
             {/*<Text style={styles.title}>Title: {exercise.title}</Text> */}
-
+            <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
                     exercise={exercise}
                     selectedAnswer={selectedAnswer}

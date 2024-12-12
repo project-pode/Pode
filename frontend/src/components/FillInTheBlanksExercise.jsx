@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
+import theme from '../theme';
 
 const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
@@ -112,16 +113,16 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                 return (
                     <View
                         key={index}
-                        style={styles.blankBox}
+                        style={theme.blankBox}
                         onLayout={() => {}}
                         ref={blankRefs.current[index]}
                     >
-                        <Text style={styles.blankText}>{blanks[index] || "[ ]"}</Text>
+                        <Text style={theme.blankBoxText}>{blanks[index] || "[ ]"}</Text>
                     </View>
                 );
             }
             return (
-                <Text key={index} style={styles.questionText}>
+                <Text key={index} style={theme.exerciseDescription}>
                     {item}
                 </Text>
             );
@@ -129,27 +130,28 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.instructionText}>Tap the boxes to fill the blanks</Text>
-
-            <View style={styles.questionContainer}>{renderQuestionText()}</View>
-
+        <View>
+            <Text style={theme.exerciseDescription}>Tap the boxes to fill the blanks</Text>
+            <View style={theme.pinkContainerBox}>
+                <View style={styles.questionContainer}>{renderQuestionText()}</View>
+                </View>
             <View style={styles.boxesContainer}>
                 {options.map((box, index) => (
                     <Pressable onPress={() => handlePress(box, index)} key={index}>
                         <Animated.View
                             style={[
-                                styles.box,
+                                theme.notBlankBox,
                                 { transform: animations[index].getTranslateTransform() },
                             ]}
                             onLayout={() => {}}
                             ref={boxRefs.current[index]}
                         >
-                            <Text style={styles.boxText}>{box}</Text>
+                            <Text style={theme.boxExerciseBoxText}>{box}</Text>
                         </Animated.View>
                     </Pressable>
                 ))}
             </View>
+            
         </View>
     );
 });
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     questionContainer: {
-        marginVertical: 20,
+        marginVertical: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
@@ -189,6 +191,7 @@ const styles = StyleSheet.create({
     boxesContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        flexWrap: 'wrap',
     },
     box: {
         borderWidth: 1,
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
     },
     boxText: {
         fontSize: 16,
-        color: '#333',
+        color: 'rgba(161,161,161,255)',
     },
 });
 

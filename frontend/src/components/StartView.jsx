@@ -8,7 +8,7 @@ const StartView = ({user}) => {
 
     useEffect(() => {
         if (user) {
-            navigate("/home"); // Redirect to the home page if the user is logged in
+            navigate(`/users/${user.id}/lessons`); // Redirect to the home page if the user is logged in
         }
     }, [user, navigate]); 
 
