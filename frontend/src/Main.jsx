@@ -93,7 +93,7 @@ const Main = () => {
   };
   return (
     <View style={styles.container}>
-      <AppBar user={user} />
+      {/* <AppBar user={user} /> */}
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<StartView user={user}/>} />
