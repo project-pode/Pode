@@ -15,9 +15,11 @@ const styles = StyleSheet.create({
   },
   profileButton: {
     alignSelf: 'auto',
+    padding: 10
   },
   settingsButton: {
     alignSelf: 'auto',
+    padding: 10
   },
 });
 
