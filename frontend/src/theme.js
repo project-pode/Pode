@@ -245,8 +245,10 @@ const theme = {
       borderRadius: 48,
       borderWidth: 7,
       alignContent: "center",
-      padding: 0,
+      paddingVertical: 12,
       flex: 0,
+      padding: 0,
+      
     },
     dropdownPill: {    
       margin: 20, 
@@ -259,6 +261,7 @@ const theme = {
     },
     pinkContainerInDropdownView: {
       marginHorizontal: 18, 
+      marginVertical: 10, 
       backgroundColor: "rgba(237,220,249,1)",
       borderColor: "rgba(187,144,214,1)",
       borderRadius: 48,
@@ -267,14 +270,15 @@ const theme = {
       padding: 10,
     },
     exerciseQuestion: {    
+      alignSelf: "center",
       color: "rgba(75,113,123,1)",
-      fontSize: 26,
+      fontSize: 22,
       textAlign: "left",
-      paddingVertical: 10,
+      paddingVertical: 6,
       fontFamily: "AlfaSlabOne",
-      lineHeight: 35,
+      lineHeight: 30,
       padding: 6,
-      margin: 12,
+      marginHorizontal: 12,
     },
     exerciseFont: {
       color: "rgba(187,144,214,1)",
@@ -282,7 +286,43 @@ const theme = {
       fontWeight: "bold",
       fontFamily: "AlfaSlabOne",
       padding: 10,
-    }
-  };
+    },
   
+  whiteContainerExercises: {     
+    marginVertical: 18, 
+    marginHorizontal: 18, 
+    backgroundColor: "rgba(255,255,255,1)",
+    borderColor: "rgba(75,113,123,1)",
+    borderRadius: 48,
+    borderWidth: 7,
+    alignContent: "center",
+    padding: 10,
+    flex: 1,
+  },
+  exerciseDescription: {    
+    color: "rgba(75,113,123,1)",
+    fontSize: 18,
+    textAlign: "left",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    fontFamily: "AlfaSlabOne",
+    lineHeight: 24,
+  },
+  boxExerciseBox: {
+    width: 80, // Fixed width
+    height: 40, // Fixed height 
+    overflow: 'hidden', // Ensures no content overflows the box
+    margin: 20, 
+    padding: 10,
+    backgroundColor: "rgba(230,230,230,255)",
+    borderRadius: 33,
+    padding: 10,
+  },
+  boxExerciseBoxText: {
+    color: "rgba(187,144,214,1)",
+    fontSize: 16,
+    textAlign: "center",
+    fontFamily: "AlfaSlabOne",
+  },
+};
   export default theme;
