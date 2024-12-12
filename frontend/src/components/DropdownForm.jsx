@@ -11,52 +11,46 @@ const DropdownForm = ({ options, selectedAnswer, setSelectedAnswer }) => {
 
     return (
         <View>
-            <Text style = {theme.exerciseQuestion}>
-            What value is the value of a after running this code?
+            <Text style={theme.exerciseQuestion}>
             </Text>
-            
-            <View style={theme.pinkContainerInDropdownView}>
-                <Text style = {theme.exerciseFont}>
-                    a = 1 {"\n"}
-                    b = 4 {"\n"}
-                    b = a + b {"\n"}
-                    a = b + 2
-                </Text>
+            <View>
+                <Text style={theme.exerciseFont}>
+                </Text> 
             </View>
-            <View style = {{alignItems: "center"}}>
+            <View style={{ alignItems: "center" }}>
                 <SelectList
-                    setSelected={(value) => setSelectedAnswer(value)}
+                    setSelected={(key) => {
+                        // Map the key back to the corresponding value
+                        const selectedOption = formattedOptions.find(item => item.key === key)?.value;
+                        setSelectedAnswer(selectedOption || "");
+                    }}
                     data={formattedOptions}
                     placeholder="Choose answer here"
                     search={false}
-                    
                     boxStyles={{
                         width: 260,
                         height: 60,
-                        marginVertical: -10,
+                        marginVertical: 0,
                         backgroundColor: '#E6E6E6',
                         borderColor: '#E6E6E6',
                         borderRadius: 50,
-                        marginTop: 10,
+                        marginTop: 0,
                         marginBottom: 0,
                     }}
                     inputStyles={{
-                        
                         alignSelf: "center",
                         textAlign: "center",
                         fontFamily: "AlfaSlabOne", // Apply font to the input text
                         fontSize: 16,
-                        color: 'rgba(75,113,123,1)"',
-
+                        color: 'rgba(75,113,123,1)',
                     }}
                     dropdownTextStyles={{
                         fontFamily: "AlfaSlabOne", // Apply font to dropdown options
                         fontSize: 16,
-                        color: 'rgba(75,113,123,1)"',
+                        color: 'rgba(75,113,123,1)',
                         letterSpacing: 0,
                     }}
                     dropdownStyles={{
-                        
                         alignSelf: "center",
                         width: 160,
                         backgroundColor: '#E6E6E6',
@@ -65,12 +59,12 @@ const DropdownForm = ({ options, selectedAnswer, setSelectedAnswer }) => {
                         padding: 10,
                         marginTop: -20,
                         paddingBottom: -20,
-                        
                     }}
                 />
             </View>
+            <View>
+            </View>
         </View>
-        
     );
 };
 
