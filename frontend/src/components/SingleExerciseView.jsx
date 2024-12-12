@@ -92,25 +92,27 @@ const SingleExerciseView = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Title: {exercise.title}</Text>
-            <Text style={styles.description}>Description: {exercise.description}</Text>
-            <ExerciseToRender
-                exercise={exercise}
-                selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer}
-                boxExerciseRef={boxExerciseRef}
-            />
-            {selectedAnswer.length > 0 && ( // Conditionally render the button
+        <View style={theme.blueContainer}>
+            <View style={theme.whiteContainerExercises}>
+            {/*<Text style={styles.title}>Title: {exercise.title}</Text> */}
+            <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                <ExerciseToRender
+                    exercise={exercise}
+                    selectedAnswer={selectedAnswer}
+                    setSelectedAnswer={setSelectedAnswer}
+                    boxExerciseRef={boxExerciseRef}
+                />
+            </View>
+            
                 <Pressable
                     onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                    style={theme.button}
+                    style={theme.greenButton}
                 >
-                    <Text style={theme.buttonText}>
+                    <Text style={theme.greenButtonText}>
                         {isExerciseComplete ? 'Next Exercise' : 'Check'}
                     </Text>
                 </Pressable>
-            )}
+            
             {feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}
         </View>
     );
