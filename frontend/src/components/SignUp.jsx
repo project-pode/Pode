@@ -1,4 +1,5 @@
 import { View, Pressable, ImageBackground, Text } from "react-native";
+import { useState } from "react";
 import { Link } from 'react-router-native';
 import TextInput from "./TextInput";
 import { useFormik } from 'formik';
@@ -25,38 +26,51 @@ const validationSchema = yup.object().shape({
 });
 
 const SignUp = ({ onSignUp }) => {
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async () => {
             if (!formik.isValid) {
-                console.log("not valid");
+                console.log("Form is not valid");
                 return;
             }
             try {
-                await onSignUp(formik.values.username, formik.values.password);
+                const error = await onSignUp(formik.values.username.toLowerCase(), formik.values.password);
+                if (error) {
+                    setErrorMessage(error); // Set error message from Main.jsx
+                } else {
+                    setErrorMessage(null); // Clear any previous error if successful
+                }
             } catch (error) {
-                console.error(error);
+                console.error("An unexpected error occurred:", error);
+                setErrorMessage("An unexpected error occurred."); // Generic fallback message
             }
         },
     });
+    
 
     return (
         <View style={theme.blueContainer}>
-            <ImageBackground source= {require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage} >
+            <ImageBackground source={require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage} >
                 <View style={theme.pinkContainer}>
-                    <View style= {theme.arrowContainer}>
-                    <Pressable>
-                        <Link to="/">
-                        <Text style={theme.arrow}>{"<"}</Text>
-                        </Link>
-                    </Pressable>
+                    <View style={theme.arrowContainer}>
+                        <Pressable>
+                            <Link to="/">
+                                <Text style={theme.arrow}>{"<"}</Text>
+                            </Link>
+                        </Pressable>
                     </View>
-                    
+
                     <Text style={theme.titlePode}>{"<Pode/>"}</Text>
 
+                    {errorMessage && (
+                        <Text style={theme.errorText}>{errorMessage}</Text>
+                    )}
+
                     <TextInput
-                        style = {theme.inputField}
+                        style={theme.inputField}
                         error={formik.errors.username}
                         placeholder="Username"
                         value={formik.values.username}
@@ -66,7 +80,7 @@ const SignUp = ({ onSignUp }) => {
                         <Text style={theme.errorText}>{formik.errors.username}</Text>
                     )}
                     <TextInput
-                        style = {theme.inputField}
+                        style={theme.inputField}
                         error={formik.errors.password}
                         secureTextEntry={true}
                         placeholder="Password"
@@ -77,7 +91,7 @@ const SignUp = ({ onSignUp }) => {
                         <Text style={theme.errorText}>{formik.errors.password}</Text>
                     )}
                     <TextInput
-                        style = {theme.inputField}
+                        style={theme.inputField}
                         error={formik.errors.passwordConfirmation}
                         secureTextEntry={true}
                         placeholder="Password confirmation"
