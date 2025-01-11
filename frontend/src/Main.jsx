@@ -6,7 +6,6 @@ import SignIn from './components/SignIn';
 import theme from './theme';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
-import AppBar from './components/AppBar';
 import SignUp from './components/SignUp';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
@@ -69,7 +68,8 @@ const Main = () => {
       setUser(user);
       navigate(`/users/${user.id}/lessons`);
     } catch (exception) {
-      console.log(exception);
+      const errorMessage = exception.response?.data?.error || 'An unexpected error occurred.';
+      return errorMessage; // Return the error message
     }
   };
 
@@ -83,7 +83,8 @@ const Main = () => {
       setUser(user);
       navigate("/home");
     } catch (exception) {
-      console.log(exception);
+      const errorMessage = exception.response?.data?.error || 'An unexpected error occurred.';
+      return errorMessage; // Return the error message
     }
   };
 
@@ -95,7 +96,7 @@ const Main = () => {
     <View style={styles.container}>
       {/* <AppBar user={user} /> */}
       <View>
-        <Text style={{ backgroundColor: "rgba(127,222,255,1)", padding: 10 }}></Text> 
+        <Text style={{ backgroundColor: "rgba(127,222,255,1)", padding: 10 }}></Text>
       </View>
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />

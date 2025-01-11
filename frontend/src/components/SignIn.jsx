@@ -1,4 +1,5 @@
 import { View, Pressable, ImageBackground, Text } from "react-native";
+import { useState } from "react";
 import { Link } from 'react-router-native';
 import TextInput from "./TextInput";
 import { useFormik } from 'formik';
@@ -21,6 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 const SignIn = ({ onSignIn }) => {
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const formik = useFormik({
         initialValues,
@@ -31,9 +33,15 @@ const SignIn = ({ onSignIn }) => {
                 return;
             }
             try {
-                await onSignIn(formik.values.username, formik.values.password);
+                const error = await onSignIn(formik.values.username.toLowerCase(), formik.values.password);
+                if (error) {
+                    setErrorMessage(error); // Set error message from Main.jsx
+                } else {
+                    setErrorMessage(null); // Clear any previous error if successful
+                }
             } catch (error) {
-                console.error(error);
+                console.error("An unexpected error occurred:", error);
+                setErrorMessage("An unexpected error occurred."); // Generic fallback message
             }
         },
     });
@@ -51,6 +59,10 @@ const SignIn = ({ onSignIn }) => {
                     </View>
 
                     <Text style={theme.titlePode}>{"<Pode/>"}</Text>
+
+                    {errorMessage && (
+                        <Text style={theme.errorText}>{errorMessage}</Text>
+                    )}
 
                     <TextInput
                         style={theme.inputField}

@@ -380,7 +380,6 @@ const theme = {
     padding: 10,
     backgroundColor: "rgba(230,230,230,255)",
     borderRadius: 33,
-    padding: 10,
     borderColor: "rgba(161,161,161,255)",
     borderWidth: 2
   },

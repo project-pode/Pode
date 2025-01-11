@@ -17,6 +17,12 @@ usersRouter.post('/', async (request, response) => {
     });
   }
 
+  // Check if the username already exists
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    return response.status(400).json({ error: "This username already exists" });
+  }
+
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
