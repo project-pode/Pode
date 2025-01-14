@@ -31,7 +31,6 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
             case "box":
                 return (
                     <View>
-                        {/*<Text>Box exercise</Text>*/}
                         <BoxExercise options={exercise.options || []}
                             selectedAnswer={selectedAnswer}
                             setSelectedAnswer={setSelectedAnswer}

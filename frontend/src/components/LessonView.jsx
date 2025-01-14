@@ -2,18 +2,27 @@ import { View, Pressable, Text, Image, ScrollView } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
-import userService from "../services/users";
 import theme from "../theme";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+import PopUp from "./PopUp";
 
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
-      // eslint-disable-next-line no-unused-vars
-    const [completedExercises, setCompletedExercises] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
     const { userId, lessonId } = useParams();
     const navigate = useNavigate();
+
     const handleBackPress = () => {
+        setShowPopup(true);
+    };
+
+    const handleConfirm = () => {
+        setShowPopup(false);
         navigate(`/users/${userId}/lessons`);
+    };
+
+    const handleCancel = () => {
+        setShowPopup(false);
     };
 
     const moveToExercise = () => {
@@ -25,20 +34,13 @@ const LessonView = () => {
         }
     };
 
-
     useEffect(() => {
         const fetchLesson = async () => {
             const lesson = await lessonService.getLesson(userId, lessonId);
             setLesson(lesson);
         };
 
-        const fetchCompletedExercises = async () => {
-            const user = await userService.getOne(userId);
-            setCompletedExercises(user.completedExercises || []);
-        };
-
         void fetchLesson();
-        void fetchCompletedExercises();
     }, [userId, lessonId]);
     if (!lesson) {
         return (
@@ -79,6 +81,12 @@ const LessonView = () => {
                     </Pressable>
                 </View> 
             </View>
+            <PopUp
+                visible={showPopup}
+                message="Are you sure you want to end this lesson?"
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+            />
         </View>
     );
 };
