@@ -39,10 +39,10 @@ const SingleExerciseView = () => {
         );
     }
 
-    const handleCompleteLesson = async () => {
+    const handleCompleteLesson = async (completedExercises) => {
         try {
             await lessonService.completeLesson(userId, lessonId);
-            navigate(`/users/${userId}/lessons/${lessonId}/overview`);
+            navigate(`/users/${userId}/lessons/${lessonId}/overview`, { state: { completedExercises } });
         } catch (error) {
             console.error('Error completing lesson:', error);
         }
@@ -87,7 +87,7 @@ const SingleExerciseView = () => {
             setIsExerciseComplete(false);
             setFeedback(null);
         } else {
-            handleCompleteLesson();
+            handleCompleteLesson(index + 1);
         }
     };
 
