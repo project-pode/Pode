@@ -11,6 +11,8 @@ jobs:
     strategy:
       matrix:
         part: [frontend, backend] # runs both in frontend and backend directories
+    env:
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}  # Use the secret for the test database URI
     steps:
       - uses: actions/checkout@v4 # get the code
       - uses: actions/setup-node@v4 # set up node
@@ -22,7 +24,6 @@ jobs:
       - name: Check style
         run: npm run lint
         working-directory: ${{ matrix.part }}
-      - name: frontend test
-        if: ${{ matrix.part == 'frontend' }}  # only run in frontend for now
+      - name: test
         run: npm run test
         working-directory: ${{ matrix.part}}

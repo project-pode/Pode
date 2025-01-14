@@ -3,12 +3,14 @@ const User = require ('../models/user');
 const jwt = require('jsonwebtoken');
 
 const requestLogger = (request, response, next) => {
-  logger.info('Method:', request.method);
-  logger.info('Path:  ', request.path);
-  logger.info('Body:  ', request.body);
-  logger.info('---');
+  logger.info(`Request: { 
+      Method: ${request.method}, 
+      Path: ${request.path}, 
+      Body: ${JSON.stringify(request.body, null, 2)} 
+  }`);
   next();
 };
+
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' });
