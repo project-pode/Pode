@@ -2,7 +2,6 @@ const app = require('../app');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const supertest = require('supertest');
-const bcrypt = require('bcrypt');
 const api = supertest(app);
 
 describe('Users API', () => {

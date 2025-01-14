@@ -9,7 +9,7 @@ describe('Login API', () => {
     beforeAll(async () => {
         await User.deleteMany({});
 
-        const password = "password";
+        const password = 'password';
         const saltRounds = 10;
         const passwordHash = await bcrypt.hash(password, saltRounds);
 

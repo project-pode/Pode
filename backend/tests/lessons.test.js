@@ -13,7 +13,7 @@ describe('Lessons API', () => {
     let token = null;
 
     beforeAll(async () => {
-        const password = "password";
+        const password = 'password';
         const saltRounds = 10;
         const passwordHash = await bcrypt.hash(password, saltRounds);
 

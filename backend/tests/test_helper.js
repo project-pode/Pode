@@ -6,7 +6,7 @@ const Exercise = require('../models/exercise');
 const mongoose = require('mongoose');
 
 const createTestData = async () => {
-    const password = "password";
+    const password = 'password';
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
