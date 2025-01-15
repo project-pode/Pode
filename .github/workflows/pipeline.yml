@@ -13,6 +13,7 @@ jobs:
         part: [frontend, backend] # runs both in frontend and backend directories
     env:
       TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}  # Use the secret for the test database URI
+      SECRET: ${{ secrets.SECRET }} # Use the secret for the JWT secret
     steps:
       - uses: actions/checkout@v4 # get the code
       - uses: actions/setup-node@v4 # set up node
