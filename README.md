@@ -1,6 +1,9 @@
 # Pode project
 
 ## Guide for developers (Initial set-up)
+
+### Be sure to have the newest Node.js version installed!
+
 Start by setting up env variables in .env file, both in frontend and backend. 
 Use .env.template as template for variables. 
 
