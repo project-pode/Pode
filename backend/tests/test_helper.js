@@ -5,7 +5,28 @@ const Lesson = require('../models/lesson');
 const Exercise = require('../models/exercise');
 const mongoose = require('mongoose');
 
-const createTestData = async () => {
+const createTestLesson = async () => {
+    const lesson = new Lesson({ title: 'Test Lesson' });
+    await lesson.save();
+    const lessonId = lesson._id;
+
+    return { lesson, lessonId };
+};
+
+const createTestLessonWithExercise = async () => {
+    const { lesson, lessonId } = await createTestLesson();
+    const exercise = new Exercise({ title: 'Test Exercise', lesson: lessonId });
+    await exercise.save();
+    const exerciseId = exercise._id;
+
+    lesson.exercises.push(exercise);
+    await lesson.save();
+
+    return { lessonId, exerciseId };
+};
+
+const createTestUser = async () => {
+    await User.deleteMany({});
     const password = 'password';
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
@@ -18,22 +39,10 @@ const createTestData = async () => {
         username: user.username,
         id: userId,
     };
-
-    const lesson = new Lesson({ title: 'Test Lesson' });
-    await lesson.save();
-    const lessonId = lesson._id;
-
-    const exercise = new Exercise({ title: 'Test Exercise', lesson: lessonId });
-    await exercise.save();
-    const exerciseId = exercise._id;
-
-    lesson.exercises.push(exercise);
-    await lesson.save();
-
     const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: 60 * 60 });
-
-    return { userId, lessonId, exerciseId, token };
+    return { userId, token };
 };
+
 
 const cleanupDatabase = async () => {
     await User.deleteMany({});
@@ -43,6 +52,8 @@ const cleanupDatabase = async () => {
 };
 
 module.exports = {
-    createTestData,
+    createTestLesson,
+    createTestLessonWithExercise,
+    createTestUser,
     cleanupDatabase,
 };

@@ -1,7 +1,7 @@
 const app = require('../app');
-const mongoose = require('mongoose');
 const User = require('../models/user');
 const supertest = require('supertest');
+const { cleanupDatabase } = require('./test_helper');
 const api = supertest(app);
 
 describe('Users API', () => {
@@ -10,8 +10,7 @@ describe('Users API', () => {
     });
 
     afterAll(async () => {
-        await User.deleteMany({});
-        await mongoose.connection.close();
+        await cleanupDatabase();
     });
 
     test('should create a new user with valid data', async () => {

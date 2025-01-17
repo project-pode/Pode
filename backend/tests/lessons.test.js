@@ -1,11 +1,7 @@
 const app = require('../app');
-const mongoose = require('mongoose');
-const Lesson = require('../models/lesson');
-const User = require('../models/user');
 const supertest = require('supertest');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const api = supertest(app);
+const { createTestUser, cleanupDatabase, createTestLesson } = require('./test_helper');
 
 describe('Lessons API', () => {
     let lessonId;
@@ -13,31 +9,15 @@ describe('Lessons API', () => {
     let token = null;
 
     beforeAll(async () => {
-        const password = 'password';
-        const saltRounds = 10;
-        const passwordHash = await bcrypt.hash(password, saltRounds);
-
-        const user = new User({ username: 'testuser', passwordHash });
-        await user.save();
-        userId = user._id;
-
-        const userForToken = {
-            username: user.username,
-            id: userId,
-        };
-
-        const lesson = new Lesson({ title: 'Test Lesson' });
-        await lesson.save();
-        lessonId = lesson._id;
-
-        token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: 60 * 60 });
+        const lesson = await createTestLesson();
+        const user = await createTestUser();
+        userId = user.userId;
+        lessonId = lesson.lessonId;
+        token = user.token;
     });
 
     afterAll(async () => {
-        // Clean up the test database
-        await User.deleteMany({});
-        await Lesson.deleteMany({});
-        await mongoose.connection.close();
+        await cleanupDatabase();
     });
 
     test('should get all lessons for a user', async () => {

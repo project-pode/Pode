@@ -1,6 +1,6 @@
 const app = require('../app');
 const supertest = require('supertest');
-const { createTestData, cleanupDatabase } = require('./test_helper');
+const { createTestUser, cleanupDatabase, createTestLessonWithExercise } = require('./test_helper');
 const api = supertest(app);
 
 describe('Exercises API', () => {
@@ -10,11 +10,12 @@ describe('Exercises API', () => {
     let token = null;
 
     beforeAll(async () => {
-        const result = await createTestData();
-        userId = result.userId;
-        lessonId = result.lessonId;
-        token = result.token;
-        exerciseId = result.exerciseId;
+        const lesson = await createTestLessonWithExercise();
+        const user = await createTestUser();
+        userId = user.userId;
+        lessonId = lesson.lessonId;
+        token = user.token;
+        exerciseId = lesson.exerciseId;
     });
 
     afterAll(async () => {
