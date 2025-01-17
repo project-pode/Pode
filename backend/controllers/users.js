@@ -68,5 +68,16 @@ usersRouter.get('/:id', async (request, response) => {
   }
 });
 
+usersRouter.put('/:id', async (request, response) => {
+  const user = request.user;
+  if (user) {
+    user.avatar = request.body.avatar;
+
+    const updatedUser = await user.save();
+    response.json(updatedUser);
+  } else {
+    response.status(404).end();
+  }
+});
 
 module.exports = usersRouter;

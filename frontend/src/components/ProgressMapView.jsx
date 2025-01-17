@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 });
 
 
-const ProgressMapView = ({ onLogout }) => {
+const ProgressMapView = () => {
   const navigate = useNavigate();
   const [lessons, setLessons] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
@@ -64,8 +64,7 @@ const ProgressMapView = ({ onLogout }) => {
 
   // Works as temporary logout button until profile view is implemented
   const HandleProfilePress = () => {
-    onLogout();
-    navigate('/');
+    navigate(`/users/${userId}/profile`);
   };
 
   const HandleSettingsPress = () => {

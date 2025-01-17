@@ -19,4 +19,10 @@ const create = async newObject => {
   return response.data;
 };
 
-export default { getAll, create, getOne };
+const updateAvatar = async (userId, avatar) => {
+  const config = tokenService.getConfig();
+  const response = await axios.put(`${apiBaseUrl}/users/${userId}`, { avatar }, config);
+  return response.data;
+};
+
+export default { getAll, create, getOne, updateAvatar };

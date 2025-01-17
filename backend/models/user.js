@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   },
   name: String,
   passwordHash: String,
+  avatar: String,
   completedLessons: [
     {
       type: mongoose.Schema.Types.ObjectId,

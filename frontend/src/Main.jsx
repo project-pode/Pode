@@ -14,6 +14,7 @@ import WelcomeView from './components/WelcomeView';
 import ProgressMapView from './components/ProgressMapView';
 import LessonOverview from './components/LessonOverview';
 import StartView from './components/StartView';
+import ProfileView from './components/ProfileView';
 
 const styles = StyleSheet.create({
   container: {
@@ -91,6 +92,7 @@ const Main = () => {
   const handleLogout = () => {
     authStorage.removeUser();
     setUser(null);
+    navigate("/");
   };
   return (
     <View style={styles.container}>
@@ -103,7 +105,8 @@ const Main = () => {
         <Route path="/" element={<StartView user={user} />} />
         <Route path="/home" element={<WelcomeView user={user} onLogout={handleLogout} />} />
         <Route path="/signUp" element={<SignUp onSignUp={handleSignUp} />} />
-        <Route path="/users/:userId/lessons" element={<ProgressMapView onLogout={handleLogout} />} />
+        <Route path="/users/:userId/profile" element={<ProfileView onLogout={handleLogout} />} />
+        <Route path="/users/:userId/lessons" element={<ProgressMapView/>} />
         <Route path="/users/:userId/lessons/:lessonId" element={<LessonView />} />
         <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView />} />
         <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview user={user} />} />
