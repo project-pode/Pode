@@ -26,7 +26,7 @@ const SingleExerciseView = () => {
             const lesson = await lessonService.getLesson(userId, lessonId);
             setLesson(lesson);
         };
-        
+
         fetchLesson();
         fetchExercise();
     }, [userId, lessonId, exerciseId]);
@@ -53,14 +53,14 @@ const SingleExerciseView = () => {
             setFeedback('Please select an answer before completing the exercise.');
             return;
         }
-    
+
         const correctAnswer = exercise.correctAnswer;
         const isCorrectAnswerArray = Array.isArray(correctAnswer);
         const isAnswerCorrect = isCorrectAnswerArray
             ? selectedAnswer.length === correctAnswer.length &&
-              selectedAnswer.every((val, index) => val === correctAnswer[index])
+            selectedAnswer.every((val, index) => val === correctAnswer[index])
             : selectedAnswer === correctAnswer;
-    
+
         if (isAnswerCorrect) {
             try {
                 await exerciseService.completeExercise(userId, lessonId, exerciseId);
@@ -72,9 +72,9 @@ const SingleExerciseView = () => {
             }
         } else {
             setFeedback('Incorrect answer. Please try again.');
-            boxExerciseRef.current?.resetAnimations();
-            setSelectedAnswer([]);
         }
+        boxExerciseRef.current?.resetAnimations();
+        setSelectedAnswer([]);
     };
 
     const handleNextExercise = () => {
@@ -94,8 +94,8 @@ const SingleExerciseView = () => {
     return (
         <View style={theme.blueContainer}>
             <View style={theme.whiteContainerExercises}>
-            {/*<Text style={styles.title}>Title: {exercise.title}</Text> */}
-            <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                <Text style={theme.exerciseDescription}> {exercise.title}</Text>
+                <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
                     exercise={exercise}
                     selectedAnswer={selectedAnswer}
@@ -103,16 +103,16 @@ const SingleExerciseView = () => {
                     boxExerciseRef={boxExerciseRef}
                 />
             </View>
-            
-                <Pressable
-                    onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                    style={theme.greenButton}
-                >
-                    <Text style={theme.greenButtonText}>
-                        {isExerciseComplete ? 'Next Exercise' : 'Check'}
-                    </Text>
-                </Pressable>
-            
+
+            <Pressable
+                onPress={isExerciseComplete ? handleNextExercise : handleComplete}
+                style={theme.greenButton}
+            >
+                <Text style={theme.greenButtonText}>
+                    {isExerciseComplete ? 'Next Exercise' : 'Check'}
+                </Text>
+            </Pressable>
+
             {feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}
         </View>
     );
