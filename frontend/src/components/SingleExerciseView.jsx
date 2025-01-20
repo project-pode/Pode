@@ -5,6 +5,7 @@ import exerciseService from '../services/exercises';
 import theme from '../theme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
+import FeedbackPopUp from "./FeedbackPopUp";
 
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
@@ -16,6 +17,7 @@ const SingleExerciseView = () => {
     const navigate = useNavigate();
     const boxExerciseRef = useRef();
     const [index, setIndex] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -37,6 +39,10 @@ const SingleExerciseView = () => {
                 <Text>No exercise found</Text>
             </View>
         );
+    }
+
+    const closePopUp = () => {
+        setShowPopup(false);
     }
 
     const handleCompleteLesson = async (completedExercises) => {
@@ -65,13 +71,16 @@ const SingleExerciseView = () => {
             try {
                 await exerciseService.completeExercise(userId, lessonId, exerciseId);
                 setFeedback('Correct answer! Exercise completed.');
+                setShowPopup(true);
                 setIsExerciseComplete(true);
             } catch (error) {
                 console.error('Error completing exercise:', error);
                 setFeedback('An error occurred while completing the exercise.');
+                setShowPopup(true);
             }
         } else {
             setFeedback('Incorrect answer. Please try again.');
+            setShowPopup(true);
         }
         boxExerciseRef.current?.resetAnimations();
         setSelectedAnswer([]);
@@ -103,7 +112,11 @@ const SingleExerciseView = () => {
                     boxExerciseRef={boxExerciseRef}
                 />
             </View>
-
+                <FeedbackPopUp
+                    visible={showPopup}
+                    message={feedback}
+                    onClose={closePopUp}
+                />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
                 style={theme.greenButton}
@@ -112,8 +125,8 @@ const SingleExerciseView = () => {
                     {isExerciseComplete ? 'Next Exercise' : 'Check'}
                 </Text>
             </Pressable>
-
-            {feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}
+                
+            {/*{feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}*/}
         </View>
     );
 };
