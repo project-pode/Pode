@@ -18,6 +18,7 @@ const SingleExerciseView = () => {
     const boxExerciseRef = useRef();
     const [index, setIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
+    const [isCorrectPopup, setIsCorrectPopup] = useState(false);
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -43,6 +44,7 @@ const SingleExerciseView = () => {
 
     const closePopUp = () => {
         setShowPopup(false);
+        
     }
 
     const handleCompleteLesson = async (completedExercises) => {
@@ -70,16 +72,18 @@ const SingleExerciseView = () => {
         if (isAnswerCorrect) {
             try {
                 await exerciseService.completeExercise(userId, lessonId, exerciseId);
-                setFeedback('Correct answer! Exercise completed.');
+                setFeedback('Correct answer!\nExercise completed.');
+                setIsCorrectPopup(true)
                 setShowPopup(true);
                 setIsExerciseComplete(true);
+
             } catch (error) {
                 console.error('Error completing exercise:', error);
                 setFeedback('An error occurred while completing the exercise.');
-                setShowPopup(true);
             }
         } else {
-            setFeedback('Incorrect answer. Please try again.');
+            setFeedback('Incorrect answer.\nPlease try again.');
+            setIsCorrectPopup(false);
             setShowPopup(true);
         }
         boxExerciseRef.current?.resetAnimations();
@@ -113,9 +117,11 @@ const SingleExerciseView = () => {
                 />
             </View>
                 <FeedbackPopUp
+                    isAnswerCorrect={isCorrectPopup}
                     visible={showPopup}
                     message={feedback}
                     onClose={closePopUp}
+                    
                 />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}

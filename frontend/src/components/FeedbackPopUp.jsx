@@ -1,17 +1,23 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Modal } from 'react-native';
+import { View, Text, StyleSheet, Modal, Image} from 'react-native';
 
-const FeedbackPopUp = ({ visible, message, onClose }) => {
+const FeedbackPopUp = ({ visible, message, onClose, isAnswerCorrect}) => {
     useEffect(() => {
         let timer;
         if (visible) {
             timer = setTimeout(() => {
                 onClose();
-            }, 3000); // 3000 milliseconds = 3 seconds
+            }, 2000); // 2000 milliseconds = 2 seconds
         }
 
         return () => clearTimeout(timer);
-    }, [visible]);
+    }, [visible])
+
+    const popUpStyle =
+        isAnswerCorrect ? styles.popUpCorrect : styles.popUpIncorrect;
+
+    const popUpMessageStyle =
+        isAnswerCorrect ? styles.popUpMessageCorrect : styles.popUpMessageIncorrect;
 
     return (
         <Modal
@@ -21,8 +27,8 @@ const FeedbackPopUp = ({ visible, message, onClose }) => {
             onRequestClose={onClose} // Prevent error if the back button is pressed
         >
             <View style={styles.overlay}>
-                <View style={styles.popup}>
-                    <Text style={styles.message}>{message}</Text>
+                <View style={popUpStyle}>
+                <Text style={popUpMessageStyle}>{message}</Text>
                 </View>
             </View>
         </Modal>
@@ -36,16 +42,35 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    popup: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        alignItems: 'center',
+    popUpCorrect: {
+        margin: 20,
+        padding: 30,
+        backgroundColor: "#84DC95",
+        borderRadius: 33,
+        borderWidth: 6,
+        borderColor: "#4A8055",
     },
-    message: {
-        fontSize: 16,
-        textAlign: 'center',
+    popUpMessageCorrect: {
+        color: "#4A8055",
+        fontSize: 20,
+        textAlign: "center",
+        fontFamily: "AlfaSlabOne",
     },
+    popUpIncorrect: {
+        margin: 20,
+        padding: 30,
+        backgroundColor: "#dc8484",
+        borderRadius: 33,
+        borderWidth: 6,
+        borderColor: "#804a4a",
+    },
+    popUpMessageIncorrect: {
+        color: "#804a4a",
+        fontSize: 20,
+        textAlign: "center",
+        fontFamily: "AlfaSlabOne",
+    },
+
 });
 
 export default FeedbackPopUp;
