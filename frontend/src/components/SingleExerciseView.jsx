@@ -19,7 +19,6 @@ const SingleExerciseView = () => {
     const [index, setIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const [isCorrectPopup, setIsCorrectPopup] = useState(false);
-    const [isEmpty, setIsEmpty] = useState(true);
 
     useEffect(() => {
         const fetchExercise = async () => {
