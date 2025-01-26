@@ -1,7 +1,3 @@
-import { Dimensions} from "react-native";
-
-const {} = Dimensions.get('window');
-
 const theme = {
     blueContainer: {  // Theme used in: LessonView
         flexGrow: 1,

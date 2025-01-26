@@ -1,9 +1,5 @@
-import { Dimensions} from "react-native";
-
-const {} = Dimensions.get('window');
-
 const PopUpTheme = {
-
+    pass
 };
 
 export default PopUpTheme;

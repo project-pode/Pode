@@ -1,7 +1,3 @@
-import { Dimensions} from "react-native";
-
-const {} = Dimensions.get('window');
-
 const theme = {
     blankBox: {
         backgroundColor: 'rgba(161,161,161,255)',
@@ -33,15 +29,6 @@ const theme = {
         borderWidth: 7,
         alignContent: "left",
         padding: 10,
-      },
-      notBlankBox: {
-        backgroundColor: "rgba(230,230,230,255)",
-        borderRadius: 20,
-        padding: 12,
-        margin: 5,
-        minWidth: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
       },
       notBlankBox: {
         backgroundColor: "rgba(230,230,230,255)",

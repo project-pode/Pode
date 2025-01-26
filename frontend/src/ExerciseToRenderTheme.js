@@ -1,7 +1,3 @@
-import { Dimensions } from "react-native";
-
-const { } = Dimensions.get('window');
-
 const theme = {
       pinkContainerInDropdownView: {
         marginHorizontal: 18, 

@@ -1,9 +1,5 @@
-import { Dimensions } from "react-native";
-
-const {} = Dimensions.get('window');
-
 const theme = {
-
+    pass
 };
 
 export default theme;
