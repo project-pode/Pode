@@ -86,9 +86,10 @@ const SingleExerciseView = () => {
             setFeedback('Incorrect answer.\nPlease try again.');
             setIsCorrectPopup(false);
             setShowPopup(true);
+            boxExerciseRef.current?.resetAnimations();
+            setSelectedAnswer([]);
         }
-        boxExerciseRef.current?.resetAnimations();
-        setSelectedAnswer([]);
+
     };
 
     const handleNextExercise = () => {
