@@ -128,7 +128,7 @@ const SingleExerciseView = () => {
                 style={theme.greenButton}
             >
                 <Text style={theme.greenButtonText}>
-                    {isExerciseComplete ? 'Next Exercise' : 'Check'}
+                    {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>
                 
