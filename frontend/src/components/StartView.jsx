@@ -1,7 +1,7 @@
 import { Pressable, View, Text, ImageBackground } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useEffect } from "react";
-import theme from "../theme";
+import theme from "../themes/StartViewTheme";
 
 const StartView = ({user}) => {
     const navigate = useNavigate();
