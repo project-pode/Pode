@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
-import theme from '../theme';
+import theme from '../themes/SingleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
@@ -22,6 +22,7 @@ const SingleExerciseView = () => {
     const [isCorrectPopup, setIsCorrectPopup] = useState(false);
     const correctSound = useRef(new Audio.Sound()); // Create a ref for the correct sound
     const incorrectSound = useRef(new Audio.Sound()); // Create a ref for the incorrect sound
+
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -145,9 +146,9 @@ const SingleExerciseView = () => {
             />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={theme.greenButton}
+                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
             >
-                <Text style={theme.greenButtonText}>
+                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>
