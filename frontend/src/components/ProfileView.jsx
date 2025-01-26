@@ -59,7 +59,7 @@ const ProfileView = ({ onLogout }) => {
 
     const renderAvatar = (avatarName) => {
         const avatar = avatars.find(a => a.name === avatarName);
-        return avatar ? <Image source={avatar.source} style={styles.profileImage} /> : null;
+        return avatar ? <Image source={avatar.source} style={styles.profileImage} testID={`avatar-${avatarName}`} /> : null; // Add testID for testing
     };
 
     if (!user) {
@@ -82,6 +82,7 @@ const ProfileView = ({ onLogout }) => {
                                 styles.avatar,
                                 selectedAvatar === avatar.name && styles.selectedAvatar
                             ]}
+                            testID={`avatar-${avatar.name}`} // Add testID for testing
                         />
                     </Pressable>
                 ))}
