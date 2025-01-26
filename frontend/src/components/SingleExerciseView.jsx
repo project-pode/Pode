@@ -23,6 +23,7 @@ const SingleExerciseView = () => {
     const correctSound = useRef(new Audio.Sound()); // Create a ref for the correct sound
     const incorrectSound = useRef(new Audio.Sound()); // Create a ref for the incorrect sound
 
+
     useEffect(() => {
         const fetchExercise = async () => {
             const exercise = await exerciseService.getOne(userId, lessonId, exerciseId);
@@ -145,9 +146,9 @@ const SingleExerciseView = () => {
             />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={theme.greenButton}
+                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
             >
-                <Text style={theme.greenButtonText}>
+                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>
