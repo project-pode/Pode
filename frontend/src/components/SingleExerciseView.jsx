@@ -19,6 +19,7 @@ const SingleExerciseView = () => {
     const [index, setIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const [isCorrectPopup, setIsCorrectPopup] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(true);
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -125,9 +126,9 @@ const SingleExerciseView = () => {
                 />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={theme.greenButton}
+                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
             >
-                <Text style={theme.greenButtonText}>
+                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>
