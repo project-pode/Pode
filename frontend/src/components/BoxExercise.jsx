@@ -7,12 +7,27 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
     const boxLayouts = useRef([]); // Store layouts of boxes
     const dropZoneLayout = useRef(null); // Store layout of the drop zone
 
+    // Function to reset animations (can be called internally or externally)
+    const resetAnimationsInternal = () => {
+        animations.forEach((anim) => {
+            Animated.timing(anim, {
+                toValue: { x: 0, y: 0 },
+                duration: 300,
+                useNativeDriver: true,
+            }).start();
+        });
+        setSelectedAnswer([]);
+    };
+
     useEffect(() => {
-        // Update animations array when options change (e.g., when moving to an exercise with more options)
+        // Initialize animations array when options change
         animations.length = 0;
         options.forEach(() => {
             animations.push(new Animated.ValueXY({ x: 0, y: 0 }));
         });
+
+        // Reset animations when options change
+        resetAnimationsInternal();
     }, [options]);
 
     const handlePress = (box, index) => {
@@ -46,7 +61,6 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                 const boxWidth = boxLayouts.current[index].width;
 
                 const targetX = Math.min(dropZoneX + targetIndex * (boxWidth + 10), dropZoneLayout.current.width - boxWidth);
-
                 const targetY = dropZoneY;
 
                 const deltaX = targetX - boxX;
@@ -86,16 +100,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
     };
 
     useImperativeHandle(ref, () => ({
-        resetAnimations: () => {
-            animations.forEach((anim) => {
-                Animated.timing(anim, {
-                    toValue: { x: 0, y: 0 },
-                    duration: 300,
-                    useNativeDriver: true,
-                }).start();
-            });
-            setSelectedAnswer([]);
-        },
+        resetAnimations: resetAnimationsInternal,
     }));
 
     return (
@@ -146,22 +151,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    box: {
-        borderWidth: 1,
-        borderColor: '#333',
-        borderRadius: 8,
-        width: 80, // Fixed width
-        height: 40, // Fixed height
-        backgroundColor: '#f9f9f9',
-    },
     centeredContent: {
         flex: 1, // Fills the parent Pressable
         justifyContent: 'center', // Center content vertically
         alignItems: 'center', // Center content horizontally
-    },
-    boxText: {
-        fontSize: 16,
-        color: '#333',
     },
 });
 

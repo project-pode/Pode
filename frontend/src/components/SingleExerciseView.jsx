@@ -106,10 +106,13 @@ const SingleExerciseView = () => {
             setFeedback('Incorrect answer.\nPlease try again.');
             setIsCorrectPopup(false);
             setShowPopup(true);
+            boxExerciseRef.current?.resetAnimations();
+            setSelectedAnswer([]);
+
             await incorrectSound.current.replayAsync(); // Play the incorrect sound
+
         }
-        boxExerciseRef.current?.resetAnimations();
-        setSelectedAnswer([]);
+
     };
 
     const handleNextExercise = () => {

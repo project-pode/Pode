@@ -94,13 +94,16 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
     useImperativeHandle(ref, () => ({
         resetAnimations: () => {
             animations.forEach((anim) => {
-                anim.stopAnimation(() => {
-                    anim.setValue({ x: 0, y: 0 });
-                });
+                Animated.timing(anim, {
+                    toValue: { x: 0, y: 0 },
+                    duration: 300,
+                    useNativeDriver: true,
+                }).start();
             });
-
+    
+            // Reset blanks and measure layouts after animations are reset
             setBlanks(question.map((item) => (item === "blank" ? null : item)));
-
+    
             setTimeout(() => {
                 measureAllLayouts();
             }, 800); // Delay is used to prevent wonky layout calculations. Adjust as needed
