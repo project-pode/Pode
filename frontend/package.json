@@ -17,6 +17,7 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "expo": "^52.0.11",
+    "expo-av": "^15.0.2",
     "expo-splash-screen": "^0.29.9",
     "expo-status-bar": "~2.0.0",
     "formik": "^2.4.6",

@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
 import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
-import theme from '../theme';
+import theme from '../themes/ExerciseToRenderTheme';
 const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExerciseRef }) => {
     const renderExerciseType = () => {
         // Check if exercise is defined and has a type
