@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
+import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
-import theme from '../theme';
+import theme from '../themes/SingleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
@@ -20,6 +21,9 @@ const SingleExerciseView = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [isCorrectPopup, setIsCorrectPopup] = useState(false);
     const [isEmpty, setIsEmpty] = useState(true);
+    const correctSound = useRef(new Audio.Sound()); // Create a ref for the correct sound
+    const incorrectSound = useRef(new Audio.Sound()); // Create a ref for the incorrect sound
+
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -33,6 +37,24 @@ const SingleExerciseView = () => {
 
         fetchLesson();
         fetchExercise();
+
+        // Load the sound files
+        const loadSounds = async () => {
+            try {
+                await correctSound.current.loadAsync(require('../../assets/sounds/correct.mp3'));
+                await incorrectSound.current.loadAsync(require('../../assets/sounds/incorrect.mp3'));
+            } catch (error) {
+                console.error('Error loading sound files:', error);
+            }
+        };
+
+        loadSounds();
+
+        return () => {
+            // Unload the sound files when the component unmounts
+            correctSound.current.unloadAsync();
+            incorrectSound.current.unloadAsync();
+        };
     }, [userId, lessonId, exerciseId]);
 
     if (!exercise) {
@@ -45,7 +67,6 @@ const SingleExerciseView = () => {
 
     const closePopUp = () => {
         setShowPopup(false);
-        
     };
 
     const handleCompleteLesson = async (completedExercises) => {
@@ -77,7 +98,7 @@ const SingleExerciseView = () => {
                 setIsCorrectPopup(true);
                 setShowPopup(true);
                 setIsExerciseComplete(true);
-
+                await correctSound.current.replayAsync(); // Play the correct sound
             } catch (error) {
                 console.error('Error completing exercise:', error);
                 setFeedback('An error occurred while completing the exercise.');
@@ -86,6 +107,7 @@ const SingleExerciseView = () => {
             setFeedback('Incorrect answer.\nPlease try again.');
             setIsCorrectPopup(false);
             setShowPopup(true);
+            await incorrectSound.current.replayAsync(); // Play the incorrect sound
         }
         boxExerciseRef.current?.resetAnimations();
         setSelectedAnswer([]);
@@ -117,13 +139,12 @@ const SingleExerciseView = () => {
                     boxExerciseRef={boxExerciseRef}
                 />
             </View>
-                <FeedbackPopUp
-                    isAnswerCorrect={isCorrectPopup}
-                    visible={showPopup}
-                    message={feedback}
-                    onClose={closePopUp}
-                    
-                />
+            <FeedbackPopUp
+                isAnswerCorrect={isCorrectPopup}
+                visible={showPopup}
+                message={feedback}
+                onClose={closePopUp}
+            />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
                 style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
@@ -132,8 +153,6 @@ const SingleExerciseView = () => {
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>
-                
-            {/*{feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}*/}
         </View>
     );
 };

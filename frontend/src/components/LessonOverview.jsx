@@ -2,7 +2,7 @@ import { Pressable, Text, View, Image } from "react-native";
 import { useNavigate, useParams, useLocation } from "react-router-native";
 import lessonService from "../services/lessons";
 import { useState, useEffect } from "react";
-import theme from "../theme";
+import theme from "../themes/LessonOverviewTheme";
 
 const LessonOverview = () => {
     const [lesson, setLesson] = useState(null);

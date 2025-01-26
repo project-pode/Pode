@@ -1,5 +1,5 @@
 import { View, ImageBackground, Pressable, Text, ScrollView, StyleSheet } from "react-native";
-import theme from "../theme";
+import theme from "../themes/ProgressMapViewTheme";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import { useNavigate, useParams } from "react-router-native";
