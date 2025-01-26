@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
-import theme from '../theme';
+import theme from '../themes/SingleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
