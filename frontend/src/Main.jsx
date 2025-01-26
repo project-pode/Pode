@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-native';
 import { useEffect, useState } from 'react';
 import userService from "./services/users";
 import SignIn from './components/SignIn';
-import theme from './theme';
+import theme from './deprecated/theme';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import SignUp from './components/SignUp';
