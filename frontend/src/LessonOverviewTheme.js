@@ -57,14 +57,6 @@ const theme = {
         borderRadius: 25, // Matches the parent for consistent pill shape
         backgroundColor: '#84DC95', // Fill color
       },
-      lessonOverviewDescription: {
-        color: "rgba(75,113,123,1)",
-        fontSize: 18,
-        textAlign: "center",
-        paddingVertical: 10,
-        fontFamily: "AlfaSlabOne",
-        lineHeight: 24,
-      },
       podeContainerInLessonView: {
         width: 134,
         height: 200,
@@ -92,9 +84,6 @@ const theme = {
         textAlign: "center",
         fontSize: 45,
         padding: 10,
-      },
-      emptySpaceFiller: {
-        marginHorizontal: 50,
       },
       podeIconInLessonView: {
         height: 200,
