@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
-import theme from '../theme';
+import theme from '../BoxExerciseTheme';
 
 const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef([]).current;

@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
-import theme from "../theme";
+import theme from "../DropdownFormTheme";
 
 const DropdownForm = ({ options, setSelectedAnswer }) => {
     // Format options for SelectList (it requires array of objects with `key` and `value`)

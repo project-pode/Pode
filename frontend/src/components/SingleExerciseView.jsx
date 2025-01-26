@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import exerciseService from '../services/exercises';
-import theme from '../theme';
+import theme from '../SingleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
