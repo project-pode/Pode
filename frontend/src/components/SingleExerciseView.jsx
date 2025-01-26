@@ -45,7 +45,7 @@ const SingleExerciseView = () => {
     const closePopUp = () => {
         setShowPopup(false);
         
-    }
+    };
 
     const handleCompleteLesson = async (completedExercises) => {
         try {
@@ -73,7 +73,7 @@ const SingleExerciseView = () => {
             try {
                 await exerciseService.completeExercise(userId, lessonId, exerciseId);
                 setFeedback('Correct answer!\nExercise completed.');
-                setIsCorrectPopup(true)
+                setIsCorrectPopup(true);
                 setShowPopup(true);
                 setIsExerciseComplete(true);
 

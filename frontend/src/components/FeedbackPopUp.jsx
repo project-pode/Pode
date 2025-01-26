@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Modal, Image} from 'react-native';
+import { View, Text, StyleSheet, Modal} from 'react-native';
 
 const FeedbackPopUp = ({ visible, message, onClose, isAnswerCorrect}) => {
     useEffect(() => {
@@ -11,7 +11,7 @@ const FeedbackPopUp = ({ visible, message, onClose, isAnswerCorrect}) => {
         }
 
         return () => clearTimeout(timer);
-    }, [visible])
+    }, [visible]);
 
     const popUpStyle =
         isAnswerCorrect ? styles.popUpCorrect : styles.popUpIncorrect;
