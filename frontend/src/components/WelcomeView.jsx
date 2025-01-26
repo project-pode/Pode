@@ -1,6 +1,6 @@
 import { Pressable, View, Text, ImageBackground } from "react-native";
 import { useNavigate } from "react-router-native";
-import theme from "../WelcomeViewTheme";
+import theme from "../themes/WelcomeViewTheme";
 
 const WelcomeView = ({ user, onLogout }) => {
     const navigate = useNavigate();
