@@ -40,7 +40,20 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
       },
-    
+      greenButtonDeselected: {
+        margin: 20,
+        padding: 10,
+        backgroundColor: "#C2D6C6",
+        borderRadius: 33,
+        borderWidth: 6,
+        borderColor: "#A2B1A5",
+      },    
+      greenButtonTextDeselected: {
+        color: "#A2B1A5",
+        fontSize: 45,
+        textAlign: "center",
+        fontFamily: "AlfaSlabOne",
+      },
 };
 
 export default theme;
