@@ -55,7 +55,7 @@ const LessonView = () => {
     return (
         <View style = {theme.blueContainer}>
             <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
-                <MaterialIcons name="close" size={40}></MaterialIcons>
+                <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
             </Pressable>
             <View style = {theme.whiteContainer} >
                 <View style = {theme.pinkContainerSansBorder}> 
