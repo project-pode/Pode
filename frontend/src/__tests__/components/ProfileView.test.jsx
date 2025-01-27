@@ -5,14 +5,6 @@ import { MemoryRouter, Route, Routes } from 'react-router-native';
 
 jest.mock('../../services/users');
 
-jest.mock('expo-constants', () => ({
-    expoConfig: {
-        extra: {
-            API_URL: 'http://mock-api-url.com'
-        }
-    }
-}));
-
 const mockUser = {
     id: '1',
     username: 'testuser',

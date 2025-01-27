@@ -2,21 +2,6 @@ import { render, waitFor, screen } from '@testing-library/react-native';
 import LessonView from '../../components/LessonView';
 import { MemoryRouter } from 'react-router-native';
 import lessonService from '../../services/lessons';
-import { Text } from 'react-native';
-
-const MockMaterialIcons = (props) => <Text>{props.name}</Text>;
-
-jest.mock('@expo/vector-icons', () => ({
-    MaterialIcons: MockMaterialIcons,
-}));
-
-jest.mock('expo-constants', () => ({
-    expoConfig: {
-        extra: {
-            API_URL: 'http://mock-api-url.com'
-        }
-    }
-}));
 
 jest.mock('expo-asset', () => ({
     Asset: {
