@@ -2,8 +2,13 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import ProfileView from '../../components/ProfileView';
 import userService from '../../services/users';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
+import { useNavigate } from 'react-router-native';
 
 jest.mock('../../services/users');
+jest.mock('react-router-native', () => ({
+    ...jest.requireActual('react-router-native'),
+    useNavigate: jest.fn(),
+}));
 
 const mockUser = {
     id: '1',
@@ -16,12 +21,17 @@ userService.updateAvatar.mockResolvedValue({});
 
 describe('ProfileView', () => {
     const onLogoutMock = jest.fn();
+    const navigateMock = jest.fn();
+
+    beforeEach(() => {
+        useNavigate.mockReturnValue(navigateMock);
+    });
 
     const renderComponent = () => {
         return render(
-            <MemoryRouter initialEntries={['/profile/1']}>
+            <MemoryRouter initialEntries={['/users/1/profile']}>
                 <Routes>
-                    <Route path="/profile/:userId" element={<ProfileView onLogout={onLogoutMock} />} />
+                    <Route path="/users/:userId/profile" element={<ProfileView onLogout={onLogoutMock} />} />
                 </Routes>
             </MemoryRouter>
         );
@@ -48,7 +58,7 @@ describe('ProfileView', () => {
         const { getByText, getByTestId } = renderComponent();
         await waitFor(() => getByText('testuser'));
         const avatar2 = getByTestId('avatar-avatar2');
-        fireEvent.press(avatar2); // Select second avatar
+        fireEvent.press(avatar2);
         fireEvent.press(getByText('Update avatar'));
         await waitFor(() => expect(userService.updateAvatar).toHaveBeenCalledWith('1', 'avatar2'));
     });
@@ -57,6 +67,6 @@ describe('ProfileView', () => {
         const { getByText } = renderComponent();
         await waitFor(() => getByText('testuser'));
         fireEvent.press(getByText('Go back'));
-        // Add your navigation assertion here
+        expect(navigateMock).toHaveBeenCalledWith('/users/1/lessons');
     });
 });
