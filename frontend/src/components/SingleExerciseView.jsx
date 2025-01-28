@@ -7,6 +7,8 @@ import theme from '../themes/SingleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
+import PopUp from "./PopUp";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
 
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
@@ -22,7 +24,20 @@ const SingleExerciseView = () => {
     const [isCorrectPopup, setIsCorrectPopup] = useState(false);
     const correctSound = useRef(new Audio.Sound()); // Create a ref for the correct sound
     const incorrectSound = useRef(new Audio.Sound()); // Create a ref for the incorrect sound
+    const [showCloseExercisePopup, setShowCloseExercisePopup] = useState(false);
 
+    const handleBackPress = () => {
+        setShowCloseExercisePopup(true);
+    };
+
+    const handleConfirm = () => {
+        setShowCloseExercisePopup(false);
+        navigate(`/users/${userId}/lessons`);
+    };
+
+    const handleCancel = () => {
+        setShowCloseExercisePopup(false);
+    };
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -131,6 +146,9 @@ const SingleExerciseView = () => {
 
     return (
         <View style={theme.blueContainer}>
+            <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
+                <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
+            </Pressable>
             <View style={theme.whiteContainerExercises}>
                 <Text style={theme.exerciseDescription}> {exercise.title}</Text>
                 <Text style={theme.exerciseDescription}>{exercise.description}</Text>
@@ -155,6 +173,12 @@ const SingleExerciseView = () => {
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>
+            <PopUp
+                visible={showCloseExercisePopup}
+                message="Are you sure you want to end this lesson?"
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+            />
         </View>
     );
 };

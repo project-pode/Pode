@@ -13,11 +13,11 @@ const PopUp = ({ visible, message, onConfirm, onCancel }) => {
                 <View style={styles.popup}>
                     <Text style={styles.message}>{message}</Text> {/* This is the message that will be displayed in the popup */}
                     <View style={styles.buttonContainer}>
-                        <Pressable style={styles.button} onPress={onCancel}>
-                            <Text style={styles.buttonText}>No</Text>
-                        </Pressable>
                         <Pressable style={styles.button} onPress={onConfirm}>
                             <Text style={styles.buttonText}>Yes</Text>
+                        </Pressable>
+                        <Pressable style={styles.button} onPress={onCancel}>
+                            <Text style={styles.buttonText}>No</Text>
                         </Pressable>
                     </View>
                 </View>
