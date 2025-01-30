@@ -64,7 +64,6 @@ const theme = {
     avatar: {
         width: 100,
         height: 100,
-        borderWidth: 2,
         borderWidth: 5,
         borderColor: 'rgba(75,113,123,1)',
         borderRadius: 75,
@@ -99,7 +98,6 @@ const theme = {
     modalContent: {
         width: '95%',
         backgroundColor: 'rgba(237,220,249,1)',
-        borderRadius: 10,
         position: 'relative',
         borderColor: "rgba(187,144,214,1)",
         borderRadius: 48,
@@ -122,5 +120,6 @@ const theme = {
         fontFamily: 'AlfaSlabOne',
     },
     
-}
+};
+
 export default theme;
