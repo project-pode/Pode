@@ -37,22 +37,17 @@ const ProfileView = ({ onLogout }) => {
 
     const handleAvatarSelect = async (avatar) => {
         try {
-            // Update avatar on the backend
             await userService.updateAvatar(userId, avatar.name);
 
-            // Update state with the new avatar
             setSelectedAvatar(avatar.name);
             setUser({ ...user, avatar: avatar.name });
 
-            // Close the modal
             setModalVisible(false);
         } catch (error) {
             console.error('Failed to update avatar:', error);
             alert('Failed to update avatar');
         }
     };
-
-    
 
     const handleLogoutPress = () => {
         onLogout();
@@ -67,11 +62,9 @@ const ProfileView = ({ onLogout }) => {
         return avatar ? <Image source={avatar.source} style={theme.profileImage} /> : null;
     };
 
-
     if (!user) {
         return <Text>Loading...</Text>;
     }
-
 
     return (
         <View style={theme.blueContainer}>
@@ -113,33 +106,35 @@ const ProfileView = ({ onLogout }) => {
                     <Pressable
                         onPress={() => setModalVisible(false)}
                         style={theme.closeButtonContainer} 
+                        testID="modal-close-button" 
                     >
                         <Text style={theme.closeButtonText}>X</Text>
                     </Pressable>
 
-                        
-                        <ScrollView vertical={true} style={{flex: 1}}>
-                            <View style={theme.avatarContainer}>
-                                {avatars.map((avatar, index) => (
-                                    <Pressable key={index} onPress={() => handleAvatarSelect(avatar)}>
-                                        <Image
-                                            source={avatar.source}
-                                            style={[
-                                                theme.avatar,
-                                                selectedAvatar === avatar.name && theme.selectedAvatar
-                                            ]}
-                                        />
-                                    </Pressable>
-                                ))}
-                            </View>
-                            </ScrollView>
-                        
+                    <ScrollView vertical={true} style={{flex: 1}}>
+                        <View style={theme.avatarContainer}>
+                            {avatars.map((avatar, index) => (
+                                <Pressable 
+                                    key={index} 
+                                    onPress={() => handleAvatarSelect(avatar)}
+                                    testID={`avatar-${avatar.name}`} 
+                                >
+                                    <Image
+                                        source={avatar.source}
+                                        style={[
+                                            theme.avatar,
+                                            selectedAvatar === avatar.name && theme.selectedAvatar
+                                        ]}
+                                    />
+                                </Pressable>
+                            ))}
+                        </View>
+                    </ScrollView>
                     </View>
                 </View>
             </Modal>
         </View>
     );
 };
-
 
 export default ProfileView;
