@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern",
-    "test": "jest"
+    "test": "jest",
+    "demo": "cross-env REACT_APP_USE_DEMO_SERVICE=true expo start --clear"
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.0",
@@ -35,6 +36,7 @@
     "@babel/eslint-parser": "^7.25.1",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.9.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-react": "^7.35.2",

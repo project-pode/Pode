@@ -1,0 +1,96 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "username": "testuser",
+            "password": "password",
+            "completedLessons": [],
+            "completedExercises": [],
+            "avatar": "avatar1"
+        }
+    ],
+    "lessons": [
+        {
+            "id": "1",
+            "title": "Lesson 1",
+            "description": "This is lesson 1",
+            "exercises": [
+                {
+                    "id": "1",
+                    "title": "Printing",
+                    "description": "This exercise tests your understanding of how Python handles strings",
+                    "correctAnswer": "1 + 2",
+                    "type": "simple",
+                    "options": [
+                        "3",
+                        "4",
+                        "1 + 2",
+                        "12"
+                    ],
+                    "question": "What will be displayed after running the code: print(\"1 + 2\")?",
+                    "lesson": "1"
+                },
+                {
+                    "id": "2",
+                    "title": "Printing",
+                    "description": "Fill in the blanks to complete the code to print 0 1 2 3 4",
+                    "correctAnswer": [
+                        ":",
+                        "i"
+                    ],
+                    "type": "blanks",
+                    "options": [
+                        "5",
+                        "4",
+                        "i",
+                        ":",
+                        "numbers"
+                    ],
+                    "question": [
+                        "for i in range(5)",
+                        "blank",
+                        "print",
+                        "blank",
+                        ")"
+                    ],
+                    "lesson": "1"
+                },
+                {
+                    "id": "3",
+                    "title": "Printing",
+                    "description": "Press the bubbles in the correct order to print the text “Hello world!…",
+                    "correctAnswer": [
+                        "print",
+                        "(\"Hello",
+                        "world!\")"
+                    ],
+                    "type": "box",
+                    "options": [
+                        "print",
+                        "(\"Hello",
+                        "world!\")"
+                    ],
+                    "lesson": "1"
+                }
+            ]
+        }
+    ],
+    "exercises": [
+        {
+            "id": "1",
+            "title": "Exercise 1",
+            "description": "This is exercise 1",
+            "correctAnswer": "1 + 2",
+            "type": "simple",
+            "options": [
+                "3",
+                "4",
+                "1 + 2",
+                "12"
+            ],
+            "question": "What will be displayed after running the code: print(\"1 + 2\")?",
+            "lesson": "1"
+        }
+    ]
+
+}
