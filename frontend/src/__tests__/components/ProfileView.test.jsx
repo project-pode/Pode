@@ -50,23 +50,22 @@ describe('ProfileView', () => {
     it('should call onLogout when logout button is pressed', async () => {
         const { getByText } = renderComponent();
         await waitFor(() => getByText('testuser'));
-        fireEvent.press(getByText('Logout'));
+        fireEvent.press(getByText('Log out'));
         expect(onLogoutMock).toHaveBeenCalled();
     });
 
-    it('should update avatar when an avatar is selected and update button is pressed', async () => {
+    it('should update avatar when an avatar is selected', async () => {
         const { getByText, getByTestId } = renderComponent();
         await waitFor(() => getByText('testuser'));
-        const avatar2 = getByTestId('avatar-avatar2');
+        const avatar2 = getByTestId('avatar-avatar2'); 
         fireEvent.press(avatar2);
-        fireEvent.press(getByText('Update avatar'));
         await waitFor(() => expect(userService.updateAvatar).toHaveBeenCalledWith('1', 'avatar2'));
     });
 
-    it('should navigate back when go back button is pressed', async () => {
+    it('should navigate back when back arrow button is pressed', async () => {
         const { getByText } = renderComponent();
         await waitFor(() => getByText('testuser'));
-        fireEvent.press(getByText('Go back'));
+        fireEvent.press(getByText('<'));
         expect(navigateMock).toHaveBeenCalledWith('/users/1/lessons');
     });
 });
