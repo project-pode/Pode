@@ -14,7 +14,7 @@ Database URI can be retrieved from admin
 Open up a terminal.\
 Navigate to frontend: ```cd frontend```\
 Run ```npm install```\
-Start app with ```npm start``` and choose platform\
+Start app with ```npm start``` and choose platform
 
 Sometimes changing the .env in frontend does not work and you may have to run command ```npx expo start --clear```
 
@@ -23,7 +23,7 @@ Sometimes changing the .env in frontend does not work and you may have to run co
 Open up an additional terminal.\
 Navigate to backend: ```cd backend```\
 Run ```npm install```\
-Start app with ```npm run dev```\
+Start app with ```npm run dev```
 
 If everything worked fine terminal should print Server running on Port... and connected to MongoDB
 
@@ -51,7 +51,7 @@ Commands, in order:
 Open up a terminal.\
 Navigate to frontend: ```cd frontend```\
 Run ```npm install```\
-Run ```npm run demo```\
+Run ```npm run demo```
 
 This app will use the data in the demoData.json-file. You are not able to login with any other accounts than the test account and you can not create new accounts.
 
