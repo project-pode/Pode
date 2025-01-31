@@ -59,7 +59,7 @@ const ProfileView = ({ onLogout }) => {
 
     const renderAvatar = (avatarName) => {
         const avatar = avatars.find(a => a.name === avatarName);
-        return avatar ? <Image source={avatar.source} style={theme.profileImage} /> : null;
+        return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar'/> : null;
     };
 
     if (!user) {
