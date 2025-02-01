@@ -29,7 +29,7 @@ describe('LessonOverview', () => {
         require('react-router-native').useNavigate.mockReturnValue(navigateMock);
     });
 
-    const renderComponent = (completedExercises = 2) => {
+    const renderComponent = () => {
         return render(
             <MemoryRouter initialEntries={['/users/1/lessons/1']}>
                 <Routes>
