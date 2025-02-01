@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Image, Pressable, Modal, ScrollView } from 'react-native';
 import { useParams, useNavigate } from "react-router-native";
 import userService from '../services/users';
+import theme from '../themes/ProfileViewTheme.js';
 
 const avatars = [
     { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
     { name: 'avatar2', source: require('../../assets/avatars/avatar2.png') },
     { name: 'avatar3', source: require('../../assets/avatars/avatar3.jpg') },
     { name: 'avatar4', source: require('../../assets/avatars/avatar4.jpg') },
-    { name: 'avatar5', source: require('../../assets/avatars/avatar5.jpg') }
+    { name: 'avatar5', source: require('../../assets/avatars/avatar5.jpg') },
+    { name: 'avatar6', source: require('../../assets/avatars/avatar6.jpg') },
 ];
 
 const ProfileView = ({ onLogout }) => {
     const [user, setUser] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false); 
     const { userId } = useParams();
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -31,21 +35,17 @@ const ProfileView = ({ onLogout }) => {
         fetchUser();
     }, [userId]);
 
-    const handleAvatarSelect = (avatar) => {
-        setSelectedAvatar(avatar.name);
-    };
+    const handleAvatarSelect = async (avatar) => {
+        try {
+            await userService.updateAvatar(userId, avatar.name);
 
-    const handleUpdateAvatar = async () => {
-        if (selectedAvatar) {
-            try {
-                await userService.updateAvatar(userId, selectedAvatar);
-                setUser({ ...user, avatar: selectedAvatar }); // Update the user state with the new avatar
-            } catch (error) {
-                console.error('Failed to update avatar:', error);
-                alert('Failed to update avatar');
-            }
-        } else {
-            alert('Please select an avatar');
+            setSelectedAvatar(avatar.name);
+            setUser({ ...user, avatar: avatar.name });
+
+            setModalVisible(false);
+        } catch (error) {
+            console.error('Failed to update avatar:', error);
+            alert('Failed to update avatar');
         }
     };
 
@@ -59,7 +59,7 @@ const ProfileView = ({ onLogout }) => {
 
     const renderAvatar = (avatarName) => {
         const avatar = avatars.find(a => a.name === avatarName);
-        return avatar ? <Image source={avatar.source} style={styles.profileImage} testID={`avatar-${avatarName}`} /> : null; // Add testID for testing
+        return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar'/> : null;
     };
 
     if (!user) {
@@ -67,75 +67,74 @@ const ProfileView = ({ onLogout }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Pressable onPress={handleBackPress} style={styles.logoutButton}><Text style={styles.logoutButtonText}>Go back</Text></Pressable>
+        <View style={theme.blueContainer}>
+            <View style={theme.whiteContainer}>
+                <Pressable onPress={handleBackPress} style={theme.arrowContainer}>
+                    <Text style={theme.arrow}>{"<"}</Text>
+                </Pressable>
+                
+                <View style={{ alignItems: 'center' }}>
+                    {renderAvatar(user.avatar)}
+                    <Text style={theme.name}>{user.username}</Text>
+                </View>
+                
+                <Pressable style={theme.profileViewButton}>
+                    <Text style={theme.profileViewButtonText}>Achievements</Text>
+                </Pressable>
+                
+                <Pressable
+                    onPress={() => setModalVisible(true)}
+                    style={theme.profileViewButton}
+                >
+                    <Text style={theme.profileViewButtonText}>Change profile picture</Text>
+                </Pressable>
 
-            <Text style={styles.name}>{user.username}</Text>
-            {renderAvatar(user.avatar)}
-
-            <View style={styles.avatarContainer}>
-                {avatars.map((avatar, index) => (
-                    <Pressable key={index} onPress={() => handleAvatarSelect(avatar)}>
-                        <Image
-                            source={avatar.source}
-                            style={[
-                                styles.avatar,
-                                selectedAvatar === avatar.name && styles.selectedAvatar
-                            ]}
-                            testID={`avatar-${avatar.name}`} // Add testID for testing
-                        />
-                    </Pressable>
-                ))}
+                <Pressable style={theme.profileViewButton} onPress={handleLogoutPress}>
+                    <Text style={theme.profileViewButtonText}>Log out</Text>
+                </Pressable>
             </View>
-            <Pressable onPress={handleUpdateAvatar} style={styles.logoutButton}><Text style={styles.logoutButtonText}>Update avatar</Text></Pressable>
 
-            <Pressable style={styles.logoutButton} onPress={handleLogoutPress}>
-                <Text style={styles.logoutButtonText}>Logout</Text>
-            </Pressable>
+            {/* Modal for avatar options */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)} 
+            >
+                <View style={theme.modalContainer}>
+                    <View style={theme.modalContent}>
+                    <Pressable
+                        onPress={() => setModalVisible(false)}
+                        style={theme.closeButtonContainer} 
+                        testID="modal-close-button" 
+                    >
+                        <Text style={theme.closeButtonText}>X</Text>
+                    </Pressable>
+
+                    <ScrollView vertical={true} style={{flex: 1}}>
+                        <View style={theme.avatarContainer}>
+                            {avatars.map((avatar, index) => (
+                                <Pressable 
+                                    key={index} 
+                                    onPress={() => handleAvatarSelect(avatar)}
+                                    testID={`avatar-${avatar.name}`} 
+                                >
+                                    <Image
+                                        source={avatar.source}
+                                        style={[
+                                            theme.avatar,
+                                            selectedAvatar === avatar.name && theme.selectedAvatar
+                                        ]}
+                                    />
+                                </Pressable>
+                            ))}
+                        </View>
+                    </ScrollView>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 20,
-    },
-    name: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    logoutButton: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: 'red',
-        borderRadius: 5,
-    },
-    logoutButtonText: {
-        color: 'white',
-        fontSize: 16,
-    },
-    avatarContainer: {
-        flexDirection: 'row',
-        gap: 10,
-    },
-    avatar: {
-        width: 100,
-        height: 100,
-        borderWidth: 2,
-        borderColor: 'transparent',
-    },
-    selectedAvatar: {
-        borderColor: 'blue',
-    },
-});
 
 export default ProfileView;

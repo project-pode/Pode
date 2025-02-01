@@ -3,7 +3,8 @@ import ProfileView from '../../components/ProfileView';
 import userService from '../../services/users';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
 import { useNavigate } from 'react-router-native';
-
+import theme from '../../themes/ProfileViewTheme';
+                                                                                                                                                        
 jest.mock('../../services/users');
 jest.mock('react-router-native', () => ({
     ...jest.requireActual('react-router-native'),
@@ -50,23 +51,49 @@ describe('ProfileView', () => {
     it('should call onLogout when logout button is pressed', async () => {
         const { getByText } = renderComponent();
         await waitFor(() => getByText('testuser'));
-        fireEvent.press(getByText('Logout'));
+        fireEvent.press(getByText('Log out'));
         expect(onLogoutMock).toHaveBeenCalled();
     });
 
-    it('should update avatar when an avatar is selected and update button is pressed', async () => {
+    it('should open modal when "Change profile picture" button is pressed', async () => {
         const { getByText, getByTestId } = renderComponent();
         await waitFor(() => getByText('testuser'));
-        const avatar2 = getByTestId('avatar-avatar2');
-        fireEvent.press(avatar2);
-        fireEvent.press(getByText('Update avatar'));
-        await waitFor(() => expect(userService.updateAvatar).toHaveBeenCalledWith('1', 'avatar2'));
+        fireEvent.press(getByText('Change profile picture'));
+        expect(getByTestId('modal-close-button')).toBeTruthy();
+    });
+    
+    it('should close modal when close button is pressed', async () => {
+        const { getByText, getByTestId, queryByTestId } = renderComponent();
+        await waitFor(() => getByText('testuser'));
+        fireEvent.press(getByText('Change profile picture'));
+        fireEvent.press(getByTestId('modal-close-button'));
+        await waitFor(() => expect(queryByTestId('modal-close-button')).toBeNull());
+    });
+    
+    it('should display avatars in modal', async () => {
+        const { getByText, getByTestId } = renderComponent();
+        await waitFor(() => getByText('testuser'));
+        fireEvent.press(getByText('Change profile picture'));
+        await waitFor(() => {
+            expect(getByTestId('avatar-avatar1')).toBeTruthy();
+        });
     });
 
-    it('should navigate back when go back button is pressed', async () => {
+    it('should update avatar when a new avatar is selected', async () => {
+        const { getByText, getByTestId } = renderComponent();
+        await waitFor(() => getByText('testuser'));
+        fireEvent.press(getByText('Change profile picture'));
+        expect(getByTestId('modal-close-button')).toBeTruthy();
+        await waitFor(() => getByTestId('avatar-avatar2')); //the avatar to select
+        fireEvent.press(getByTestId('avatar-avatar2'));
+        await waitFor(() => expect(userService.updateAvatar).toHaveBeenCalledWith('1', 'avatar2'));
+        expect(getByTestId('avatar')).toHaveStyle(theme.selectedAvatar); //the profile pic avatar
+    });
+
+    it('should navigate back when back arrow button is pressed', async () => {
         const { getByText } = renderComponent();
         await waitFor(() => getByText('testuser'));
-        fireEvent.press(getByText('Go back'));
+        fireEvent.press(getByText('<'));
         expect(navigateMock).toHaveBeenCalledWith('/users/1/lessons');
     });
 });

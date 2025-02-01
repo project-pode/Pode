@@ -1,13 +1,21 @@
-let token = null;
-let config = null;
+import Constants from 'expo-constants';
 
-const setToken = (newToken) => {
-  token = `Bearer ${newToken}`;
-  config = {
-    headers: { Authorization: token },
-  };
-};
+const useDemoService = Constants.expoConfig.extra.USE_DEMO_SERVICE;
 
-const getConfig = () => config;
+const tokenService = useDemoService
+  ? require('../demo/demoTokenService').default
+  : {
+      token: null,
+      config: null,
 
-export default { setToken, getConfig };
+      setToken: (newToken) => {
+        tokenService.token = `Bearer ${newToken}`;
+        tokenService.config = {
+          headers: { Authorization: tokenService.token },
+        };
+      },
+
+      getConfig: () => tokenService.config,
+    };
+
+export default tokenService;

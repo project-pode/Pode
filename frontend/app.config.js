@@ -1,4 +1,7 @@
 import 'dotenv/config';
+
+const useDemoService = process.env.REACT_APP_USE_DEMO_SERVICE === 'true';
+
 export default {
   expo: {
     name: "pode",
@@ -25,7 +28,8 @@ export default {
       favicon: "./assets/favicon.png"
     },
     extra: {
-      API_URL: process.env.API_URL
+      API_URL: process.env.API_URL,
+      USE_DEMO_SERVICE: useDemoService
     }
   }
 }
