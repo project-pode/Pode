@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Constants from 'expo-constants';
 import userService from "./services/users";
 import SignIn from './components/SignIn';
-import theme from './deprecated/theme';
+import mainTheme from './themes/MainTheme';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import SignUp from './components/SignUp';
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     backgroundColor: "lightgrey",
-    fontFamily: theme.fonts.main
+    fontFamily: mainTheme.fonts.main
   },
 });
 
