@@ -38,7 +38,7 @@ const ProgressMapView = () => {
   const [completedLessons, setCompletedLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const { userId } = useParams();
-  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Track loading state
 
