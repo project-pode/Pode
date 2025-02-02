@@ -1,9 +1,9 @@
-import { View, ImageBackground, Pressable, Text, ScrollView, StyleSheet } from "react-native";
+import { View, ImageBackground, Pressable, Text, ScrollView, StyleSheet, Image } from "react-native";
 import theme from "../themes/ProgressMapViewTheme";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import { useNavigate, useParams } from "react-router-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
 
 const styles = StyleSheet.create({
@@ -23,6 +23,14 @@ const styles = StyleSheet.create({
   },
 });
 
+const avatars = [
+  { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
+  { name: 'avatar2', source: require('../../assets/avatars/avatar2.png') },
+  { name: 'avatar3', source: require('../../assets/avatars/avatar3.jpg') },
+  { name: 'avatar4', source: require('../../assets/avatars/avatar4.jpg') },
+  { name: 'avatar5', source: require('../../assets/avatars/avatar5.jpg') },
+  { name: 'avatar6', source: require('../../assets/avatars/avatar6.jpg') },
+];
 
 const ProgressMapView = () => {
   const navigate = useNavigate();
@@ -30,59 +38,91 @@ const ProgressMapView = () => {
   const [completedLessons, setCompletedLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const { userId } = useParams();
+  const [setSelectedAvatar] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const fetchedUser = await userService.getOne(userId);
+        setUser(fetchedUser);
+        setSelectedAvatar(fetchedUser.avatar);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [userId]);
+
+  useEffect(() => {
+    if (!user) return; // Ensure user is loaded before fetching lessons
+
     const fetchLessons = async () => {
       try {
         const lessons = await lessonService.getLessons(userId);
         setLessons(lessons);
-        console.log('Lessons fetched:', lessons); // Log the lessons
       } catch (error) {
         console.error('Error fetching lessons:', error);
       }
     };
 
     const fetchCompletedLessons = async () => {
-      const user = await userService.getOne(userId);
-      setCompletedLessons(user.completedLessons || []);
+      try {
+        const userData = await userService.getOne(userId);
+        setCompletedLessons(userData.completedLessons || []);
+      } catch (error) {
+        console.error('Error fetching completed lessons:', error);
+      }
     };
-    void fetchLessons();
-    void fetchCompletedLessons();
-  }, [userId]);
+
+    fetchLessons();
+    fetchCompletedLessons();
+  }, [user]);
 
   const handleLessonPress = (lesson) => {
     setSelectedLesson(lesson);
-    console.log('Lesson selected', lesson);
   };
 
-  const HandleStartPress = () => {
+  const handleStartPress = () => {
     if (selectedLesson) {
       navigate(`/users/${userId}/lessons/${selectedLesson.id}`);
-      console.log('Navigating to lesson: ', selectedLesson);
     }
   };
 
-  // Works as temporary logout button until profile view is implemented
-  const HandleProfilePress = () => {
+  const handleProfilePress = () => {
     navigate(`/users/${userId}/profile`);
   };
 
-  const HandleSettingsPress = () => {
+  const handleSettingsPress = () => {
     console.log('Settings button has been pressed');
   };
 
   const isLessonCompleted = (lessonId) => {
-    return completedLessons.includes(lessonId);  // Check if the exercise is in the user's completed list
+    return completedLessons.includes(lessonId);
   };
+
+  const renderAvatar = (avatarName) => {
+    const avatar = avatars.find(a => a.name === avatarName);
+    return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar'/> : null;
+  };
+
+  // Show loading state before rendering
+  if (loading || !user) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
     <View style={theme.blueContainer}>
       <View style={styles.buttonsContainer}>
-        <Pressable onPress={HandleSettingsPress}>
-          <MaterialIcons style={styles.settingsButton} name="settings" size={40}></MaterialIcons>
+        <Pressable onPress={handleSettingsPress}>
+          <MaterialIcons style={styles.settingsButton} name="settings" size={40} />
         </Pressable>
-        <Pressable onPress={HandleProfilePress}>
-          <MaterialIcons style={styles.profileButton} name="account-circle" size={40}></MaterialIcons>
+        <Pressable onPress={handleProfilePress}>
+          {renderAvatar(user.avatar)}
         </Pressable>
       </View>
       <ScrollView inverted>
@@ -118,7 +158,7 @@ const ProgressMapView = () => {
         style={[
           selectedLesson ? theme.greenButton : theme.greenButtonDeselected
         ]}
-        onPress={HandleStartPress}
+        onPress={handleStartPress}
         disabled={!selectedLesson}
       >
         <Text style={selectedLesson ? theme.greenButtonText : theme.greenButtonTextDeselected}>Start</Text>
