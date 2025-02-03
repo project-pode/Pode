@@ -62,6 +62,18 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
       },
+      profileImage: {
+        width: 45,
+        height: 45,
+        marginHorizontal: 15,
+        marginVertical: 18,
+        borderRadius: 75,
+        marginBottom: 20,
+        borderWidth: 5,
+        borderColor: 'rgba(75,113,123,1)',
+        alignSelf: 'auto',
+        padding: 10
+    },
     
 };
 
