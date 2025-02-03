@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     },
     boxesContainer: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'space-around',
     },
     centeredContent: {
