@@ -1,5 +1,5 @@
 const theme = {
-    blueContainer: {  // Theme used in: LessonView
+    blueContainer: { 
         flexGrow: 1,
         flexShrink: 1,
         backgroundColor: "rgba(127,222,255,1)",
@@ -26,7 +26,7 @@ const theme = {
         fontFamily: "AlfaSlabOne",
         lineHeight: 24,
       },
-      greenButton: {    // Theme used in: LessonView
+      greenButton: {   
         margin: 20,
         padding: 10,
         backgroundColor: "#84DC95",
@@ -54,6 +54,25 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
       },
+      container: {
+        padding: 20,
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    description: {
+        fontSize: 16,
+        marginBottom: 20,
+    },
+    feedback: {
+        fontSize: 16,
+        marginTop: 10,
+        marginBottom: 15,
+        alignSelf: "center",
+        color: 'red',
+    },
 };
 
 export default theme;

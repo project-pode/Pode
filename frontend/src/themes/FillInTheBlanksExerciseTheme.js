@@ -45,6 +45,48 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
       },
+      //Here are the importet fonts
+
+      container: {
+        padding: 20,
+    },
+    instructionText: {
+        fontSize: 18,
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    questionContainer: {
+        marginVertical: 10,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    questionText: {
+        fontSize: 16,
+        marginHorizontal: 5,
+    },
+    blankText: {
+        fontSize: 16,
+        color: '#007bff',
+    },
+    boxesContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+    },
+    box: {
+        borderWidth: 1,
+        borderColor: '#333',
+        borderRadius: 8,
+        padding: 12,
+        backgroundColor: '#f9f9f9',
+        minWidth: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    boxText: {
+        fontSize: 16,
+        color: 'rgba(161,161,161,255)',
+    },
 };
 
 export default theme;

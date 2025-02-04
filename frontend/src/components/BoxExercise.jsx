@@ -106,13 +106,13 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
     return (
         <View>
             <View
-                style={styles.dropZone}
+                style={theme.dropZone}
                 onLayout={(event) => {
                     dropZoneLayout.current = event.nativeEvent.layout;
                 }}
             />
 
-            <View style={styles.boxesContainer}>
+            <View style={theme.boxesContainer}>
                 {options.map((box, index) => (
                     <Animated.View
                         key={index}
@@ -126,7 +126,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                             onPress={() => handlePress(box, index)}
                             style={StyleSheet.absoluteFill} // Covers the entire box
                         >
-                            <View style={styles.centeredContent}>
+                            <View style={theme.centeredContent}>
                                 <Text style={theme.boxExerciseBoxText}>{box}</Text>
                             </View>
                         </Pressable>
@@ -137,27 +137,6 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
     );
 });
 
-const styles = StyleSheet.create({
-    dropZone: {
-        height: 100,
-        marginVertical: 20,
-        backgroundColor: "rgba(237,220,249,1)",
-        borderColor: "rgba(187,144,214,1)",
-        borderRadius: 48,
-        borderWidth: 7,
-        justifyContent: 'space-around'
-    },
-    boxesContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-    },
-    centeredContent: {
-        flex: 1, // Fills the parent Pressable
-        justifyContent: 'center', // Center content vertically
-        alignItems: 'center', // Center content horizontally
-    },
-});
 
 BoxExercise.displayName = 'BoxExercise';
 export default BoxExercise;

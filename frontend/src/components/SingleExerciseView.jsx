@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
@@ -73,7 +73,7 @@ const SingleExerciseView = () => {
 
     if (!exercise) {
         return (
-            <View style={styles.container}>
+            <View style={theme.container}>
                 <Text>No exercise found</Text>
             </View>
         );
@@ -182,27 +182,5 @@ const SingleExerciseView = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    description: {
-        fontSize: 16,
-        marginBottom: 20,
-    },
-    feedback: {
-        fontSize: 16,
-        marginTop: 10,
-        marginBottom: 15,
-        alignSelf: "center",
-        color: 'red',
-    },
-});
 
 export default SingleExerciseView;

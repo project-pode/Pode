@@ -74,6 +74,20 @@ const theme = {
         alignSelf: 'auto',
         padding: 10
     },
+    buttonsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+    },
+    profileButton: {
+      alignSelf: 'auto',
+      padding: 10
+    },
+    settingsButton: {
+      alignSelf: 'auto',
+      padding: 10
+    },
     
 };
 

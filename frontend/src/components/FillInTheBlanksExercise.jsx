@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
-import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Animated, Pressable } from 'react-native';
 import theme from '../themes/FillInTheBlanksExerciseTheme';
 
 const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {
@@ -136,9 +136,9 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         <View>
             <Text style={theme.exerciseDescription}>Tap the boxes to fill the blanks</Text>
             <View style={theme.pinkContainerBox}>
-                <View style={styles.questionContainer}>{renderQuestionText()}</View>
+                <View style={theme.questionContainer}>{renderQuestionText()}</View>
                 </View>
-            <View style={styles.boxesContainer}>
+            <View style={theme.boxesContainer}>
                 {options.map((box, index) => (
                     <Pressable onPress={() => handlePress(box, index)} key={index}>
                         <Animated.View
@@ -159,58 +159,6 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
     );
 });
 
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-    },
-    instructionText: {
-        fontSize: 18,
-        marginBottom: 10,
-        textAlign: 'center',
-    },
-    questionContainer: {
-        marginVertical: 10,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
-    questionText: {
-        fontSize: 16,
-        marginHorizontal: 5,
-    },
-    blankBox: {
-        borderWidth: 1,
-        borderColor: '#007bff',
-        borderRadius: 8,
-        padding: 12,
-        margin: 5,
-        minWidth: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    blankText: {
-        fontSize: 16,
-        color: '#007bff',
-    },
-    boxesContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        flexWrap: 'wrap',
-    },
-    box: {
-        borderWidth: 1,
-        borderColor: '#333',
-        borderRadius: 8,
-        padding: 12,
-        backgroundColor: '#f9f9f9',
-        minWidth: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    boxText: {
-        fontSize: 16,
-        color: 'rgba(161,161,161,255)',
-    },
-});
 
 FillInTheBlanksExercise.displayName = 'FillInTheBlanksExercise';
 export default FillInTheBlanksExercise;

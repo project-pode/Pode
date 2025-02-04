@@ -1,27 +1,10 @@
-import { View, ImageBackground, Pressable, Text, ScrollView, StyleSheet, Image } from "react-native";
+import { View, ImageBackground, Pressable, Text, ScrollView, Image } from "react-native";
 import theme from "../themes/ProgressMapViewTheme";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
 import { useNavigate, useParams } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
-
-const styles = StyleSheet.create({
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-  },
-  profileButton: {
-    alignSelf: 'auto',
-    padding: 10
-  },
-  settingsButton: {
-    alignSelf: 'auto',
-    padding: 10
-  },
-});
 
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -117,9 +100,9 @@ const ProgressMapView = () => {
 
   return (
     <View style={theme.blueContainer}>
-      <View style={styles.buttonsContainer}>
+      <View style={theme.buttonsContainer}>
         <Pressable onPress={handleSettingsPress}>
-          <MaterialIcons style={styles.settingsButton} name="settings" size={40} />
+          <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
         </Pressable>
         <Pressable onPress={handleProfilePress}>
           {renderAvatar(user.avatar)}
