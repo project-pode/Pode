@@ -17,7 +17,7 @@ const theme = {
         fontFamily: "AlfaSlabOne",
       },
      
-    dropZone: {
+      dropZone: {
         height: 100,
         marginVertical: 20,
         backgroundColor: "rgba(237,220,249,1)",
