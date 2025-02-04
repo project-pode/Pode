@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';

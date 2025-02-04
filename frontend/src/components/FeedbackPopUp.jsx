@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, Modal} from 'react-native';
-import theme from '../themes/FeedbackPopUpTheme'
+import theme from '../themes/FeedbackPopUpTheme';
 
 const FeedbackPopUp = ({ visible, message, onClose, isAnswerCorrect}) => {
     useEffect(() => {

@@ -1,5 +1,5 @@
-import { TextInput as NativeTextInput, StyleSheet } from "react-native";
-import theme from '../themes/TextInputTheme'
+import { TextInput as NativeTextInput } from "react-native";
+import theme from '../themes/TextInputTheme';
 
 const TextInput = ({style, error, ...props}) => {
     const textinputStyle = [

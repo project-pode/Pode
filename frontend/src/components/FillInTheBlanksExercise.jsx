@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
-import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Animated, Pressable } from 'react-native';
 import theme from '../themes/FillInTheBlanksExerciseTheme';
 
 const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {

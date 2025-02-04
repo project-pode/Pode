@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Modal } from 'react-native';
-import theme from '../themes/PopUpTheme'
+import theme from '../themes/PopUpTheme';
 
 
 const PopUp = ({ visible, message, onConfirm, onCancel }) => {
