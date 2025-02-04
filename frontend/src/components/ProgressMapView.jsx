@@ -31,18 +31,13 @@ const ProgressMapView = () => {
         const fetchedUser = await userService.getOne(userId);
         setUser(fetchedUser);
         setSelectedAvatar(fetchedUser.avatar);
+        setCompletedLessons(fetchedUser.completedLessons || []);
       } catch (error) {
         console.error('Error fetching user:', error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchUser();
-  }, [userId]);
-
-  useEffect(() => {
-    if (!user) return; // Ensure user is loaded before fetching lessons
 
     const fetchLessons = async () => {
       try {
@@ -53,18 +48,9 @@ const ProgressMapView = () => {
       }
     };
 
-    const fetchCompletedLessons = async () => {
-      try {
-        const userData = await userService.getOne(userId);
-        setCompletedLessons(userData.completedLessons || []);
-      } catch (error) {
-        console.error('Error fetching completed lessons:', error);
-      }
-    };
-
     fetchLessons();
-    fetchCompletedLessons();
-  }, [user]);
+    fetchUser();
+  }, [userId]);
 
   const handleLessonPress = (lesson) => {
     setSelectedLesson(lesson);
