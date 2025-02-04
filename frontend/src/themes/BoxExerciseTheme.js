@@ -1,6 +1,6 @@
 const theme = {
     boxExerciseBox: {
-        width: 80, 
+        minWidth: 80, 
         height: 40, 
         overflow: 'hidden', 
         margin: 20, 

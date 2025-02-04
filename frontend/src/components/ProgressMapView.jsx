@@ -21,7 +21,7 @@ const ProgressMapView = () => {
   const [completedLessons, setCompletedLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const { userId } = useParams();
-  const [setSelectedAvatar] = useState(null);
+  const [avatar, setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Track loading state
 
@@ -90,7 +90,8 @@ const ProgressMapView = () => {
 
   const renderAvatar = (avatarName) => {
     const avatar = avatars.find(a => a.name === avatarName);
-    return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar'/> : null;
+    return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar' />
+      : <MaterialIcons style={theme.profileButton} name="account-circle" size={40}></MaterialIcons>;
   };
 
   // Show loading state before rendering
@@ -105,7 +106,7 @@ const ProgressMapView = () => {
           <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
         </Pressable>
         <Pressable onPress={handleProfilePress}>
-          {renderAvatar(user.avatar)}
+          {renderAvatar(avatar)}
         </Pressable>
       </View>
       <ScrollView inverted>
@@ -117,10 +118,10 @@ const ProgressMapView = () => {
                   isLessonCompleted(lesson.id) && selectedLesson?.id === lesson.id
                     ? require('../../assets/cloudCompletedSelected.png')
                     : isLessonCompleted(lesson.id)
-                    ? require('../../assets/cloudCompleted.png')
-                    : selectedLesson?.id === lesson.id
-                    ? require('../../assets/cloudSelected.png')
-                    : require('../../assets/cloud.png')
+                      ? require('../../assets/cloudCompleted.png')
+                      : selectedLesson?.id === lesson.id
+                        ? require('../../assets/cloudSelected.png')
+                        : require('../../assets/cloud.png')
                 }
                 style={[
                   theme.cloudImage,
