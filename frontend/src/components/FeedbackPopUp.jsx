@@ -8,7 +8,7 @@ const FeedbackPopUp = ({ visible, message, onClose, isAnswerCorrect}) => {
         if (visible) {
             timer = setTimeout(() => {
                 onClose();
-            }, 150); // 1500 milliseconds = 1.5 seconds
+            }, 1500); // 1500 milliseconds = 1.5 seconds
         }
 
         return () => clearTimeout(timer);
