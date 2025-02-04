@@ -1,35 +1,16 @@
-import { View, StyleSheet, Pressable, Text } from 'react-native';
-import Constants from 'expo-constants';
+import { View, Pressable, Text } from 'react-native';
 import { Link } from 'react-router-native';
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: Constants.statusBarHeight,
-        backgroundColor: "#24292e",
-        paddingBottom: 5,
-        paddingLeft: 5
-        // ...
-    },
-    text: {
-        color: "white",
-        padding: 5
-    },
-    tabContainer: {
-        flexDirection: "row",
-    }
-    // ...
-});
-
+import theme from '../themes/AppBarTheme';
 
 const AppBar = ({ user }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Temporary</Text>
+        <View style={theme.container}>
+            <Text style={theme.text}>Temporary</Text>
             {user &&
                 (
                     <Pressable>
                         <Link to="/home">
-                            <Text style={styles.text}>Home</Text>
+                            <Text style={theme.text}>Home</Text>
                         </Link>
                     </Pressable>
                 )
