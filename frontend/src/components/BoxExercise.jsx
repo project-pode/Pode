@@ -138,5 +138,28 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
 });
 
 
+const styles = StyleSheet.create({
+    dropZone: {
+        height: 100,
+        marginVertical: 20,
+        backgroundColor: "rgba(237,220,249,1)",
+        borderColor: "rgba(187,144,214,1)",
+        borderRadius: 48,
+        borderWidth: 7,
+        justifyContent: 'space-around'
+    },
+    boxesContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+    },
+    centeredContent: {
+        flex: 1, // Fills the parent Pressable
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'center', // Center content horizontally
+    },
+});
+
+
 BoxExercise.displayName = 'BoxExercise';
 export default BoxExercise;
