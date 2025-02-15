@@ -17,6 +17,7 @@ import LessonOverview from './components/LessonOverview';
 import StartView from './components/StartView';
 import ProfileView from './components/ProfileView';
 import demoData from './demo/demoData.json';
+import LoadingView from './components/LoadingView';
 
 const styles = StyleSheet.create({
   container: {
@@ -91,7 +92,7 @@ const Main = () => {
   };
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <LoadingView/>;
   }
 
   return (

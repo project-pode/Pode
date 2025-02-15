@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { View, Text, Image, Pressable, Modal, ScrollView } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
+import { View, Text, Image, Pressable, Modal, ScrollView, Animated } from 'react-native';
 import { useParams, useNavigate } from "react-router-native";
 import userService from '../services/users';
 import theme from '../themes/ProfileViewTheme.js';
+import LoadingView from './LoadingView.jsx';
 
 const avatars = [
     { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -16,10 +17,12 @@ const avatars = [
 const ProfileView = ({ onLogout }) => {
     const [user, setUser] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(null);
-    const [modalVisible, setModalVisible] = useState(false); 
+    const [modalVisible, setModalVisible] = useState(false);
     const { userId } = useParams();
     const navigate = useNavigate();
-    
+
+    // Animation ref
+    const slideAnim = useRef(new Animated.Value(300)).current;
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -31,6 +34,12 @@ const ProfileView = ({ onLogout }) => {
                 console.error('Error fetching user:', error);
             }
         };
+        // Start the slide animation
+        Animated.timing(slideAnim, {
+            toValue: 0, // Slide into view
+            duration: 300, // Adjust speed if needed
+            useNativeDriver: true,
+        }).start();
 
         fetchUser();
     }, [userId]);
@@ -59,29 +68,29 @@ const ProfileView = ({ onLogout }) => {
 
     const renderAvatar = (avatarName) => {
         const avatar = avatars.find(a => a.name === avatarName);
-        return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar'/> : null;
+        return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar' /> : null;
     };
 
     if (!user) {
-        return <Text>Loading...</Text>;
+        return <LoadingView />;
     }
 
     return (
         <View style={theme.blueContainer}>
-            <View style={theme.whiteContainer}>
+            <Animated.View style={[theme.whiteContainer, { transform: [{ translateX: slideAnim }] }]}>
                 <Pressable onPress={handleBackPress} style={theme.arrowContainer}>
                     <Text style={theme.arrow}>{"<"}</Text>
                 </Pressable>
-                
+
                 <View style={{ alignItems: 'center' }}>
                     {renderAvatar(user.avatar)}
                     <Text style={theme.name}>{user.username}</Text>
                 </View>
-                
+
                 <Pressable style={theme.profileViewButton}>
                     <Text style={theme.profileViewButtonText}>Achievements</Text>
                 </Pressable>
-                
+
                 <Pressable
                     onPress={() => setModalVisible(true)}
                     style={theme.profileViewButton}
@@ -92,44 +101,44 @@ const ProfileView = ({ onLogout }) => {
                 <Pressable style={theme.profileViewButton} onPress={handleLogoutPress}>
                     <Text style={theme.profileViewButtonText}>Log out</Text>
                 </Pressable>
-            </View>
+            </Animated.View>
 
             {/* Modal for avatar options */}
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)} 
+                onRequestClose={() => setModalVisible(false)}
             >
                 <View style={theme.modalContainer}>
                     <View style={theme.modalContent}>
-                    <Pressable
-                        onPress={() => setModalVisible(false)}
-                        style={theme.closeButtonContainer} 
-                        testID="modal-close-button" 
-                    >
-                        <Text style={theme.closeButtonText}>X</Text>
-                    </Pressable>
+                        <Pressable
+                            onPress={() => setModalVisible(false)}
+                            style={theme.closeButtonContainer}
+                            testID="modal-close-button"
+                        >
+                            <Text style={theme.closeButtonText}>X</Text>
+                        </Pressable>
 
-                    <ScrollView vertical={true} style={{flex: 1}}>
-                        <View style={theme.avatarContainer}>
-                            {avatars.map((avatar, index) => (
-                                <Pressable 
-                                    key={index} 
-                                    onPress={() => handleAvatarSelect(avatar)}
-                                    testID={`avatar-${avatar.name}`} 
-                                >
-                                    <Image
-                                        source={avatar.source}
-                                        style={[
-                                            theme.avatar,
-                                            selectedAvatar === avatar.name && theme.selectedAvatar
-                                        ]}
-                                    />
-                                </Pressable>
-                            ))}
-                        </View>
-                    </ScrollView>
+                        <ScrollView vertical={true} style={{ flex: 1 }}>
+                            <View style={theme.avatarContainer}>
+                                {avatars.map((avatar, index) => (
+                                    <Pressable
+                                        key={index}
+                                        onPress={() => handleAvatarSelect(avatar)}
+                                        testID={`avatar-${avatar.name}`}
+                                    >
+                                        <Image
+                                            source={avatar.source}
+                                            style={[
+                                                theme.avatar,
+                                                selectedAvatar === avatar.name && theme.selectedAvatar
+                                            ]}
+                                        />
+                                    </Pressable>
+                                ))}
+                            </View>
+                        </ScrollView>
                     </View>
                 </View>
             </Modal>

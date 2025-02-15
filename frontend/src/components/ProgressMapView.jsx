@@ -1,11 +1,11 @@
-import { View, ImageBackground, Pressable, Text, ScrollView, Image } from "react-native";
+import { View, ImageBackground, Pressable, Text, ScrollView, Image, Animated } from "react-native";
 import theme from "../themes/ProgressMapViewTheme";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import lessonService from "../services/lessons";
 import { useNavigate, useParams } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
-
+import LoadingView from "./LoadingView";
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
   { name: 'avatar2', source: require('../../assets/avatars/avatar2.png') },
@@ -24,6 +24,9 @@ const ProgressMapView = () => {
   const [avatar, setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Track loading state
+
+  // Animation ref
+  const slideAnim = useRef(new Animated.Value(-300)).current;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -50,6 +53,13 @@ const ProgressMapView = () => {
 
     fetchLessons();
     fetchUser();
+
+    // Start the slide animation
+    Animated.timing(slideAnim, {
+      toValue: 0, // Slide into view
+      duration: 300, // Adjust speed if needed
+      useNativeDriver: true,
+    }).start();
   }, [userId]);
 
   const handleLessonPress = (lesson) => {
@@ -82,20 +92,20 @@ const ProgressMapView = () => {
 
   // Show loading state before rendering
   if (loading || !user) {
-    return <Text>Loading...</Text>;
+    return <LoadingView/>;
   }
 
   return (
     <View style={theme.blueContainer}>
-      <View style={theme.buttonsContainer}>
+      <Animated.View style={[theme.buttonsContainer, { transform: [{ translateX: slideAnim }] }]}>
         <Pressable onPress={handleSettingsPress}>
           <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
         </Pressable>
         <Pressable onPress={handleProfilePress}>
           {renderAvatar(avatar)}
         </Pressable>
-      </View>
-      <ScrollView inverted>
+      </Animated.View>
+      <Animated.ScrollView inverted style={[ { transform: [{ translateX: slideAnim }] }]}>
         <View contentContainerStyle={theme.cloudContainer}>
           {lessons.map((lesson, index) => (
             <Pressable key={lesson.id} onPress={() => handleLessonPress(lesson)}>
@@ -122,7 +132,7 @@ const ProgressMapView = () => {
             </Pressable>
           ))}
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
 
       <Pressable
         style={[

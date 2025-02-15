@@ -26,6 +26,7 @@ const SingleExerciseView = () => {
     const correctSound = useRef(new Audio.Sound()); // Create a ref for the correct sound
     const incorrectSound = useRef(new Audio.Sound()); // Create a ref for the incorrect sound
     const [showCloseExercisePopup, setShowCloseExercisePopup] = useState(false);
+    const slideAnimFirst = useRef(new Animated.Value(300)).current; //slide animation
 
     const handleBackPress = () => {
         setShowCloseExercisePopup(true);
@@ -80,6 +81,13 @@ const SingleExerciseView = () => {
         };
 
         loadSounds();
+
+        // Slide in animation when first exercise loads
+        Animated.timing(slideAnimFirst, {
+            toValue: 0, // Slide to the original position
+            duration: 500, // Slide duration
+            useNativeDriver: true,
+        }).start();
 
         return () => {
             // Unload the sound files when the component unmounts
@@ -142,7 +150,6 @@ const SingleExerciseView = () => {
             setSelectedAnswer([]);
 
             await incorrectSound.current.replayAsync(); // Play the incorrect sound
-
         }
 
     };
@@ -168,7 +175,7 @@ const SingleExerciseView = () => {
             <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
             </Pressable>
-            <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: slideAnim }] }]}>
+            <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>                
                 <Text style={theme.exerciseDescription}> {exercise.title}</Text>
                 <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
