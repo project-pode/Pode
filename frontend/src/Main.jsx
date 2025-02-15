@@ -11,7 +11,6 @@ import SignUp from './components/SignUp';
 import LessonView from './components/LessonView';
 import SingleExerciseView from './components/SingleExerciseView';
 import tokenService from './services/tokenService';
-import WelcomeView from './components/WelcomeView';
 import ProgressMapView from './components/ProgressMapView';
 import LessonOverview from './components/LessonOverview';
 import StartView from './components/StartView';
@@ -77,7 +76,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       await authStorage.setUser(user);
       setUser(user);
-      navigate("/home");
+      navigate(`/users/${user.id}/lessons?showPopUp=true`);
     } catch (exception) {
       const errorMessage = exception.response?.data?.error || 'An unexpected error occurred.';
       return errorMessage; // Return the error message
@@ -103,7 +102,6 @@ const Main = () => {
       <Routes>
         <Route path="/logIn" element={<SignIn onSignIn={handleLogin} />} />
         <Route path="/" element={<StartView user={user} />} />
-        <Route path="/home" element={<WelcomeView user={user} onLogout={handleLogout} />} />
         <Route path="/signUp" element={<SignUp onSignUp={handleSignUp} />} />
         <Route path="/users/:userId/profile" element={<ProfileView onLogout={handleLogout} />} />
         <Route path="/users/:userId/lessons" element={<ProgressMapView />} />
