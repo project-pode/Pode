@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
@@ -146,39 +146,41 @@ const SingleExerciseView = () => {
 
     return (
         <View style={theme.blueContainer}>
-            <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
-                <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
-            </Pressable>
-            <View style={theme.whiteContainerExercises}>
-                <Text style={theme.exerciseDescription}> {exercise.title}</Text>
-                <Text style={theme.exerciseDescription}>{exercise.description}</Text>
-                <ExerciseToRender
-                    exercise={exercise}
-                    selectedAnswer={selectedAnswer}
-                    setSelectedAnswer={setSelectedAnswer}
-                    boxExerciseRef={boxExerciseRef}
+            <ScrollView>
+                <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
+                    <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
+                </Pressable>
+                <View style={theme.whiteContainerExercises}>
+                    <Text style={theme.exerciseDescription}> {exercise.title}</Text>
+                    <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                    <ExerciseToRender
+                        exercise={exercise}
+                        selectedAnswer={selectedAnswer}
+                        setSelectedAnswer={setSelectedAnswer}
+                        boxExerciseRef={boxExerciseRef}
+                    />
+                </View>
+                <FeedbackPopUp
+                    isAnswerCorrect={isCorrectPopup}
+                    visible={showPopup}
+                    message={feedback}
+                    onClose={closePopUp}
                 />
-            </View>
-            <FeedbackPopUp
-                isAnswerCorrect={isCorrectPopup}
-                visible={showPopup}
-                message={feedback}
-                onClose={closePopUp}
-            />
-            <Pressable
-                onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
-            >
-                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
-                    {isExerciseComplete ? 'Next' : 'Check'}
-                </Text>
-            </Pressable>
-            <PopUp
-                visible={showCloseExercisePopup}
-                message="Are you sure you want to end this lesson?"
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
-            />
+                <Pressable
+                    onPress={isExerciseComplete ? handleNextExercise : handleComplete}
+                    style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
+                >
+                    <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
+                        {isExerciseComplete ? 'Next' : 'Check'}
+                    </Text>
+                </Pressable>
+                <PopUp
+                    visible={showCloseExercisePopup}
+                    message="Are you sure you want to end this lesson?"
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
+                />
+            </ScrollView>
         </View>
     );
 };
