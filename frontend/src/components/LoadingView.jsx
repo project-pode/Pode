@@ -5,5 +5,5 @@ const LoadingView = () => {
     }}>
 
     </View>;
-}
+};
 export default LoadingView;

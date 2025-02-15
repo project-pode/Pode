@@ -1,4 +1,4 @@
-import { View, ImageBackground, Pressable, Text, ScrollView, Image, Animated } from "react-native";
+import { View, ImageBackground, Pressable, Text, Image, Animated } from "react-native";
 import theme from "../themes/ProgressMapViewTheme";
 import { useEffect, useState, useRef } from "react";
 import lessonService from "../services/lessons";
