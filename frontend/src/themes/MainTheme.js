@@ -94,15 +94,6 @@ const mainTheme = {
       borderColor: "rgba(135,105,155,1)",
       color: "BB90D6",
     },
-    purpleButton: {
-      margin: 20,
-      padding: 10,
-      backgroundColor: "rgba(187,144,214,1)",
-      borderRadius: 33,
-      borderWidth: 6,
-      borderColor: "rgba(135,105,155,1)",
-      color: "BB90D6",
-    },
     purpleButtonText: {
       color: "rgba(135,105,155,1)",
       fontSize: 45,
@@ -132,6 +123,6 @@ const mainTheme = {
       fontFamily: "AlfaSlabOne",
     },
     
-  }
+  };
 
 export default mainTheme;
