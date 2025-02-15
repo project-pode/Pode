@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Animated } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
@@ -11,6 +11,7 @@ import PopUp from "./PopUp";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
 
 const SingleExerciseView = () => {
+    const slideAnim = useRef(new Animated.Value(0)).current; //slide animation
     const [exercise, setExercise] = useState(null);
     const [lesson, setLesson] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState([]);
@@ -37,6 +38,22 @@ const SingleExerciseView = () => {
 
     const handleCancel = () => {
         setShowCloseExercisePopup(false);
+    };
+
+    const animateSlide = (callback) => {
+        Animated.timing(slideAnim, {
+            toValue: -300, // Slide left (adjust the value for different speeds)
+            duration: 300, // Adjust duration for smoothness
+            useNativeDriver: true,
+        }).start(() => {
+            slideAnim.setValue(300); // Reset position for new exercise
+            callback();
+            Animated.timing(slideAnim, {
+                toValue: 0, // Slide back to original position
+                duration: 300,
+                useNativeDriver: true,
+            }).start();
+        });
     };
 
     useEffect(() => {
@@ -134,11 +151,13 @@ const SingleExerciseView = () => {
         const nextIndex = index + 1;
         if (lesson && nextIndex < lesson.exercises.length) {
             const nextExerciseID = lesson.exercises[nextIndex].id;
-            navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
-            setIndex(nextIndex);
-            setSelectedAnswer([]);
-            setIsExerciseComplete(false);
-            setFeedback(null);
+            animateSlide(() => { //slide to the next
+                navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
+                setIndex(nextIndex);
+                setSelectedAnswer([]);
+                setIsExerciseComplete(false);
+                setFeedback(null);
+            });
         } else {
             handleCompleteLesson(index + 1);
         }
@@ -149,7 +168,7 @@ const SingleExerciseView = () => {
             <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
             </Pressable>
-            <View style={theme.whiteContainerExercises}>
+            <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: slideAnim }] }]}>
                 <Text style={theme.exerciseDescription}> {exercise.title}</Text>
                 <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
@@ -158,7 +177,7 @@ const SingleExerciseView = () => {
                     setSelectedAnswer={setSelectedAnswer}
                     boxExerciseRef={boxExerciseRef}
                 />
-            </View>
+            </Animated.View>
             <FeedbackPopUp
                 isAnswerCorrect={isCorrectPopup}
                 visible={showPopup}
