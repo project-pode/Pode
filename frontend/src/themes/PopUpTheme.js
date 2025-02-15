@@ -19,7 +19,7 @@ const PopUpTheme = {
         marginBottom: 20,
         fontSize: 16,
         textAlign: 'center',
-        color: '#28363A',
+        color: '#4B717B',
     },
     buttonContainer: {
         flexDirection: 'row',
