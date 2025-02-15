@@ -5,7 +5,8 @@ import lessonService from "../services/lessons";
 import { useNavigate, useParams, useLocation } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
-import LoadingView from "./LoadingView";import PopUp from "./PopUp";
+import LoadingView from "./LoadingView";
+import PopUp from "./PopUp";
 import queryString from "query-string";
 
 const avatars = [
@@ -110,7 +111,7 @@ const ProgressMapView = () => {
 
   // Show loading state before rendering
   if (loading || !user) {
-    return <Text>Loading...</Text>;
+    return <LoadingView />;
   }
 
   const welcomeMessage = `
