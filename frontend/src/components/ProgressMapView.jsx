@@ -2,9 +2,11 @@ import { View, ImageBackground, Pressable, Text, ScrollView, Image } from "react
 import theme from "../themes/ProgressMapViewTheme";
 import { useEffect, useState } from "react";
 import lessonService from "../services/lessons";
-import { useNavigate, useParams } from "react-router-native";
+import { useNavigate, useParams, useLocation } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
+import PopUp from "./PopUp";
+import queryString from "query-string";
 
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -17,6 +19,7 @@ const avatars = [
 
 const ProgressMapView = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [lessons, setLessons] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
@@ -24,6 +27,7 @@ const ProgressMapView = () => {
   const [avatar, setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Track loading state
+  const [showPopUp, setShowPopUp] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -50,7 +54,16 @@ const ProgressMapView = () => {
 
     fetchLessons();
     fetchUser();
-  }, [userId]);
+    
+    // Parse query parameters
+    const queryParams = queryString.parse(location.search);
+    if (queryParams.showPopUp === 'true') {
+      console.log('Setting showPopUp to true');
+      setShowPopUp(true);
+    } else {
+      console.log('showPopUp is not set in query parameters');
+    }
+  }, [userId, location.search]);
 
   const handleLessonPress = (lesson) => {
     setSelectedLesson(lesson);
@@ -68,6 +81,11 @@ const ProgressMapView = () => {
 
   const handleSettingsPress = () => {
     console.log('Settings button has been pressed');
+    setShowPopUp(true);
+  };
+
+  const handlePopUpConfirm = () => {
+    setShowPopUp(false);
   };
 
   const isLessonCompleted = (lessonId) => {
@@ -84,6 +102,12 @@ const ProgressMapView = () => {
   if (loading || !user) {
     return <Text>Loading...</Text>;
   }
+
+  const welcomeMessage = `
+    Welcome to Pode! This is a guide to help you navigate through the various features and functionalities available in this app.
+        Here you can track your progress through completed lessons, and access new exercises. Make sure to explore all the options and customize your experience.
+        If you have any questions or need further assistance, feel free to reach out to our support team. Enjoy your learning journey!
+  `;
 
   return (
     <View style={theme.blueContainer}>
@@ -133,6 +157,12 @@ const ProgressMapView = () => {
       >
         <Text style={selectedLesson ? theme.greenButtonText : theme.greenButtonTextDeselected}>Start</Text>
       </Pressable>
+      <PopUp
+        visible={showPopUp}
+        message={welcomeMessage}
+        onConfirm={handlePopUpConfirm}
+        confirmText="Continue"
+      />
     </View>
   );
 };
