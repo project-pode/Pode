@@ -42,6 +42,11 @@ describe('LessonOverview', () => {
         );
     };
 
+    it('should display loading state initially', () => {
+        const {getByTestId} = renderComponent();
+        expect(screen.getByTestId('test')).toBeTruthy();
+    });
+
     it('should render lesson overview after lesson loads', async () => {
         renderComponent(3); // Pass 3 as completedExercises
         await waitFor(() => {
