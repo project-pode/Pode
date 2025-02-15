@@ -1,7 +1,8 @@
 import { Pressable, View, Text, ImageBackground } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useEffect } from "react";
-import theme from "../themes/StartViewTheme";
+import mainTheme from "../themes/MainTheme";
+
 
 const StartView = ({user}) => {
     const navigate = useNavigate();
@@ -21,11 +22,11 @@ const StartView = ({user}) => {
     };
 
     return (
-        <View style={theme.blueContainer}>
-            <ImageBackground source = {require('../../assets/BackgroundBinary.png')} style = {theme.backgroundImage}>
-            <Text style={theme.titlePode}>{"<Pode/>"}</Text>
-                <Pressable style={theme.purpleButton} onPress={onPress}><Text style={theme.purpleButtonText}>Log In</Text></Pressable>
-                <Pressable style={theme.purpleButton} onPress={onPressSignUp}><Text style={theme.purpleButtonText}>Register</Text></Pressable>
+        <View style={mainTheme.blueContainer}>
+            <ImageBackground source = {require('../../assets/BackgroundBinary.png')} style = {mainTheme.backgroundImage}>
+            <Text style={mainTheme.titlePode}>{"<Pode/>"}</Text>
+                <Pressable style={mainTheme.purpleButton} onPress={onPress}><Text style={mainTheme.purpleButtonText}>Log In</Text></Pressable>
+                <Pressable style={mainTheme.purpleButton} onPress={onPressSignUp}><Text style={mainTheme.purpleButtonText}>Register</Text></Pressable>
             </ImageBackground>
         </View>
     );

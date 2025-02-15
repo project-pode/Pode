@@ -6,7 +6,6 @@ const theme = {
         backgroundColor: "#24292e",
         paddingBottom: 5,
         paddingLeft: 5
-        // ...
     },
     text: {
         color: "white",

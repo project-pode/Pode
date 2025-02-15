@@ -1,6 +1,7 @@
 import React, { useRef, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
 import theme from '../themes/BoxExerciseTheme';
+import mainTheme from '../themes/MainTheme';
 
 const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef([]).current;
@@ -127,7 +128,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                             style={StyleSheet.absoluteFill} // Covers the entire box
                         >
                             <View style={theme.centeredContent}>
-                                <Text style={theme.boxExerciseBoxText}>{box}</Text>
+                                <Text style={mainTheme.boxExerciseBoxText}>{box}</Text>
                             </View>
                         </Pressable>
                     </Animated.View>

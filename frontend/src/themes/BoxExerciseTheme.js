@@ -9,14 +9,7 @@ const theme = {
         borderRadius: 33,
         borderColor: "rgba(161,161,161,255)",
         borderWidth: 2
-      },
-      boxExerciseBoxText: {
-        color: "rgba(187,144,214,1)",
-        fontSize: 16,
-        textAlign: "center",
-        fontFamily: "AlfaSlabOne",
-      },
-     
+      },  
       dropZone: {
         height: 100,
         marginVertical: 20,

@@ -1,6 +1,7 @@
 import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 import { View, Text, Animated, Pressable } from 'react-native';
 import theme from '../themes/FillInTheBlanksExerciseTheme';
+import mainTheme from '../themes/MainTheme';
 
 const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {
     const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
@@ -125,7 +126,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                 );
             }
             return (
-                <Text key={index} style={theme.exerciseDescription}>
+                <Text key={index} style={mainTheme.exerciseDescription}>
                     {item}
                 </Text>
             );
@@ -149,7 +150,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                             onLayout={() => {}}
                             ref={boxRefs.current[index]}
                         >
-                            <Text style={theme.boxExerciseBoxText}>{box}</Text>
+                            <Text style={mainTheme.boxExerciseBoxText}>{box}</Text>
                         </Animated.View>
                     </Pressable>
                 ))}

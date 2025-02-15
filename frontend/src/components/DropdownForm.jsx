@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import theme from "../themes/DropdownFormTheme";
+import mainTheme from '../themes/MainTheme';
 
 const DropdownForm = ({ options, setSelectedAnswer }) => {
     // Format options for SelectList (it requires array of objects with `key` and `value`)
@@ -14,7 +15,7 @@ const DropdownForm = ({ options, setSelectedAnswer }) => {
             <Text style={theme.exerciseQuestion}>
             </Text>
             <View>
-                <Text style={theme.exerciseFont}>
+                <Text style={mainTheme.exerciseFont}>
                 </Text> 
             </View>
             <View style={{ alignItems: "center" }}>

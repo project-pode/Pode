@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Link } from 'react-router-native';
 import TextInput from "./TextInput";
 import { useFormik } from 'formik';
-import theme from "../themes/SignInTheme";
-
+import theme from "../themes/SignInAndSignUpTheme";
 import * as yup from "yup";
+
 
 const initialValues = {
     username: '',

@@ -3,6 +3,7 @@ import { useNavigate, useParams, useLocation } from "react-router-native";
 import lessonService from "../services/lessons";
 import { useState, useEffect } from "react";
 import theme from "../themes/LessonOverviewTheme";
+import mainTheme from '../themes/MainTheme';
 
 const LessonOverview = () => {
     const [lesson, setLesson] = useState(null);
@@ -34,7 +35,7 @@ const LessonOverview = () => {
     }
 
     return (
-        <View style={theme.blueContainer}>
+        <View style={mainTheme.blueContainer}>
             <View style={theme.whiteContainerInLessonOverview}>
                 <View style={theme.pinkContainerInLessnOverview}>
                     <Text style={theme.overviewTitle}>

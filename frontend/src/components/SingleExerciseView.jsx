@@ -9,6 +9,7 @@ import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
 import PopUp from "./PopUp";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+import mainTheme from '../themes/MainTheme';
 
 const SingleExerciseView = () => {
     const [exercise, setExercise] = useState(null);
@@ -145,13 +146,13 @@ const SingleExerciseView = () => {
     };
 
     return (
-        <View style={theme.blueContainer}>
+        <View style={mainTheme.blueContainer}>
             <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
             </Pressable>
             <View style={theme.whiteContainerExercises}>
-                <Text style={theme.exerciseDescription}> {exercise.title}</Text>
-                <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                <Text style={mainTheme.exerciseDescription}> {exercise.title}</Text>
+                <Text style={mainTheme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
                     exercise={exercise}
                     selectedAnswer={selectedAnswer}
@@ -167,9 +168,9 @@ const SingleExerciseView = () => {
             />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
+                style={selectedAnswer.length >>> 0 ? mainTheme.greenButton : mainTheme.greenButtonDeselected}
             >
-                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
+                <Text style={selectedAnswer.length >>> 0 ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>

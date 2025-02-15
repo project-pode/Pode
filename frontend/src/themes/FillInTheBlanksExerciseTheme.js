@@ -12,15 +12,6 @@ const theme = {
     color: 'rgba(161,161,161,255)',
     fontSize: 16,
   },
-  exerciseDescription: {
-    color: "rgba(75,113,123,1)",
-    fontSize: 18,
-    textAlign: "left",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    fontFamily: "AlfaSlabOne",
-    lineHeight: 24,
-  },
   pinkContainerBox: {
     marginHorizontal: 10,
     backgroundColor: "rgba(237,220,249,1)",
@@ -38,12 +29,6 @@ const theme = {
     minWidth: 50,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  boxExerciseBoxText: {
-    color: "rgba(187,144,214,1)",
-    fontSize: 16,
-    textAlign: "center",
-    fontFamily: "AlfaSlabOne",
   },
   questionContainer: {
     marginVertical: 10,

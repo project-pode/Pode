@@ -5,6 +5,7 @@ import lessonService from "../services/lessons";
 import { useNavigate, useParams } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
+import mainTheme from '../themes/MainTheme';
 
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -86,7 +87,7 @@ const ProgressMapView = () => {
   }
 
   return (
-    <View style={theme.blueContainer}>
+    <View style={mainTheme.blueContainer}>
       <View style={theme.buttonsContainer}>
         <Pressable onPress={handleSettingsPress}>
           <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
@@ -126,12 +127,12 @@ const ProgressMapView = () => {
 
       <Pressable
         style={[
-          selectedLesson ? theme.greenButton : theme.greenButtonDeselected
+          selectedLesson ? mainTheme.greenButton : mainTheme.greenButtonDeselected
         ]}
         onPress={handleStartPress}
         disabled={!selectedLesson}
       >
-        <Text style={selectedLesson ? theme.greenButtonText : theme.greenButtonTextDeselected}>Start</Text>
+        <Text style={selectedLesson ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>Start</Text>
       </Pressable>
     </View>
   );

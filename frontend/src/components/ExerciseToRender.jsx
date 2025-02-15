@@ -3,6 +3,8 @@ import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
 import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
 import theme from '../themes/ExerciseToRenderTheme';
+import mainTheme from '../themes/MainTheme';
+
 const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExerciseRef }) => {
     const renderExerciseType = () => {
         // Check if exercise is defined and has a type
@@ -15,7 +17,7 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
                 return (
                     <View>
                         <View style={theme.pinkContainerInDropdownView}>
-                            <Text style = {theme.exerciseFont}>
+                            <Text style = {mainTheme.exerciseFont}>
                                 {exercise.question}
                             </Text>
                         </View>
