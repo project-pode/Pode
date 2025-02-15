@@ -175,7 +175,7 @@ const SingleExerciseView = () => {
             </Pressable>
             <PopUp
                 visible={showCloseExercisePopup}
-                message="Are you sure you want to end this lesson?"
+                message="Progress will be lost. Are you sure you want to end this lesson?"
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
             />

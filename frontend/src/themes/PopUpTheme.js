@@ -8,14 +8,18 @@ const PopUpTheme = {
     popup: {
         width: 300,
         padding: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
+        backgroundColor: '#7DBCCD',
+        borderRadius: 33,
         alignItems: 'center',
+        borderWidth: 6,
+        borderColor: '#4B717B'
     },
     message: {
+        fontFamily: 'AlfaSlabOne',
         marginBottom: 20,
         fontSize: 16,
         textAlign: 'center',
+        color: '#28363A',
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -26,12 +30,15 @@ const PopUpTheme = {
         flex: 1,
         padding: 10,
         margin: 5,
-        backgroundColor: '#007BFF',
-        borderRadius: 5,
+        backgroundColor: '#BB90D6',
+        borderRadius: 33,
+        borderWidth: 6,
         alignItems: 'center',
+        borderColor: '#87699B'
     },
     buttonText: {
-        color: 'white',
+        fontFamily: 'AlfaSlabOne',
+        color: '#87699B',
         fontSize: 16,
     },
 };
