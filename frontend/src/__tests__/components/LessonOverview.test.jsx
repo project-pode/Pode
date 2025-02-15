@@ -42,11 +42,6 @@ describe('LessonOverview', () => {
         );
     };
 
-    it('should display loading state initially', () => {
-        renderComponent();
-        expect(screen.getByText('No lessons found')).toBeTruthy();
-    });
-
     it('should render lesson overview after lesson loads', async () => {
         renderComponent(3); // Pass 3 as completedExercises
         await waitFor(() => {

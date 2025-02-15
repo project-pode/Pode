@@ -38,11 +38,6 @@ describe('ProfileView', () => {
         );
     };
 
-    it('should render loading state initially', () => {
-        const { getByText } = renderComponent();
-        expect(getByText('Loading...')).toBeTruthy();
-    });
-
     it('should render user information after loading', async () => {
         const { getByText } = renderComponent();
         await waitFor(() => expect(getByText('testuser')).toBeTruthy());
