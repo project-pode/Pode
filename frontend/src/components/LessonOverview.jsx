@@ -1,8 +1,9 @@
-import { Pressable, Text, View, Image } from "react-native";
+import { Pressable, Text, View, Image, Animated } from "react-native";
 import { useNavigate, useParams, useLocation } from "react-router-native";
 import lessonService from "../services/lessons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import theme from "../themes/LessonOverviewTheme";
+import LoadingView from "./LoadingView";
 
 const LessonOverview = () => {
     const [lesson, setLesson] = useState(null);
@@ -10,9 +11,10 @@ const LessonOverview = () => {
     const { userId, lessonId } = useParams();
     const location = useLocation();
     const { completedExercises } = location.state || {};
+    const slideAnim = useRef(new Animated.Value(300)).current; //slide animation
 
     const handlePress = () => {
-        navigate(`/users/${userId}/lessons`);
+        navigate(`/users/${userId}/lessons`); //when going back, animation should be different (slide down), will need to be implemented
     };
 
     useEffect(() => {
@@ -20,22 +22,25 @@ const LessonOverview = () => {
             const lesson = await lessonService.getLesson(userId, lessonId);
             setLesson(lesson);
         };
+
+        // Slide in animation when first exercise loads
+        Animated.timing(slideAnim, {
+            toValue: 0, // Slide to the original position
+            duration: 300, // Slide duration
+            useNativeDriver: true,
+        }).start();
         void fetchLesson();
     }, [lessonId, userId]);
 
     if (!lesson) {
         return (
-            <View>
-                <Text>
-                    No lessons found
-                </Text>
-            </View>
-        ); // Or any other message you want to display
+            <LoadingView/>
+        ); 
     }
 
     return (
         <View style={theme.blueContainer}>
-            <View style={theme.whiteContainerInLessonOverview}>
+            <Animated.View style={[theme.whiteContainerInLessonOverview, { transform: [{ translateX: slideAnim }] }]}>
                 <View style={theme.pinkContainerInLessnOverview}>
                     <Text style={theme.overviewTitle}>
                         Congratulations!
@@ -56,17 +61,13 @@ const LessonOverview = () => {
                 <View style={theme.podeContainerInLessonView}>
                     <Image source={require("../../assets/placeHolderPode.png")} style={theme.podeIconInLessonView} />
                 </View>
-            </View>
+            </Animated.View>
             <View style={theme.exitButtonContainerInLessonView}>
                 <View style={theme.emptySpaceFiller}>
                     <View style={theme.greenButtonInLessonOverview}>
-
-
                         <Pressable onPress={handlePress}>
                             <Text style={theme.exitButtonText}>Exit</Text>
                         </Pressable>
-
-
                     </View>
                     <View style={theme.emptySpaceFiller}>
                     </View>

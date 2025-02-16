@@ -32,4 +32,4 @@ export default {
       USE_DEMO_SERVICE: useDemoService
     }
   }
-}
+};

@@ -43,8 +43,8 @@ describe('LessonOverview', () => {
     };
 
     it('should display loading state initially', () => {
-        renderComponent();
-        expect(screen.getByText('No lessons found')).toBeTruthy();
+        const {getByTestId} = renderComponent();
+        expect(getByTestId('test')).toBeTruthy();
     });
 
     it('should render lesson overview after lesson loads', async () => {

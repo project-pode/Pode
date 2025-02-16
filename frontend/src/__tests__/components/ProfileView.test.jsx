@@ -4,7 +4,7 @@ import userService from '../../services/users';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
 import { useNavigate } from 'react-router-native';
 import theme from '../../themes/ProfileViewTheme';
-                                                                                                                                                        
+
 jest.mock('../../services/users');
 jest.mock('react-router-native', () => ({
     ...jest.requireActual('react-router-native'),
@@ -39,8 +39,8 @@ describe('ProfileView', () => {
     };
 
     it('should render loading state initially', () => {
-        const { getByText } = renderComponent();
-        expect(getByText('Loading...')).toBeTruthy();
+        const { getByTestId } = renderComponent();
+        expect(getByTestId('test')).toBeTruthy();
     });
 
     it('should render user information after loading', async () => {
@@ -61,7 +61,7 @@ describe('ProfileView', () => {
         fireEvent.press(getByText('Change profile picture'));
         expect(getByTestId('modal-close-button')).toBeTruthy();
     });
-    
+
     it('should close modal when close button is pressed', async () => {
         const { getByText, getByTestId, queryByTestId } = renderComponent();
         await waitFor(() => getByText('testuser'));
@@ -69,7 +69,7 @@ describe('ProfileView', () => {
         fireEvent.press(getByTestId('modal-close-button'));
         await waitFor(() => expect(queryByTestId('modal-close-button')).toBeNull());
     });
-    
+
     it('should display avatars in modal', async () => {
         const { getByText, getByTestId } = renderComponent();
         await waitFor(() => getByText('testuser'));
