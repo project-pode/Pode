@@ -169,42 +169,42 @@ const SingleExerciseView = () => {
 
     return (
         <SafeAreaView style={theme.blueContainer}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-              <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
-                  <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
-              </Pressable>
-              <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>                
-                  <Text style={theme.exerciseDescription}> {exercise.title}</Text>
-                  <Text style={theme.exerciseDescription}>{exercise.description}</Text>
-                  <ExerciseToRender
-                      exercise={exercise}
-                      selectedAnswer={selectedAnswer}
-                      setSelectedAnswer={setSelectedAnswer}
-                      boxExerciseRef={boxExerciseRef}
-                  />
-              </Animated.View>
-              <FeedbackPopUp
-                  isAnswerCorrect={isCorrectPopup}
-                  visible={showPopup}
-                  message={feedback}
-                  onClose={closePopUp}
-              />
-              <Pressable
-                  onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                  style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
-              >
-                  <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
-                      {isExerciseComplete ? 'Next' : 'Check'}
-                  </Text>
-              </Pressable>
-              <PopUp
-                  visible={showCloseExercisePopup}
-                  message="Are you sure you want to end this lesson?"
-                  onConfirm={handleConfirm}
-                  onCancel={handleCancel}
-              />
-          </ScrollView>
-        </SafeAreaView>
+              <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
+                    <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
+                </Pressable>
+                <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>                
+                    <Text style={theme.exerciseDescription}> {exercise.title}</Text>
+                    <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                    <ExerciseToRender
+                        exercise={exercise}
+                        selectedAnswer={selectedAnswer}
+                        setSelectedAnswer={setSelectedAnswer}
+                        boxExerciseRef={boxExerciseRef}
+                    />
+                </Animated.View>
+                <FeedbackPopUp
+                    isAnswerCorrect={isCorrectPopup}
+                    visible={showPopup}
+                    message={feedback}
+                    onClose={closePopUp}
+                />
+                <Pressable
+                    onPress={isExerciseComplete ? handleNextExercise : handleComplete}
+                    style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
+                >
+                    <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
+                        {isExerciseComplete ? 'Next' : 'Check'}
+                    </Text>
+                </Pressable>
+                <PopUp
+                    visible={showCloseExercisePopup}
+                    message="Progress will be lost. Are you sure you want to end this lesson?"
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
+                />
+            </ScrollView>
+          </SafeAreaView>
     );
 };
 
