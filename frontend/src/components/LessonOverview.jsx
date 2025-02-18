@@ -38,6 +38,8 @@ const LessonOverview = () => {
         ); 
     }
 
+    const percentage = (completedExercises / lesson.exercises.length) * 100;
+
     return (
         <View style={theme.blueContainer}>
             <Animated.View style={[theme.whiteContainerInLessonOverview, { transform: [{ translateX: slideAnim }] }]}>
@@ -50,7 +52,8 @@ const LessonOverview = () => {
                             You got {completedExercises} out of {lesson.exercises.length} right!
                         </Text>
                         <View style={theme.pillBar}>
-                            <View style={[theme.pillBarFill, { width: (completedExercises / lesson.exercises.length) * 100 + '%' }]}>
+                            <View style={[theme.pillBarFill, { width: percentage + '%' }]}>
+                                <Text style={theme.LessonOverviewPercentage}>{percentage}%</Text>
                             </View>
                         </View>
                     </View>

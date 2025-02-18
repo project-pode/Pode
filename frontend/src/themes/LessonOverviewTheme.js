@@ -41,6 +41,17 @@ const theme = {
         fontFamily: "AlfaSlabOne",
         lineHeight: 24,
       },
+
+      LessonOverviewPercentage: {
+        color: "rgba(75,113,123,1)",
+        fontSize: 18,
+        textAlign: "center",
+        paddingVertical: 10,
+        fontFamily: "AlfaSlabOne",
+        lineHeight: 24,
+        opacity: 0.8,
+      },
+
       pillBar: {
         borderWidth: 3,
         borderRadius: 25,
