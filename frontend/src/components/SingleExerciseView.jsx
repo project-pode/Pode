@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, Text, Pressable, ScrollView, Animated } from 'react-native';
+import { SafeAreaView, Text, Pressable, ScrollView, Animated } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
