@@ -20,6 +20,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
     const renderQuestionText = () => {
         return question.map((item, index) => {
             if (item === "blank") {
+                //insert answer box
                 return (
                     <View
                         key={index}
@@ -30,6 +31,10 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                         <Text style={theme.blankBoxText}>{blanks[index] || "[ ]"}</Text>
                     </View>
                 );
+            }
+            if (item === "newLine") {
+                //continue on a new line
+                return <View key={index} style={{ width: "100%", height: 10 }} />;
             }
             return (
                 <Text key={index} style={theme.exerciseDescription}>
