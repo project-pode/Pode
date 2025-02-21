@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
-import SignUp from '../../components/SignUp';
+import SignUp from '../../components/authentication/SignUp';
 import { MemoryRouter } from 'react-router-native';
 
 describe('User sign up interaction', () => {

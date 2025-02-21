@@ -1,9 +1,9 @@
 import { View, Pressable, ImageBackground, Text } from "react-native";
 import { useState } from "react";
 import { Link } from 'react-router-native';
-import TextInput from "./TextInput";
+import TextInput from "../TextInput";
 import { useFormik } from 'formik';
-import theme from "../themes/SignUpTheme";
+import theme from "../../themes/SignUpTheme";
 import * as yup from "yup";
 
 const initialValues = {
@@ -21,10 +21,20 @@ const validationSchema = yup.object().shape({
         .required('Password is required'),
     passwordConfirmation: yup
         .string()
-        .oneOf([yup.ref('password'), null], "Password and password confirmation don't match") //check that the value matches reference to password
+        .oneOf([yup.ref('password'), null], "Password and password confirmation don't match") // Check that the value matches reference to password
         .required('Password confirmation is required')
 });
 
+/**
+ * SignUp component
+ * 
+ * This component renders the sign-up view, allowing users to register by providing a username and password.
+ * It handles form validation, submission, and error handling.
+ * 
+ * @param {function} props.onSignUp - Function to call when the user submits the sign-up form
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const SignUp = ({ onSignUp }) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -49,11 +59,10 @@ const SignUp = ({ onSignUp }) => {
             }
         },
     });
-    
 
     return (
         <View style={theme.blueContainer}>
-            <ImageBackground source={require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage} >
+            <ImageBackground source={require('../../../assets/BackgroundBinary.png')} style={theme.backgroundImage} >
                 <View style={theme.pinkContainer}>
                     <View style={theme.arrowContainer}>
                         <Pressable>

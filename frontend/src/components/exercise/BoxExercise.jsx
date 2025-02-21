@@ -1,8 +1,21 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
-import theme from '../themes/BoxExerciseTheme';
-import useBoxAnimations from '../hooks/useBoxAnimations';
+import theme from '../../themes/BoxExerciseTheme';
+import useBoxAnimations from '../../hooks/useBoxAnimations';
 
+/**
+ * BoxExercise component
+ * 
+ * This component renders a set of animated boxes that can be pressed. It uses the `useBoxAnimations` hook
+ * to manage the animations and layouts of the boxes and the drop zone.
+ * 
+ * @param {Array} props.options - The boxes themselves
+ * @param {any} props.selectedAnswer - The currently selected answer
+ * @param {Function} props.setSelectedAnswer - Function to set the selected answer
+ * @param {React.Ref} ref - The ref to be forwarded to the component
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, ref) => {
     const {
         animations,
@@ -12,12 +25,16 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
         resetAnimationsInternal,
     } = useBoxAnimations(options, selectedAnswer, setSelectedAnswer);
 
+    // Expose the resetAnimations function to the parent component via the ref
     useImperativeHandle(ref, () => ({
         resetAnimations: resetAnimationsInternal,
     }));
 
     return (
         <View>
+            {/* Drop zone view
+                This is the area where the boxes will go when pressed
+            */}
             <View
                 style={theme.dropZone}
                 onLayout={(event) => {
@@ -25,6 +42,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                 }}
             />
 
+            {/* Container for the boxes that can be pressed */}
             <View style={theme.boxesContainer}>
                 {options.map((box, index) => (
                     <Animated.View
@@ -35,6 +53,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                         ]}
                         onLayout={(event) => (boxLayouts.current[index] = event.nativeEvent.layout)}
                     >
+                        {/* Each box is pressable */}
                         <Pressable
                             onPress={() => handlePress(box, index)}
                             style={StyleSheet.absoluteFill} // Covers the entire box

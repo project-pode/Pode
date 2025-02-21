@@ -2,8 +2,27 @@ import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
 import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
-import theme from '../themes/ExerciseToRenderTheme';
+import theme from '../../themes/ExerciseToRenderTheme';
+
+/**
+ * ExerciseToRender component
+ * 
+ * This component renders different types of exercises based on the provided exercise type.
+ * It supports "simple", "box", and "blanks" exercise types.
+ * 
+ * @param {Object} props.exercise - The exercise data containing type, question, and options
+ * @param {string} props.selectedAnswer - The currently selected answer
+ * @param {Function} props.setSelectedAnswer - Function to set the selected answer
+ * @param {React.Ref} props.boxExerciseRef - The ref to be forwarded to the BoxExercise component
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExerciseRef }) => {
+    /**
+     * Renders the appropriate exercise component based on the exercise type.
+     * 
+     * @returns {JSX.Element} The rendered exercise component
+     */
     const renderExerciseType = () => {
         // Check if exercise is defined and has a type
         if (!exercise || !exercise.type) {
@@ -15,11 +34,11 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
                 return (
                     <View>
                         <View style={theme.pinkContainerInDropdownView}>
-                            <Text style = {theme.exerciseFont}>
+                            <Text style={theme.exerciseFont}>
                                 {exercise.question}
                             </Text>
                         </View>
-                            <View>
+                        <View>
                             <DropdownForm
                                 options={exercise.options || []} // Default to an empty array if options are undefined
                                 selectedAnswer={selectedAnswer}
@@ -31,7 +50,8 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
             case "box":
                 return (
                     <View>
-                        <BoxExercise options={exercise.options || []}
+                        <BoxExercise
+                            options={exercise.options || []}
                             selectedAnswer={selectedAnswer}
                             setSelectedAnswer={setSelectedAnswer}
                             ref={boxExerciseRef}
@@ -41,12 +61,13 @@ const ExerciseToRender = ({ exercise, selectedAnswer, setSelectedAnswer, boxExer
             case "blanks":
                 return (
                     <View>
-                        
-                        <FillInTheBlanksExercise options={exercise.options || []}
+                        <FillInTheBlanksExercise
+                            options={exercise.options || []}
                             selectedAnswer={selectedAnswer}
                             setSelectedAnswer={setSelectedAnswer}
                             ref={boxExerciseRef}
-                            question={exercise.question}/>
+                            question={exercise.question}
+                        />
                     </View>
                 );
             default:

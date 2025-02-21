@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react-native';
 import { createRef } from 'react';
-import BoxExercise from '../../components/BoxExercise';
+import BoxExercise from '../../components/exercise/BoxExercise';
 import useBoxAnimations from '../../hooks/useBoxAnimations';
 
 jest.mock('../../hooks/useBoxAnimations');

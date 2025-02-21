@@ -18,6 +18,14 @@ const avatars = [
   { name: 'avatar6', source: require('../../assets/avatars/avatar6.jpg') },
 ];
 
+/**
+ * ProgressMapView component
+ * 
+ * This component renders the progress map view, showing the user's lessons and their completion status.
+ * It handles fetching lessons and user data, navigating to lessons, profile and settings.
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const ProgressMapView = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,33 +84,67 @@ const ProgressMapView = () => {
     }
   }, [userId, location.search]);
 
+  /**
+   * Handles lesson press event.
+   * Sets the selected lesson.
+   * 
+   * @param {Object} lesson - The selected lesson object
+   */
   const handleLessonPress = (lesson) => {
     setSelectedLesson(lesson);
   };
 
+  /**
+   * Handles start button press event.
+   * Navigates to the selected lesson.
+   */
   const handleStartPress = () => {
     if (selectedLesson) {
       navigate(`/users/${userId}/lessons/${selectedLesson.id}`);
     }
   };
 
+  /**
+   * Handles profile button press event.
+   * Navigates to the user's profile.
+   */
   const handleProfilePress = () => {
     navigate(`/users/${userId}/profile`);
   };
 
+  /**
+   * Handles settings button press event.
+   * Shows the settings popup.
+   */
   const handleSettingsPress = () => {
     console.log('Settings button has been pressed');
     setShowPopUp(true);
   };
 
+  /**
+   * Handles popup confirm button press event.
+   * Hides the popup.
+   */
   const handlePopUpConfirm = () => {
     setShowPopUp(false);
   };
 
+  /**
+   * Checks if a lesson is completed.
+   * 
+   * @param {string} lessonId - The ID of the lesson to check
+   * @returns {boolean} True if the lesson is completed, false otherwise
+   */
   const isLessonCompleted = (lessonId) => {
     return completedLessons.includes(lessonId);
   };
 
+  /**
+   * Renders the user's avatar.
+   * 
+   * @param {string} avatarName - The name of the avatar to render
+   * @returns {JSX.Element|null} The rendered avatar image or null if not found
+   */
   const renderAvatar = (avatarName) => {
     const avatar = avatars.find(a => a.name === avatarName);
     return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar' />
@@ -116,8 +158,8 @@ const ProgressMapView = () => {
 
   const welcomeMessage = `
     Welcome to Pode! This is a guide to help you navigate through the various features and functionalities available in this app.
-        Here you can track your progress through completed lessons, and access new exercises. Make sure to explore all the options and customize your experience.
-        If you have any questions or need further assistance, feel free to reach out to our support team. Enjoy your learning journey!
+    Here you can track your progress through completed lessons, and access new exercises. Make sure to explore all the options and customize your experience.
+    If you have any questions or need further assistance, feel free to reach out to our support team. Enjoy your learning journey!
   `;
 
   return (
@@ -169,6 +211,7 @@ const ProgressMapView = () => {
         <Text style={selectedLesson ? theme.greenButtonText : theme.greenButtonTextDeselected}>Start</Text>
       </Pressable>
       <PopUp
+        type="confirmation"
         visible={showPopUp}
         message={welcomeMessage}
         onConfirm={handlePopUpConfirm}

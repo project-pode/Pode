@@ -1,7 +1,17 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
-import theme from "../themes/DropdownFormTheme";
 
+/**
+ * DropdownForm component
+ * 
+ * This component renders a dropdown form using the `SelectList` component from `react-native-dropdown-select-list`.
+ * This is used in the "simple" exercise type in which users choose their answer from a dropdown
+ * 
+ * @param {Array} props.options - The list of options to be displayed in the dropdown
+ * @param {Function} props.setSelectedAnswer - Function to set the selected answer
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const DropdownForm = ({ options, setSelectedAnswer }) => {
     // Format options for SelectList (it requires array of objects with `key` and `value`)
     const formattedOptions = options.map((option, index) => ({
@@ -11,12 +21,6 @@ const DropdownForm = ({ options, setSelectedAnswer }) => {
 
     return (
         <View>
-            <Text style={theme.exerciseQuestion}>
-            </Text>
-            <View>
-                <Text style={theme.exerciseFont}>
-                </Text> 
-            </View>
             <View style={{ alignItems: "center" }}>
                 <SelectList
                     setSelected={(key) => {
@@ -61,8 +65,6 @@ const DropdownForm = ({ options, setSelectedAnswer }) => {
                         paddingBottom: -20,
                     }}
                 />
-            </View>
-            <View>
             </View>
         </View>
     );

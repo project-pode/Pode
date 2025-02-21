@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react-native';
-import StartView from '../../components/StartView';
+import StartView from '../../components/authentication/StartView';
 import { MemoryRouter } from 'react-router-native';
 
 describe('App Name', () => {

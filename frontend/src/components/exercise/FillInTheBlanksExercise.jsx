@@ -1,8 +1,22 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, Pressable } from 'react-native';
-import theme from '../themes/FillInTheBlanksExerciseTheme';
-import useFillInTheBlanksAnimations from '../hooks/useFillInTheBlanksAnimations';
+import theme from '../../themes/FillInTheBlanksExerciseTheme';
+import useFillInTheBlanksAnimations from '../../hooks/useFillInTheBlanksAnimations';
 
+/**
+ * FillInTheBlanksExercise component
+ * 
+ * This component renders a fill-in-the-blanks exercise where users can tap on boxes to fill in the blanks in a question.
+ * It uses the `useFillInTheBlanksAnimations` hook to manage the animations and layouts of the boxes and blanks.
+ * 
+ * @param {Array} props.options - The boxes themselves that can be tapped to fill in the blanks
+ * @param {Array} props.question - The question text in the purple container. Includes the blanks
+ * @param {any} props.selectedAnswer - The currently selected answer
+ * @param {Function} props.setSelectedAnswer - Function to set the selected answer
+ * @param {React.Ref} ref - The ref to be forwarded to the component
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer, setSelectedAnswer }, ref) => {
     const {
         animations,
@@ -17,10 +31,15 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         resetAnimations: resetAnimationsInternal,
     }));
 
+    /**
+     * Renders the question text with blanks.
+     * 
+     * @returns {JSX.Element} The rendered question text
+     */
     const renderQuestionText = () => {
         return question.map((item, index) => {
             if (item === "blank") {
-                //insert blank box
+                // Insert blank box
                 return (
                     <View
                         key={index}
@@ -33,10 +52,10 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                 );
             }
             if (item === "newLine") {
-                //continue on a new line
+                // Continue on a new line
                 return <View key={index} style={{ width: "100%", height: 10 }} />;
             }
-            //normal case
+            // Normal case
             return (
                 <Text key={index} style={theme.exerciseDescription}>
                     {item}

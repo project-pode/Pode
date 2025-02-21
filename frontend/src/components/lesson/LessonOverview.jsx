@@ -1,20 +1,32 @@
 import { Pressable, Text, View, Image, Animated } from "react-native";
 import { useNavigate, useParams, useLocation } from "react-router-native";
-import lessonService from "../services/lessons";
+import lessonService from "../../services/lessons";
 import { useState, useEffect, useRef } from "react";
-import theme from "../themes/LessonOverviewTheme";
-import LoadingView from "./LoadingView";
+import theme from "../../themes/LessonOverviewTheme";
+import LoadingView from "../LoadingView";
 
+/**
+ * LessonOverview component
+ * 
+ * This component renders an overview of a completed lesson, showing the user's progress and a congratulatory message.
+ * It handles fetching lesson data and displaying the number of completed exercises.
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const LessonOverview = () => {
     const [lesson, setLesson] = useState(null);
     const navigate = useNavigate();
     const { userId, lessonId } = useParams();
     const location = useLocation();
     const { completedExercises } = location.state || {};
-    const slideAnim = useRef(new Animated.Value(300)).current; //slide animation
+    const slideAnim = useRef(new Animated.Value(300)).current; // Slide animation
 
+    /**
+     * Handles the press event for the exit button.
+     * Navigates back to the lessons overview page.
+     */
     const handlePress = () => {
-        navigate(`/users/${userId}/lessons`); //when going back, animation should be different (slide down), will need to be implemented
+        navigate(`/users/${userId}/lessons`);
     };
 
     useEffect(() => {
@@ -23,7 +35,7 @@ const LessonOverview = () => {
             setLesson(lesson);
         };
 
-        // Slide in animation when first exercise loads
+        // Slide in animation when the component loads
         Animated.timing(slideAnim, {
             toValue: 0, // Slide to the original position
             duration: 300, // Slide duration
@@ -62,7 +74,7 @@ const LessonOverview = () => {
                     </Text>
                 </View>
                 <View style={theme.podeContainerInLessonView}>
-                    <Image source={require("../../assets/placeHolderPode.png")} style={theme.podeIconInLessonView} />
+                    <Image source={require("../../../assets/placeHolderPode.png")} style={theme.podeIconInLessonView} />
                 </View>
             </Animated.View>
             <View style={theme.exitButtonContainerInLessonView}>
@@ -82,4 +94,5 @@ const LessonOverview = () => {
         </View>
     );
 };
+
 export default LessonOverview;

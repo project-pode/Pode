@@ -3,17 +3,17 @@ import { Route, Routes, useNavigate } from 'react-router-native';
 import { useEffect, useState } from 'react';
 import Constants from 'expo-constants';
 import userService from "./services/users";
-import SignIn from './components/SignIn';
+import SignIn from './components/authentication/SignIn';
 import mainTheme from './themes/MainTheme';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
-import SignUp from './components/SignUp';
-import LessonView from './components/LessonView';
-import SingleExerciseView from './components/SingleExerciseView';
+import SignUp from './components/authentication/SignUp';
+import LessonView from './components/lesson/LessonView';
+import SingleExerciseView from './components/exercise/SingleExerciseView';
 import tokenService from './services/tokenService';
 import ProgressMapView from './components/ProgressMapView';
-import LessonOverview from './components/LessonOverview';
-import StartView from './components/StartView';
+import LessonOverview from './components/lesson/LessonOverview';
+import StartView from './components/authentication/StartView';
 import ProfileView from './components/ProfileView';
 import demoData from './demo/demoData.json';
 import LoadingView from './components/LoadingView';
@@ -27,6 +27,14 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Main component
+ * 
+ * This component serves as the main entry point for the application.
+ * It handles user authentication, routing, and rendering the appropriate views based on the user's state.
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const Main = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Add a loading state
@@ -58,6 +66,13 @@ const Main = () => {
     void fetchUserFromStorage();
   }, []);
 
+  /**
+   * Handles user login.
+   * 
+   * @param {string} username - The username provided by the user
+   * @param {string} password - The password provided by the user
+   * @returns {string|null} The error message if login fails, otherwise null
+   */
   const handleLogin = async (username, password) => {
     try {
       const user = await loginService.login({ username, password });
@@ -71,6 +86,13 @@ const Main = () => {
     }
   };
 
+  /**
+   * Handles user sign-up.
+   * 
+   * @param {string} username - The username provided by the user
+   * @param {string} password - The password provided by the user
+   * @returns {string|null} The error message if sign-up fails, otherwise null
+   */
   const handleSignUp = async (username, password) => {
     try {
       const user = await userService.create({ username, password });
@@ -84,6 +106,9 @@ const Main = () => {
     }
   };
 
+  /**
+   * Handles user logout.
+   */
   const handleLogout = () => {
     authStorage.removeUser();
     setUser(null);
@@ -96,7 +121,6 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      {/* <AppBar user={user} /> */}
       <View>
         <Text style={{ backgroundColor: "rgba(127,222,255,1)", padding: 10 }}></Text>
       </View>

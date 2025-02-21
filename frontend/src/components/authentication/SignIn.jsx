@@ -1,10 +1,9 @@
 import { View, Pressable, ImageBackground, Text } from "react-native";
 import { useState } from "react";
 import { Link } from 'react-router-native';
-import TextInput from "./TextInput";
+import TextInput from "../TextInput";
 import { useFormik } from 'formik';
-import theme from "../themes/SignInTheme";
-
+import theme from "../../themes/SignInTheme";
 import * as yup from "yup";
 
 const initialValues = {
@@ -21,6 +20,16 @@ const validationSchema = yup.object().shape({
         .required('Password is required'),
 });
 
+/**
+ * SignIn component
+ * 
+ * This component renders the sign-in view, allowing users to log in by providing a username and password.
+ * It handles form validation, submission, and error handling.
+ * 
+ * @param {function} props.onSignIn - Function to call when the user submits the sign-in form
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const SignIn = ({ onSignIn }) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -48,7 +57,7 @@ const SignIn = ({ onSignIn }) => {
 
     return (
         <View style={theme.blueContainer}>
-            <ImageBackground source={require('../../assets/BackgroundBinary.png')} style={theme.backgroundImage}>
+            <ImageBackground source={require('../../../assets/BackgroundBinary.png')} style={theme.backgroundImage}>
                 <View style={theme.pinkContainer}>
                     <View style={theme.arrowContainer}>
                         <Pressable>

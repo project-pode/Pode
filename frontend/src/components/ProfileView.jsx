@@ -14,6 +14,17 @@ const avatars = [
     { name: 'avatar6', source: require('../../assets/avatars/avatar6.jpg') },
 ];
 
+/**
+ * ProfileView component
+ * 
+ * This component renders the user's profile view, allowing them to view and change their avatar,
+ * view achievements, and log out. It handles fetching user data, updating the avatar, and animations.
+ * 
+ * @param {Object} props - The component props
+ * @param {function} props.onLogout - Function to call when the user logs out
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const ProfileView = ({ onLogout }) => {
     const [user, setUser] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(null);
@@ -44,6 +55,12 @@ const ProfileView = ({ onLogout }) => {
         fetchUser();
     }, [userId]);
 
+    /**
+     * Handles avatar selection.
+     * Updates the user's avatar and closes the modal.
+     * 
+     * @param {Object} avatar - The selected avatar object
+     */
     const handleAvatarSelect = async (avatar) => {
         try {
             await userService.updateAvatar(userId, avatar.name);
@@ -58,14 +75,28 @@ const ProfileView = ({ onLogout }) => {
         }
     };
 
+    /**
+     * Handles the logout button press event.
+     * Calls the onLogout function passed as a prop.
+     */
     const handleLogoutPress = () => {
         onLogout();
     };
 
+    /**
+     * Handles the back button press event.
+     * Navigates back to the progress map
+     */
     const handleBackPress = () => {
         navigate(`/users/${user.id}/lessons`);
     };
 
+    /**
+     * Renders the user's avatar.
+     * 
+     * @param {string} avatarName - The name of the avatar to render
+     * @returns {JSX.Element|null} The rendered avatar image or null if not found
+     */
     const renderAvatar = (avatarName) => {
         const avatar = avatars.find(a => a.name === avatarName);
         return avatar ? <Image source={avatar.source} style={theme.profileImage} testID='avatar' /> : null;

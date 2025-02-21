@@ -1,5 +1,5 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react-native';
-import LessonOverview from '../../components/LessonOverview';
+import LessonOverview from '../../components/lesson/LessonOverview';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
 import lessonService from '../../services/lessons';
 

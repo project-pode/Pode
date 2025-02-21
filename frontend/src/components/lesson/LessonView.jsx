@@ -1,12 +1,20 @@
 import { View, Pressable, Text, Image, ScrollView, Animated } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState, useRef } from "react";
-import lessonService from "../services/lessons";
-import theme from "../themes/LessonViewTheme";
+import lessonService from "../../services/lessons";
+import theme from "../../themes/LessonViewTheme";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
-import PopUp from "./PopUp";
-import LoadingView from "./LoadingView";
+import PopUp from "../PopUp";
+import LoadingView from "../LoadingView";
 
+/**
+ * LessonView component
+ * 
+ * This component renders the details of a lesson, including its title and description.
+ * It handles fetching lesson data, navigating to the first exercise, and popup functions when cancelling lesson
+ * 
+ * @returns {JSX.Element} The rendered component
+ */
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
@@ -16,19 +24,35 @@ const LessonView = () => {
     // Animation ref
     const slideAnim = useRef(new Animated.Value(-500)).current; // Start above the screen
 
+    /**
+     * Handles the back button press event.
+     * Shows a popup to confirm if the user wants to leave the lesson.
+     */
     const handleBackPress = () => {
         setShowPopup(true);
     };
 
+    /**
+     * Handles the confirmation to leave the lesson.
+     * Navigates back to the progress map
+     */
     const handleConfirm = () => {
         setShowPopup(false);
         navigate(`/users/${userId}/lessons`);
     };
 
+    /**
+     * Handles the cancellation of leaving the lesson.
+     * Hides the confirmation popup.
+     */
     const handleCancel = () => {
         setShowPopup(false);
     };
 
+    /**
+     * Navigates to the first exercise of the lesson.
+     * If no exercises are found, logs an error.
+     */
     const moveToExercise = () => {
         if (lesson && lesson.exercises && lesson.exercises.length > 0) {
             const firstExerciseId = lesson.exercises[0].id; // Get the first exercise's ID
@@ -44,7 +68,6 @@ const LessonView = () => {
             setLesson(lesson);
         };
 
-
         // Start the slide animation
         Animated.timing(slideAnim, {
             toValue: 0, // Slide down into view
@@ -57,7 +80,7 @@ const LessonView = () => {
 
     if (!lesson) {
         return (
-                <LoadingView/>
+            <LoadingView/>
         ); 
     }
 
@@ -77,7 +100,7 @@ const LessonView = () => {
             </Animated.View>
             <View style={theme.podeAndLetsCodeButtonContainer}>
                 <View style={theme.podeContainer}>
-                    <Image source={require("../../assets/placeHolderPode.png")} style={theme.podeIcon} />
+                    <Image source={require("../../../assets/placeHolderPode.png")} style={theme.podeIcon} />
                 </View>
                 <View style={theme.letsCodeButtonContainer}>
                     <Pressable style={theme.greenButton} onPress={moveToExercise}>
@@ -86,6 +109,7 @@ const LessonView = () => {
                 </View>
             </View>
             <PopUp
+                type="confirmation"
                 visible={showPopup}
                 message="Are you sure you want to end this lesson?"
                 onConfirm={handleConfirm}
