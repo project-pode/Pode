@@ -15,6 +15,8 @@ const theme = {
         alignContent: "center",
         padding: 10,
         flex: 1,
+        flexShrink: 1,
+        flexGrow: 1,
       },
       pinkContainerInLessnOverview: {
         backgroundColor: "rgba(237,220,249,1)",
@@ -22,6 +24,7 @@ const theme = {
         borderRadius: 48,
         borderWidth: 7,
         alignContent: "center",
+        justifyContent: 'space-around',
         padding: 10,
         flex: 1,
       },
@@ -88,6 +91,8 @@ const theme = {
         borderRadius: 33,
         borderWidth: 6,
         borderColor: "#4A8055",
+        flexShrink: 1,
+        flexGrow: 1,
       },
       exitButtonText: {
         fontFamily: "AlfaSlabOne",
@@ -101,7 +106,8 @@ const theme = {
         width: 134,
         borderRadius: 98,
         marginHorizontal: 20,
-        transform: [{ rotate: '-75deg' }]
+        transform: [{ rotate: '-75deg' }],
+        flexGrow: 1,
       },
 };
 

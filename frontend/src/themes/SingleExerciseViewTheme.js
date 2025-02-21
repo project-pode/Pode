@@ -1,9 +1,9 @@
 const theme = {
-    blueContainer: { 
-        flexGrow: 1,
-        flexShrink: 1,
+      blueContainer: { 
+        flex: 1,
         backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "center",
+        justifyContent: "space-between",
+        padding: 10,
       },
       whiteContainerExercises: {
         marginVertical: 18, 
@@ -14,7 +14,8 @@ const theme = {
         borderWidth: 7,
         alignContent: "center",
         padding: 10,
-        flex: 1,
+        flexGrow: 1,
+        flexShrink: 1,
       },
 
       exerciseDescription: { 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable, Animated } from 'react-native';
+import { SafeAreaView, Text, Pressable, ScrollView, Animated } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../services/exercises';
@@ -8,7 +8,7 @@ import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../services/lessons";
 import FeedbackPopUp from "./FeedbackPopUp";
 import PopUp from "./PopUp";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const SingleExerciseView = () => {
     const slideAnim = useRef(new Animated.Value(0)).current; //slide animation
@@ -23,8 +23,8 @@ const SingleExerciseView = () => {
     const [index, setIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const [isCorrectPopup, setIsCorrectPopup] = useState(false);
-    const correctSound = useRef(new Audio.Sound()); // Create a ref for the correct sound
-    const incorrectSound = useRef(new Audio.Sound()); // Create a ref for the incorrect sound
+    const correctSound = useRef(new Audio.Sound());
+    const incorrectSound = useRef(new Audio.Sound());
     const [showCloseExercisePopup, setShowCloseExercisePopup] = useState(false);
     const slideAnimFirst = useRef(new Animated.Value(300)).current; //slide animation
 
@@ -70,7 +70,6 @@ const SingleExerciseView = () => {
         fetchLesson();
         fetchExercise();
 
-        // Load the sound files
         const loadSounds = async () => {
             try {
                 await correctSound.current.loadAsync(require('../../assets/sounds/correct.mp3'));
@@ -90,7 +89,6 @@ const SingleExerciseView = () => {
         }).start();
 
         return () => {
-            // Unload the sound files when the component unmounts
             correctSound.current.unloadAsync();
             incorrectSound.current.unloadAsync();
         };
@@ -98,9 +96,9 @@ const SingleExerciseView = () => {
 
     if (!exercise) {
         return (
-            <View style={theme.container}>
+            <SafeAreaView style={theme.blueContainer}>
                 <Text>No exercise found</Text>
-            </View>
+            </SafeAreaView>
         );
     }
 
@@ -127,7 +125,7 @@ const SingleExerciseView = () => {
         const isCorrectAnswerArray = Array.isArray(correctAnswer);
         const isAnswerCorrect = isCorrectAnswerArray
             ? selectedAnswer.length === correctAnswer.length &&
-            selectedAnswer.every((val, index) => val === correctAnswer[index])
+              selectedAnswer.every((val, index) => val === correctAnswer[index])
             : selectedAnswer === correctAnswer;
 
         if (isAnswerCorrect) {
@@ -137,7 +135,7 @@ const SingleExerciseView = () => {
                 setIsCorrectPopup(true);
                 setShowPopup(true);
                 setIsExerciseComplete(true);
-                await correctSound.current.replayAsync(); // Play the correct sound
+                await correctSound.current.replayAsync();
             } catch (error) {
                 console.error('Error completing exercise:', error);
                 setFeedback('An error occurred while completing the exercise.');
@@ -151,7 +149,6 @@ const SingleExerciseView = () => {
 
             await incorrectSound.current.replayAsync(); // Play the incorrect sound
         }
-
     };
 
     const handleNextExercise = () => {
@@ -171,41 +168,43 @@ const SingleExerciseView = () => {
     };
 
     return (
-        <View style={theme.blueContainer}>
-            <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
-                <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
-            </Pressable>
-            <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>                
-                <Text style={theme.exerciseDescription}> {exercise.title}</Text>
-                <Text style={theme.exerciseDescription}>{exercise.description}</Text>
-                <ExerciseToRender
-                    exercise={exercise}
-                    selectedAnswer={selectedAnswer}
-                    setSelectedAnswer={setSelectedAnswer}
-                    boxExerciseRef={boxExerciseRef}
+        <SafeAreaView style={theme.blueContainer}>
+              <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <Pressable style={{alignSelf:"flex-end", color: "rgba(75,113,123,1)"}} onPress={handleBackPress}>
+                    <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)"></MaterialIcons>
+                </Pressable>
+                <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>                
+                    <Text style={theme.exerciseDescription}> {exercise.title}</Text>
+                    <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                    <ExerciseToRender
+                        exercise={exercise}
+                        selectedAnswer={selectedAnswer}
+                        setSelectedAnswer={setSelectedAnswer}
+                        boxExerciseRef={boxExerciseRef}
+                    />
+                </Animated.View>
+                <FeedbackPopUp
+                    isAnswerCorrect={isCorrectPopup}
+                    visible={showPopup}
+                    message={feedback}
+                    onClose={closePopUp}
                 />
-            </Animated.View>
-            <FeedbackPopUp
-                isAnswerCorrect={isCorrectPopup}
-                visible={showPopup}
-                message={feedback}
-                onClose={closePopUp}
-            />
-            <Pressable
-                onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
-            >
-                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
-                    {isExerciseComplete ? 'Next' : 'Check'}
-                </Text>
-            </Pressable>
-            <PopUp
-                visible={showCloseExercisePopup}
-                message="Progress will be lost. Are you sure you want to end this lesson?"
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
-            />
-        </View>
+                <Pressable
+                    onPress={isExerciseComplete ? handleNextExercise : handleComplete}
+                    style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
+                >
+                    <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
+                        {isExerciseComplete ? 'Next' : 'Check'}
+                    </Text>
+                </Pressable>
+                <PopUp
+                    visible={showCloseExercisePopup}
+                    message="Progress will be lost. Are you sure you want to end this lesson?"
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
+                />
+            </ScrollView>
+          </SafeAreaView>
     );
 };
 
