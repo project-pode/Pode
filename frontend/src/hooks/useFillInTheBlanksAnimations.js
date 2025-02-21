@@ -32,8 +32,11 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
     };
 
     useEffect(() => {
+        // Reset animations when options or question change
+        resetAnimationsInternal();
         measureAllLayouts();
-    }, [blanks, selectedAnswer]);
+    }, [options]);
+
 
     const handlePress = (box, index) => {
         const blankIndex = blanks.findIndex((item) => item === box);
