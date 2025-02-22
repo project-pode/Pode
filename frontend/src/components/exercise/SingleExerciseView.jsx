@@ -213,7 +213,7 @@ const SingleExerciseView = () => {
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
             </Pressable>
             <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>
-                <Text style={theme.exerciseDescription}>{exercise.title}</Text>
+                <Text style={theme.exerciseTitle}>{exercise.title}</Text>
                 <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
                     exercise={exercise}

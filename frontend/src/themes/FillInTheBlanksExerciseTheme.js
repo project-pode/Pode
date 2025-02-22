@@ -2,7 +2,7 @@ const theme = {
   blankBox: {
     backgroundColor: 'rgba(161,161,161,255)',
     borderRadius: 20,
-    padding: 12,
+    padding: 10,
     margin: 5,
     minWidth: 50,
     alignItems: 'center',
@@ -18,7 +18,8 @@ const theme = {
     textAlign: "left",
     paddingVertical: 10,
     paddingHorizontal: 10,
-    fontFamily: "AlfaSlabOne",
+    fontWeight: "bold",
+    fontFamily: "Cousine",
     lineHeight: 24,
   },
   pinkContainerBox: {
@@ -43,7 +44,8 @@ const theme = {
     color: "rgba(187,144,214,1)",
     fontSize: 16,
     textAlign: "center",
-    fontFamily: "AlfaSlabOne",
+    fontWeight: "bold",
+    fontFamily: "Cousine",
   },
   questionContainer: {
     marginVertical: 10,

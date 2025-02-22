@@ -10,10 +10,10 @@ const theme = {
         padding: 10,
       },
       exerciseFont: {
-        color: "rgba(187,144,214,1)",
-        fontSize: 28,
+        color: "rgb(160, 120, 184)",
+        fontSize: 18,
         fontWeight: "bold",
-        fontFamily: "AlfaSlabOne",
+        fontFamily: "Cousine",
         padding: 10,
       },
 };

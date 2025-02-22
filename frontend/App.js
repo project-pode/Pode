@@ -9,7 +9,8 @@ const authStorage = new AuthStorage();
 export default function App() {
   
   const [fontsLoaded] = useFonts({
-    "AlfaSlabOne": require("./assets/fonts/AlfaSlabOne.ttf")
+    "AlfaSlabOne": require("./assets/fonts/AlfaSlabOne.ttf"),
+    "Cousine": require("./assets/fonts/Cousine.ttf")
   });
 
   useEffect(() => {

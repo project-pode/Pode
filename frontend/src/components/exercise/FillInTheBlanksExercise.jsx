@@ -66,7 +66,6 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
 
     return (
         <View>
-            <Text style={theme.exerciseDescription}>Tap the boxes to fill the blanks</Text>
             <View style={theme.pinkContainerBox}>
                 <View style={theme.questionContainer}>{renderQuestionText()}</View>
             </View>
