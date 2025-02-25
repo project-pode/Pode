@@ -1,6 +1,15 @@
 import { useRef, useEffect, useState, createRef } from 'react';
 import { Animated } from 'react-native';
 
+/**
+ * Custom hook for managing animations in a fill-in-the-blanks exercise.
+ * 
+ * @param {Array} options - The list of options to fill in the blanks.
+ * @param {Array} question - The question array with blanks.
+ * @param {Array} selectedAnswer - The currently selected answers.
+ * @param {Function} setSelectedAnswer - Function to update the selected answers.
+ * @returns {Object} The hook's return values and functions.
+ */
 const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSelectedAnswer) => {
     const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
     const boxLayouts = useRef([]); // Store layouts of boxes
@@ -9,6 +18,13 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
     const blankRefs = useRef(question.map(() => createRef())); // Store refs of blanks
     const [blanks, setBlanks] = useState(question.map((item) => (item === "blank" ? null : item))); // Track blanks
 
+    /**
+     * Measures the layout of a given element with a delay.
+     * 
+     * @param {Object} layoutRef - The reference to the layout element.
+     * @param {number} index - The index of the element.
+     * @param {Object} layoutStore - The store for the layout data.
+     */
     const measureLayoutWithDelay = (layoutRef, index, layoutStore) => {
         setTimeout(() => {
             if (layoutRef[index]?.current?.measure) {
@@ -20,6 +36,9 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
         }, 100); // Delay is used to prevent wonky layout calculations. Adjust as needed
     };
 
+    /**
+     * Measures all layouts for boxes and blanks.
+     */
     const measureAllLayouts = () => {
         options.forEach((_, index) => {
             measureLayoutWithDelay(boxRefs.current, index, boxLayouts);
@@ -38,7 +57,12 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
         measureAllLayouts();
     }, [options]);
 
-
+    /**
+     * Handles the press event on a box.
+     * 
+     * @param {string} box - The box content.
+     * @param {number} index - The index of the box.
+     */
     const handlePress = (box, index) => {
         const blankIndex = blanks.findIndex((item) => item === box);
         let newOrder = [];
@@ -94,6 +118,9 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
         }
     };
 
+    /**
+     * Resets all animations and measures layouts.
+     */
     const resetAnimationsInternal = () => {
         animations.forEach((anim) => {
             Animated.timing(anim, {

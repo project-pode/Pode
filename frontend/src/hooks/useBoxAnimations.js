@@ -1,10 +1,20 @@
 import { useRef, useEffect } from 'react';
 import { Animated } from 'react-native';
 
+/**
+ * Custom hook to manage box animations.
+ * @param {Array} options - List of options for the boxes.
+ * @param {Array} selectedAnswer - List of selected answers.
+ * @param {Function} setSelectedAnswer - Function to update the selected answers.
+ * @returns {Object} - Contains animations, boxLayouts, dropZoneLayout, handlePress, and resetAnimationsInternal.
+ */
 const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
+    // Ref to store animation values for each box
     const animations = useRef([]).current;
-    const boxLayouts = useRef([]); // Store layouts of boxes
-    const dropZoneLayout = useRef(null); // Store layout of the drop zone
+    // Ref to store layouts of boxes
+    const boxLayouts = useRef([]);
+    // Ref to store layout of the drop zone
+    const dropZoneLayout = useRef(null);
 
     useEffect(() => {
         // Initialize animations array when options change
@@ -17,6 +27,9 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
         resetAnimationsInternal();
     }, [options]);
 
+    /**
+     * Resets the animations of all boxes to their initial positions.
+     */
     const resetAnimationsInternal = () => {
         animations.forEach((anim) => {
             Animated.timing(anim, {
@@ -28,6 +41,11 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
         setSelectedAnswer([]);
     };
 
+    /**
+     * Handles the press event on a box.
+     * @param {Object} box - The box object.
+     * @param {number} index - The index of the box.
+     */
     const handlePress = (box, index) => {
         if (!animations[index]) return; // Ensure animation exists
 

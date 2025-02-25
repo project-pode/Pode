@@ -8,6 +8,12 @@ const useDemoService = Constants.expoConfig.extra.USE_DEMO_SERVICE;
 const lessonService = useDemoService
     ? require('../demo/demoLessonService').default
     : {
+        /**
+         * Fetches all lessons for a specific user.
+         * 
+         * @param {string} userId - The ID of the user.
+         * @returns {Array} The list of lessons.
+         */
         getLessons: async (userId) => {
             try {
                 console.log('Fetching lessons from API');
@@ -17,6 +23,14 @@ const lessonService = useDemoService
                 console.error('Error fetching lessons:', error);
             }
         },
+
+        /**
+         * Fetches a specific lesson for a user.
+         * 
+         * @param {string} userId - The ID of the user.
+         * @param {string} lessonId - The ID of the lesson.
+         * @returns {Object} The lesson data.
+         */
         getLesson: async (userId, lessonId) => {
             try {
                 console.log('Fetching lesson from API');
@@ -26,6 +40,14 @@ const lessonService = useDemoService
                 console.error('Error fetching lesson:', error);
             }
         },
+
+        /**
+         * Marks a specific lesson as completed for a user.
+         * 
+         * @param {string} userId - The ID of the user.
+         * @param {string} lessonId - The ID of the lesson.
+         * @returns {Object} The response data.
+         */
         completeLesson: async (userId, lessonId) => {
             try {
                 console.log('Completing lesson via API');

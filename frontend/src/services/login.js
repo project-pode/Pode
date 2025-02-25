@@ -7,6 +7,12 @@ const useDemoService = Constants.expoConfig.extra.USE_DEMO_SERVICE;
 const loginService = useDemoService
     ? require('../demo/demoLoginService').default
     : {
+        /**
+         * Logs in a user with the provided credentials.
+         * 
+         * @param {Object} credentials - The login credentials.
+         * @returns {Object} The response data containing user information and token.
+         */
         login: async (credentials) => {
             const response = await axios.post(`${apiBaseUrl}/login`, credentials);
             return response.data;

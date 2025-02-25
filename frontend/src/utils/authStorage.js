@@ -1,45 +1,68 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/**
+ * AuthStorage class for managing authentication-related data in AsyncStorage.
+ */
 class AuthStorage {
+  /**
+   * Creates an instance of AuthStorage.
+   * @param {string} namespace - The namespace for the storage keys.
+   */
   constructor(namespace = 'auth') {
     this.namespace = namespace;
   }
 
-  async getUser(){
-    const userData = await AsyncStorage.getItem(
-        `${this.namespace}:user`
-    );
-    return userData ? JSON.parse(userData) : null; //return user so it stays on page reload
+  /**
+   * Retrieves the user data from AsyncStorage.
+   * @returns {Object|null} The user data or null if not found.
+   */
+  async getUser() {
+    const userData = await AsyncStorage.getItem(`${this.namespace}:user`);
+    return userData ? JSON.parse(userData) : null;
   }
 
-  async setUser(user){
+  /**
+   * Stores the user data in AsyncStorage.
+   * @param {Object} user - The user data to store.
+   */
+  async setUser(user) {
     await AsyncStorage.setItem(
-        `${this.namespace}:user`,
-        JSON.stringify(user) // we store the whole user as json
+      `${this.namespace}:user`,
+      JSON.stringify(user)
     );
   }
 
+  /**
+   * Removes the user data from AsyncStorage.
+   */
   async removeUser() {
-    // Remove the access token from the storage
     await AsyncStorage.removeItem(`${this.namespace}:user`);
   }
 
+  /**
+   * Retrieves the access token from AsyncStorage.
+   * @returns {string|null} The access token or null if not found.
+   */
   async getAccessToken() {
     const accessToken = await AsyncStorage.getItem(`${this.namespace}:token`);
-    // Get the access token for the storage
     return accessToken;
   }
 
-  async setAccessToken(accessToken) {   
+  /**
+   * Stores the access token in AsyncStorage.
+   * @param {string} accessToken - The access token to store.
+   */
+  async setAccessToken(accessToken) {
     await AsyncStorage.setItem(
-        `${this.namespace}:token`,
-        accessToken
+      `${this.namespace}:token`,
+      accessToken
     );
-    // Add the access token to the storage
   }
 
+  /**
+   * Removes the access token from AsyncStorage.
+   */
   async removeAccessToken() {
-    // Remove the access token from the storage
     await AsyncStorage.removeItem(`${this.namespace}:token`);
   }
 }

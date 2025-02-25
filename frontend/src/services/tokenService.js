@@ -8,6 +8,11 @@ const tokenService = useDemoService
       token: null,
       config: null,
 
+      /**
+       * Sets the authorization token and configures the headers.
+       * 
+       * @param {string} newToken - The new token to set.
+       */
       setToken: (newToken) => {
         tokenService.token = `Bearer ${newToken}`;
         tokenService.config = {
@@ -15,6 +20,11 @@ const tokenService = useDemoService
         };
       },
 
+      /**
+       * Retrieves the current configuration with authorization headers.
+       * 
+       * @returns {Object|null} The configuration object or null if not set.
+       */
       getConfig: () => tokenService.config,
     };
 
