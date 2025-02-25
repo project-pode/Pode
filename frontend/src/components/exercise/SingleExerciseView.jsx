@@ -214,7 +214,7 @@ const SingleExerciseView = () => {
             <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim.interpolate({
                             inputRange: [0, 0.4, 0.4001, 1],
                             outputRange: [0, -300, 300, 0]}), slideAnimFirst) }] }]}>
-                <Text style={theme.exerciseDescription}>{exercise.title}</Text>
+                <Text style={theme.exerciseTitle}>{exercise.title}</Text>
                 <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
                     exercise={exercise}

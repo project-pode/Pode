@@ -14,7 +14,8 @@ const theme = {
         color: "rgba(187,144,214,1)",
         fontSize: 16,
         textAlign: "center",
-        fontFamily: "AlfaSlabOne",
+        fontWeight: "bold",
+        fontFamily: "Cousine",
       },
      
       dropZone: {
