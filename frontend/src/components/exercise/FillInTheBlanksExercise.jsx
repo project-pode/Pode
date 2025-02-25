@@ -75,8 +75,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                         <Animated.View
                             style={[
                                 theme.notBlankBox,
-                                { transform: animations[index].getTranslateTransform() },
-                            ]}
+                                { transform: animations[index]?.getTranslateTransform() || [] },                            ]}
                             onLayout={() => {}}
                             ref={boxRefs.current[index]}
                         >

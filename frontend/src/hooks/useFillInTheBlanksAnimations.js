@@ -11,11 +11,11 @@ import { Animated } from 'react-native';
  * @returns {Object} The hook's return values and functions.
  */
 const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSelectedAnswer) => {
-    const animations = useRef(options.map(() => new Animated.ValueXY({ x: 0, y: 0 }))).current;
+    const animations = useRef([]).current;
     const boxLayouts = useRef([]); // Store layouts of boxes
     const blankLayouts = useRef([]); // Store layouts of blanks
-    const boxRefs = useRef(options.map(() => createRef())); // Store refs of boxes
-    const blankRefs = useRef(question.map(() => createRef())); // Store refs of blanks
+    const boxRefs = useRef([]); // Store refs of boxes
+    const blankRefs = useRef([]); // Store refs of blanks
     const [blanks, setBlanks] = useState(question.map((item) => (item === "blank" ? null : item))); // Track blanks
 
     /**
@@ -51,10 +51,17 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
     };
 
     useEffect(() => {
-        // Reset animations when options or question change 
-        // This is the same as going from fill in the blanks to another fill in the blanks
+        // Initialize refs and animations array when options change
+        // This is the same as going from fill in the blanks to another fill in the blanks in which option amount has changed
+        boxRefs.current = options.map(() => createRef());
+        blankRefs.current = question.map(() => createRef());
+        animations.length = 0;
+        options.forEach(() => {
+            animations.push(new Animated.ValueXY({ x: 0, y: 0 }));
+        });
+
+        // Reset animations and measure layouts when options change
         resetAnimationsInternal();
-        measureAllLayouts();
     }, [options]);
 
     /**
@@ -135,7 +142,7 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
 
         setTimeout(() => {
             measureAllLayouts();
-        }, 800); // Delay is used to prevent wonky layout calculations. Adjust as needed
+        }, 600); // Delay is used to prevent wonky layout calculations. Adjust as needed
     };
 
     return {
