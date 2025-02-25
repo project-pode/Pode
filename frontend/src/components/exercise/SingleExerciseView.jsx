@@ -67,18 +67,17 @@ const SingleExerciseView = () => {
      * @param {Function} callback - The callback function to execute after the slide animation completes
      */
     const animateSlide = (callback) => {
+        // Execute callback when sliding out completes (40% through animation)
+        setTimeout(() => {
+            callback();
+        }, 200); // 40% of 500ms
+    
         Animated.timing(slideAnim, {
-            toValue: -300, // Slide left (adjust the value for different speeds)
-            duration: 300, // Adjust duration for smoothness
+            toValue: 1,
+            duration: 500,
             useNativeDriver: true,
         }).start(() => {
-            slideAnim.setValue(300); // Reset position for new exercise
-            callback();
-            Animated.timing(slideAnim, {
-                toValue: 0, // Slide back to original position
-                duration: 300,
-                useNativeDriver: true,
-            }).start();
+            slideAnim.setValue(0);
         });
     };
 
@@ -212,7 +211,9 @@ const SingleExerciseView = () => {
             <Pressable style={{ alignSelf: "flex-end", color: "rgba(75,113,123,1)" }} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
             </Pressable>
-            <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim, slideAnimFirst) }] }]}>
+            <Animated.View style={[theme.whiteContainerExercises, { transform: [{ translateX: Animated.add(slideAnim.interpolate({
+                            inputRange: [0, 0.4, 0.4001, 1],
+                            outputRange: [0, -300, 300, 0]}), slideAnimFirst) }] }]}>
                 <Text style={theme.exerciseDescription}>{exercise.title}</Text>
                 <Text style={theme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
