@@ -55,7 +55,7 @@ const PopUp = ({
             onRequestClose={onClose || onCancel} // Prevent error if the back button is pressed
         >
             <Pressable style={theme.overlay} onPress={onClose || onCancel}>
-                <View style={type === "feedback" ? popUpStyle : theme.popup}>
+                <Pressable style={type === "feedback" ? popUpStyle : theme.popup}>
                     <Text style={type === "feedback" ? popUpMessageStyle : theme.message}>{message}</Text>
                     {type === "confirmation" && (
                         <View style={theme.buttonContainer}>
@@ -69,7 +69,7 @@ const PopUp = ({
                             )}
                         </View>
                     )}
-                </View>
+                </Pressable>
             </Pressable>
         </Modal>
     );
