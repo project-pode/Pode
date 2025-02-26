@@ -11,6 +11,9 @@ const theme = {
   blankBoxText: {
     color: 'rgba(161,161,161,255)',
     fontSize: 16,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontFamily: "Cousine",
   },
   exerciseDescription: {
     color: "rgba(75,113,123,1)",

@@ -31,6 +31,10 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         resetAnimations: resetAnimationsInternal,
     }));
 
+    const longestString = options.reduce((longest, current) => {
+        return current.length > longest.length ? current : longest;
+    }, '');
+
     /**
      * Renders the question text with blanks.
      * 
@@ -40,6 +44,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         return question.map((item, index) => {
             if (item === "blank") {
                 // Insert blank box
+                //
                 return (
                     <View
                         key={index}
@@ -47,7 +52,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
                         onLayout={() => {}}
                         ref={blankRefs.current[index]}
                     >
-                        <Text style={theme.blankBoxText}>{blanks[index] || "[ ]"}</Text>
+                        <Text style={theme.blankBoxText}>{blanks[index] || '[ ]'}</Text> 
                     </View>
                 );
             }
