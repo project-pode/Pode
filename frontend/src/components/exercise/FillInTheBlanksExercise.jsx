@@ -31,10 +31,6 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         resetAnimations: resetAnimationsInternal,
     }));
 
-    const longestString = options.reduce((longest, current) => {
-        return current.length > longest.length ? current : longest;
-    }, '');
-
     /**
      * Renders the question text with blanks.
      * 
