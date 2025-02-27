@@ -1,10 +1,5 @@
 const theme = {
-    blueContainer: {  // Theme used in: LessonView
-        flexGrow: 1,
-        flexShrink: 1,
-        backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "center",
-      },
+
       titlePode: {
         color: "rgba(75,113,123,1)",
         fontSize: 70,

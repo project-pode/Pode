@@ -3,12 +3,6 @@ import { Dimensions} from "react-native";
 const { width, height } = Dimensions.get('window');
 
 const theme = {
-    blueContainer: {  // Theme used in: LessonView
-        flexGrow: 1,
-        flexShrink: 1,
-        backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "center",
-    },
     cloudContainer: {
             padding: 1,
             alignItems: 'center',

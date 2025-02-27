@@ -1,10 +1,5 @@
 const theme = {
-      blueContainer: { 
-        flex: 1,
-        backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "space-between",
-        padding: 10,
-      },
+
       whiteContainerExercises: {
         marginVertical: 18, 
         marginHorizontal: 18, 

@@ -1,11 +1,5 @@
 const LessonViewTheme = {
 
-    blueContainer: {  // Theme used in: LessonView
-        flexGrow: 1,
-        flexShrink: 1,
-        backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "center",
-      },
       whiteContainer: {     // Theme used in: LessonView
         marginVertical: 0,
         marginHorizontal: 18,
