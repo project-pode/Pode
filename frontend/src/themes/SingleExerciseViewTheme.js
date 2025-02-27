@@ -31,20 +31,8 @@ const theme = {
         fontFamily: "Cousine",
         lineHeight: 24,
       },
-      greenButton: {   
-        margin: 20,
-        padding: 10,
-        backgroundColor: "#84DC95",
-        borderRadius: 33,
-        borderWidth: 6,
-        borderColor: "#4A8055",
-      },
-      greenButtonText: {
-        color: "#4A8055",
-        fontSize: 45,
-        textAlign: "center",
-        fontFamily: "AlfaSlabOne",
-      },
+
+
       greenButtonDeselected: {
         margin: 20,
         padding: 10,
