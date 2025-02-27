@@ -1,7 +1,6 @@
 import { Pressable, View, Text, ImageBackground } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useEffect } from "react";
-import theme from "../../themes/startViewTheme";
 import mainTheme from "../../themes/mainTheme";
 
 /**
