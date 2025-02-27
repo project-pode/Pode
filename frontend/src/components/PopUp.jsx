@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import theme from '../themes/PopUpTheme';
+import theme from '../themes/popUpTheme';
 
 /**
  * PopUp component

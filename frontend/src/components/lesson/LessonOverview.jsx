@@ -2,9 +2,9 @@ import { Pressable, Text, View, Image, Animated } from "react-native";
 import { useNavigate, useParams, useLocation } from "react-router-native";
 import lessonService from "../../services/lessons";
 import { useState, useEffect, useRef } from "react";
-import theme from "../../themes/LessonOverviewTheme";
+import theme from "../../themes/lessonOverviewTheme";
 import LoadingView from "../LoadingView";
-import mainTheme from "../../themes/MainTheme";
+import mainTheme from "../../themes/mainTheme";
 
 /**
  * LessonOverview component

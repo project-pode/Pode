@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, Pressable, Modal, ScrollView, Animated } from 'react-native';
 import { useParams, useNavigate } from "react-router-native";
 import userService from '../services/users';
-import theme from '../themes/ProfileViewTheme.js';
+import theme from '../themes/profileViewTheme.js';
 import LoadingView from './LoadingView.jsx';
-import mainTheme from '../themes/MainTheme.js';
+import mainTheme from '../themes/mainTheme.js';
 
 const avatars = [
     { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },

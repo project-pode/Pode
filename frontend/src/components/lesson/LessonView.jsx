@@ -2,11 +2,11 @@ import { View, Pressable, Text, Image, ScrollView, Animated } from "react-native
 import { useNavigate, useParams } from "react-router-native";
 import { useEffect, useState, useRef } from "react";
 import lessonService from "../../services/lessons";
-import theme from "../../themes/LessonViewTheme";
+import theme from "../../themes/lessonViewTheme";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
 import PopUp from "../PopUp";
 import LoadingView from "../LoadingView";
-import mainTheme from "../../themes/MainTheme";
+import mainTheme from "../../themes/mainTheme";
 
 /**
  * LessonView component

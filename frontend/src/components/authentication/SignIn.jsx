@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Link } from 'react-router-native';
 import TextInput from "../TextInput";
 import { useFormik } from 'formik';
-import theme from "../../themes/SignInTheme";
-import mainTheme from "../../themes/MainTheme";
+import theme from "../../themes/signInTheme";
+import mainTheme from "../../themes/mainTheme";
 import * as yup from "yup";
 
 const initialValues = {

@@ -3,13 +3,13 @@ import { View, Text, Pressable, Animated } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../../services/exercises';
-import theme from '../../themes/SingleExerciseViewTheme';
+import theme from '../../themes/singleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../../services/lessons";
 import PopUp from "../PopUp";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
 import LoadingView from "../LoadingView";
-import mainTheme from "../../themes/MainTheme";
+import mainTheme from "../../themes/mainTheme";
 /**
  * SingleExerciseView component
  * 

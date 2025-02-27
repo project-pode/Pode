@@ -1,8 +1,8 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, Pressable } from 'react-native';
-import theme from '../../themes/FillInTheBlanksExerciseTheme';
+import theme from '../../themes/fillInTheBlanksExerciseTheme';
 import useFillInTheBlanksAnimations from '../../hooks/useFillInTheBlanksAnimations';
-import mainTheme from "../../themes/MainTheme";
+import mainTheme from "../../themes/mainTheme";
 
 /**
  * FillInTheBlanksExercise component
