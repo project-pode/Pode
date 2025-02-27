@@ -55,7 +55,8 @@ const PopUp = ({
             onRequestClose={onClose || onCancel} // Prevent error if the back button is pressed
         >
             <Pressable style={theme.overlay} onPress={onClose || onCancel}>
-                <Pressable style={type === "feedback" ? popUpStyle : theme.popup}>
+                <Pressable style={type === "feedback" ? popUpStyle : theme.popup} 
+                onPress={(e) => e.stopPropagation()} /* Prevent clicks inside the popup from propagating */>
                     <Text style={type === "feedback" ? popUpMessageStyle : theme.message}>{message}</Text>
                     {type === "confirmation" && (
                         <View style={theme.buttonContainer}>
