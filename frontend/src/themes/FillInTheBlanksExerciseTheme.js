@@ -12,16 +12,7 @@ const theme = {
     color: 'rgba(161,161,161,255)',
     fontSize: 16,
   },
-  exerciseDescription: {
-    color: "rgba(75,113,123,1)",
-    fontSize: 18,
-    textAlign: "left",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    fontWeight: "bold",
-    fontFamily: "Cousine",
-    lineHeight: 24,
-  },
+
   pinkContainerBox: {
     marginHorizontal: 10,
     backgroundColor: "rgba(237,220,249,1)",

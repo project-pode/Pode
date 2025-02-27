@@ -17,13 +17,7 @@ const theme = {
         fontSize: 30,
         color: "rgba(75,113,123,1)",
       },
-      titlePode: {
-        color: "rgba(75,113,123,1)",
-        fontSize: 70,
-        textAlign: "center",
-        paddingVertical: 10,
-        fontFamily: "AlfaSlabOne",
-      },
+
       errorText: {
         color: "#d73a4a",
         marginLeft: 10
@@ -37,21 +31,7 @@ const theme = {
         color: "rgba(100,152,166,1)",
         fontSize: 25,
       },
-      purpleButton: {
-        margin: 20,
-        padding: 10,
-        backgroundColor: "rgba(187,144,214,1)",
-        borderRadius: 33,
-        borderWidth: 6,
-        borderColor: "rgba(135,105,155,1)",
-        color: "BB90D6",
-      },
-      purpleButtonText: {
-        color: "rgba(135,105,155,1)",
-        fontSize: 45,
-        textAlign: "center",
-        fontFamily: "AlfaSlabOne",
-      },
+
 };
 
 export default theme;
