@@ -123,8 +123,8 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
                                     useNativeDriver: true,
                                 }).start();
                             }
-                        }, 250); // Small delay ensures new measurements are available
-                    }, 100);
+                        }, 125); // Small delay ensures new measurements are available
+                    }, 25);
                 });
             }
         }
@@ -149,7 +149,7 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
 
         setTimeout(() => {
             measureAllLayouts();
-        }, 600); // Delay is used to prevent wonky layout calculations. Adjust as needed
+        }, ); // Delay was previously used here
     };
 
     return {

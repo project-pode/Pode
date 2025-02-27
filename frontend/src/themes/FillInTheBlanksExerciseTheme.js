@@ -2,7 +2,7 @@ const theme = {
   blankBox: {
     backgroundColor: 'rgba(161,161,161,255)',
     borderRadius: 20,
-    padding: 10,
+    padding: 12,
     margin: 5,
     minWidth: 50,
     alignItems: 'center',
