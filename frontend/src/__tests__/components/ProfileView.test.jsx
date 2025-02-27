@@ -3,7 +3,7 @@ import ProfileView from '../../components/ProfileView';
 import userService from '../../services/users';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
 import { useNavigate } from 'react-router-native';
-import theme from '../../themes/ProfileViewTheme';
+import theme from '../../themes/profileViewTheme';
 
 jest.mock('../../services/users');
 jest.mock('react-router-native', () => ({
