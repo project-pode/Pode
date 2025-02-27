@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Constants from 'expo-constants';
 import userService from "./services/users";
 import SignIn from './components/authentication/SignIn';
-import mainTheme from './themes/MainTheme';
+import mainTheme from './themes/mainTheme';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import SignUp from './components/authentication/SignUp';
