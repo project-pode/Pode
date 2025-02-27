@@ -73,7 +73,7 @@ const SignUp = ({ onSignUp }) => {
                         </Pressable>
                     </View>
 
-                    <Text style={theme.titlePode}>{"<Pode/>"}</Text>
+                    <Text style={mainTheme.titlePode}>{"<Pode/>"}</Text>
 
                     {errorMessage && (
                         <Text style={theme.errorText}>{errorMessage}</Text>
