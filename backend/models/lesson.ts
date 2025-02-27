@@ -1,5 +1,12 @@
-const mongoose = require('mongoose');
+import { IExercise } from "./exercise";
 
+import mongoose from 'mongoose';
+
+export interface ILesson extends Document {
+  title: string;
+  description: string;
+  exercises: IExercise[];
+}
 const lessonSchema = new mongoose.Schema({
   title: {
     type:String,
@@ -15,13 +22,11 @@ const lessonSchema = new mongoose.Schema({
 });
 
 lessonSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   }
 });
 
-const Lesson = mongoose.model('Lesson', lessonSchema);
-
-module.exports = Lesson;
+export const Lesson = mongoose.model<ILesson>('Lesson', lessonSchema);

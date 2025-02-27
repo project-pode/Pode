@@ -1,6 +1,15 @@
-const mongoose = require('mongoose');
+import {Schema, model, Document} from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+export interface IUser extends Document {
+  username: string;
+  name: string;
+  passwordHash: string;
+  avatar: string;
+  completedLessons: string[]; //array of lesson ids
+  completedExercises: string[]; //array of exercise ids
+}
+
+const userSchema = new Schema({
   username: {
     type:String,
     required:true,
@@ -12,20 +21,20 @@ const userSchema = new mongoose.Schema({
   avatar: String,
   completedLessons: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Lesson'
     }
   ],
   completedExercises: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Exercise'
     }
   ]
 });
 
 userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
@@ -34,6 +43,4 @@ userSchema.set('toJSON', {
   }
 });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+export const User = model<IUser>('User', userSchema);
