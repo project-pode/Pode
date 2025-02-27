@@ -3,12 +3,13 @@ import { View, Text, Pressable, Animated } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../../services/exercises';
-import theme from '../../themes/SingleExerciseViewTheme';
+import theme from '../../themes/singleExerciseViewTheme';
 import ExerciseToRender from './ExerciseToRender';
 import lessonService from "../../services/lessons";
 import PopUp from "../PopUp";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can be found here: https://oblador.github.io/react-native-vector-icons/#MaterialIcons
 import LoadingView from "../LoadingView";
+import mainTheme from "../../themes/mainTheme";
 /**
  * SingleExerciseView component
  * 
@@ -207,7 +208,7 @@ const SingleExerciseView = () => {
     };
 
     return (
-        <View style={theme.blueContainer}>
+        <View style={mainTheme.blueContainer}>
             <Pressable style={{ alignSelf: "flex-end", color: "rgba(75,113,123,1)" }} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
             </Pressable>
@@ -215,7 +216,7 @@ const SingleExerciseView = () => {
                             inputRange: [0, 0.4, 0.4001, 1],
                             outputRange: [0, -300, 300, 0]}), slideAnimFirst) }] }]}>
                 <Text style={theme.exerciseTitle}>{exercise.title}</Text>
-                <Text style={theme.exerciseDescription}>{exercise.description}</Text>
+                <Text style={mainTheme.exerciseDescription}>{exercise.description}</Text>
                 <ExerciseToRender
                     exercise={exercise}
                     selectedAnswer={selectedAnswer}
@@ -232,9 +233,9 @@ const SingleExerciseView = () => {
             />
             <Pressable
                 onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                style={selectedAnswer.length >>> 0 ? theme.greenButton : theme.greenButtonDeselected}
+                style={selectedAnswer.length >>> 0 ? mainTheme.greenButton : mainTheme.greenButtonDeselected}
             >
-                <Text style={selectedAnswer.length >>> 0 ? theme.greenButtonText : theme.greenButtonTextDeselected}>
+                <Text style={selectedAnswer.length >>> 0 ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>
                     {isExerciseComplete ? 'Next' : 'Check'}
                 </Text>
             </Pressable>

@@ -3,12 +3,6 @@ import { Dimensions} from "react-native";
 const { width, height } = Dimensions.get('window');
 
 const theme = {
-    blueContainer: {  // Theme used in: LessonView
-        flexGrow: 1,
-        flexShrink: 1,
-        backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "center",
-    },
     cloudContainer: {
             padding: 1,
             alignItems: 'center',
@@ -34,34 +28,8 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
       },
-      greenButton: {    // Theme used in: LessonView
-        margin: 20,
-        padding: 10,
-        backgroundColor: "#84DC95",
-        borderRadius: 33,
-        borderWidth: 6,
-        borderColor: "#4A8055",
-      },
-      greenButtonDeselected: {
-        margin: 20,
-        padding: 10,
-        backgroundColor: "#C2D6C6",
-        borderRadius: 33,
-        borderWidth: 6,
-        borderColor: "#A2B1A5",
-      },
-      greenButtonText: {
-        color: "#4A8055",
-        fontSize: 45,
-        textAlign: "center",
-        fontFamily: "AlfaSlabOne",
-      },
-      greenButtonTextDeselected: {
-        color: "#A2B1A5",
-        fontSize: 45,
-        textAlign: "center",
-        fontFamily: "AlfaSlabOne",
-      },
+
+
       profileImage: {
         width: 45,
         height: 45,

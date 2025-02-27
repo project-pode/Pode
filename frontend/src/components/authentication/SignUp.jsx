@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Link } from 'react-router-native';
 import TextInput from "../TextInput";
 import { useFormik } from 'formik';
-import theme from "../../themes/SignUpTheme";
+import theme from "../../themes/signInAndSingUpTheme";
+import mainTheme from "../../themes/mainTheme";
 import * as yup from "yup";
 
 const initialValues = {
@@ -61,8 +62,8 @@ const SignUp = ({ onSignUp }) => {
     });
 
     return (
-        <View style={theme.blueContainer}>
-            <ImageBackground source={require('../../../assets/BackgroundBinary.png')} style={theme.backgroundImage} >
+        <View style={mainTheme.blueContainer}>
+            <ImageBackground source={require('../../../assets/BackgroundBinary.png')} style={mainTheme.backgroundImage} >
                 <View style={theme.pinkContainer}>
                     <View style={theme.arrowContainer}>
                         <Pressable>
@@ -110,8 +111,8 @@ const SignUp = ({ onSignUp }) => {
                     {formik.touched.passwordConfirmation && formik.errors.passwordConfirmation && (
                         <Text style={theme.errorText}>{formik.errors.passwordConfirmation}</Text>
                     )}
-                    <Pressable style={theme.purpleButton} onPress={formik.handleSubmit}>
-                        <Text style={theme.purpleButtonText}>Register</Text>
+                    <Pressable style={mainTheme.purpleButton} onPress={formik.handleSubmit}>
+                        <Text style={mainTheme.purpleButtonText}>Register</Text>
                     </Pressable>
                 </View>
             </ImageBackground>

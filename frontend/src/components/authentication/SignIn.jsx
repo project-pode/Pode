@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Link } from 'react-router-native';
 import TextInput from "../TextInput";
 import { useFormik } from 'formik';
-import theme from "../../themes/SignInTheme";
+import theme from "../../themes/signInAndSingUpTheme";
+import mainTheme from "../../themes/mainTheme";
 import * as yup from "yup";
 
 const initialValues = {
@@ -56,8 +57,8 @@ const SignIn = ({ onSignIn }) => {
     });
 
     return (
-        <View style={theme.blueContainer}>
-            <ImageBackground source={require('../../../assets/BackgroundBinary.png')} style={theme.backgroundImage}>
+        <View style={mainTheme.blueContainer}>
+            <ImageBackground source={require('../../../assets/BackgroundBinary.png')} style={mainTheme.backgroundImage}>
                 <View style={theme.pinkContainer}>
                     <View style={theme.arrowContainer}>
                         <Pressable>
@@ -67,7 +68,7 @@ const SignIn = ({ onSignIn }) => {
                         </Pressable>
                     </View>
 
-                    <Text style={theme.titlePode}>{"<Pode/>"}</Text>
+                    <Text style={mainTheme.titlePode}>{"<Pode/>"}</Text>
 
                     {errorMessage && (
                         <Text style={theme.errorText}>{errorMessage}</Text>
@@ -94,8 +95,8 @@ const SignIn = ({ onSignIn }) => {
                     {formik.touched.password && formik.errors.password && (
                         <Text style={theme.errorText}>{formik.errors.password}</Text>
                     )}
-                    <Pressable style={theme.purpleButton} onPress={formik.handleSubmit}>
-                        <Text style={theme.purpleButtonText}>Log In</Text>
+                    <Pressable style={mainTheme.purpleButton} onPress={formik.handleSubmit}>
+                        <Text style={mainTheme.purpleButtonText}>Log In</Text>
                     </Pressable>
                 </View>
             </ImageBackground>
