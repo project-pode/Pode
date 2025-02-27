@@ -3,6 +3,7 @@ import { View, Text, Animated, StyleSheet, Pressable } from 'react-native';
 import theme from '../../themes/BoxExerciseTheme';
 import useBoxAnimations from '../../hooks/useBoxAnimations';
 
+
 /**
  * BoxExercise component
  * 

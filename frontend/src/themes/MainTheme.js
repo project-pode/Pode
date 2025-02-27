@@ -83,6 +83,11 @@ const mainTheme = {
       alignContent: "left",
       padding: 10,
     },
+    backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover',
+      justifyContent: 'center',
+    },
 };
 
 export default mainTheme;

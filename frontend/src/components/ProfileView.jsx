@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-native";
 import userService from '../services/users';
 import theme from '../themes/ProfileViewTheme.js';
 import LoadingView from './LoadingView.jsx';
+import mainTheme from '../themes/MainTheme.js';
 
 const avatars = [
     { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -107,7 +108,7 @@ const ProfileView = ({ onLogout }) => {
     }
 
     return (
-        <View style={theme.blueContainer}>
+        <View style={mainTheme.blueContainer}>
             <Animated.View style={[theme.whiteContainer, { transform: [{ translateX: slideAnim }] }]}>
                 <Pressable onPress={handleBackPress} style={theme.arrowContainer}>
                     <Text style={theme.arrow}>{"<"}</Text>
