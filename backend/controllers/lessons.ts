@@ -1,7 +1,10 @@
-const lessonsRouter = require('express').Router();
-const Lesson = require('../models/lesson');
+import express from 'express';
+
+import { Lesson } from '../models/lesson';
+const router = express.Router();
+
 // get the users uncompleted lessons
-lessonsRouter.get('/:userId/lessons', async (request, response) => {
+router.get('/:userId/lessons', async (_request, response) => {
     try {
         const lessons = await Lesson.find({});
         response.json(lessons); // all lessons
@@ -11,7 +14,7 @@ lessonsRouter.get('/:userId/lessons', async (request, response) => {
     }
 });
 
-lessonsRouter.get('/:userId/lessons/:lessonId', async (request, response) => {
+router.get('/:userId/lessons/:lessonId', async (request, response) => {
     //const user = await User.findById(request.params.id)
     const lesson = await Lesson.findById(request.params.lessonId).populate('exercises');
 
@@ -24,7 +27,7 @@ lessonsRouter.get('/:userId/lessons/:lessonId', async (request, response) => {
 });
 
 // PUT /api/users/:userId/lessons/:lessonId/complete
-lessonsRouter.put('/:userId/lessons/:lessonId/complete', async (request, response) => {
+router.put('/:userId/lessons/:lessonId/complete', async (request, response) => {
 
     try {
         const user = request.user;
@@ -35,7 +38,7 @@ lessonsRouter.put('/:userId/lessons/:lessonId/complete', async (request, respons
 
          // Check if all exercises are completed
         const completedExerciseIds = user.completedExercises.map(ex => ex.toString());
-        const allExercisesCompleted = lesson.exercises.every(exercise => completedExerciseIds.includes(exercise._id.toString()));
+        const allExercisesCompleted = lesson.exercises.every(exercise => completedExerciseIds.includes(exercise.id.toString()));
 
         if (!allExercisesCompleted) {
             return response.status(400).json({ error: 'Not all exercises are completed' });
@@ -48,10 +51,10 @@ lessonsRouter.put('/:userId/lessons/:lessonId/complete', async (request, respons
             await user.save();
         }
 
-        response.status(200).json({ message: 'Lesson marked as completed', user });
+        return response.status(200).json({ message: 'Lesson marked as completed', user });
     } catch (error) {
-        response.status(500).json({ error: 'Internal server error' });
+        return response.status(500).json({ error: 'Internal server error' });
     }
 });
 
-module.exports = lessonsRouter;
+export default router;
