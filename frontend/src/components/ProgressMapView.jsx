@@ -1,5 +1,5 @@
 import { View, ImageBackground, Pressable, Text, Image, Animated } from "react-native";
-import theme from "../themes/ProgressMapViewTheme";
+import theme from "../themes/progressMapViewTheme";
 import { useEffect, useState, useRef } from "react";
 import lessonService from "../services/lessons";
 import { useNavigate, useParams, useLocation } from "react-router-native";
@@ -8,6 +8,7 @@ import userService from "../services/users";
 import LoadingView from "./LoadingView";
 import PopUp from "./PopUp";
 import queryString from "query-string";
+import mainTheme from "../themes/mainTheme";
 
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -163,7 +164,7 @@ const ProgressMapView = () => {
   `;
 
   return (
-    <View style={theme.blueContainer}>
+    <View style={mainTheme.blueContainer}>
       <Animated.View style={[theme.buttonsContainer, { transform: [{ translateX: slideAnim }] }]}>
         <Pressable onPress={handleSettingsPress}>
           <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
@@ -203,12 +204,12 @@ const ProgressMapView = () => {
 
       <Pressable
         style={[
-          selectedLesson ? theme.greenButton : theme.greenButtonDeselected
+          selectedLesson ? mainTheme.greenButton : mainTheme.greenButtonDeselected
         ]}
         onPress={handleStartPress}
         disabled={!selectedLesson}
       >
-        <Text style={selectedLesson ? theme.greenButtonText : theme.greenButtonTextDeselected}>Start</Text>
+        <Text style={selectedLesson ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>Start</Text>
       </Pressable>
       <PopUp
         type="confirmation"

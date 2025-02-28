@@ -1,11 +1,5 @@
 const LessonViewTheme = {
 
-    blueContainer: {  // Theme used in: LessonView
-        flexGrow: 1,
-        flexShrink: 1,
-        backgroundColor: "rgba(127,222,255,1)",
-        justifyContent: "center",
-      },
       whiteContainer: {     // Theme used in: LessonView
         marginVertical: 0,
         marginHorizontal: 18,
@@ -54,14 +48,7 @@ const LessonViewTheme = {
         flexDirection: "column",
         justifyContent: "center",
       },
-      greenButton: {    // Theme used in: LessonView
-        margin: 20,
-        padding: 10,
-        backgroundColor: "#84DC95",
-        borderRadius: 33,
-        borderWidth: 6,
-        borderColor: "#4A8055",
-      },
+
       letsCodeText: {   // Theme used in: LessonView
         fontFamily: "AlfaSlabOne",
         color: "rgba(74,128,85,1)",

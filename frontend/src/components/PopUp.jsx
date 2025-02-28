@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import theme from '../themes/PopUpTheme';
+import theme from '../themes/popUpTheme';
 
 /**
  * PopUp component
@@ -54,8 +54,9 @@ const PopUp = ({
             visible={visible}
             onRequestClose={onClose || onCancel} // Prevent error if the back button is pressed
         >
-            <View style={theme.overlay}>
-                <View style={type === "feedback" ? popUpStyle : theme.popup}>
+            <Pressable style={theme.overlay} onPress={onClose || onCancel}>
+                <Pressable style={type === "feedback" ? popUpStyle : theme.popup} 
+                onPress={(e) => e.stopPropagation()} /* Prevent clicks inside the popup from propagating */>
                     <Text style={type === "feedback" ? popUpMessageStyle : theme.message}>{message}</Text>
                     {type === "confirmation" && (
                         <View style={theme.buttonContainer}>
@@ -69,8 +70,8 @@ const PopUp = ({
                             )}
                         </View>
                     )}
-                </View>
-            </View>
+                </Pressable>
+            </Pressable>
         </Modal>
     );
 };

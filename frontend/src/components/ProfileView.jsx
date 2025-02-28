@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, Pressable, Modal, ScrollView, Animated } from 'react-native';
 import { useParams, useNavigate } from "react-router-native";
 import userService from '../services/users';
-import theme from '../themes/ProfileViewTheme.js';
+import theme from '../themes/profileViewTheme.js';
 import LoadingView from './LoadingView.jsx';
+import mainTheme from '../themes/mainTheme.js';
 
 const avatars = [
     { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -107,7 +108,7 @@ const ProfileView = ({ onLogout }) => {
     }
 
     return (
-        <View style={theme.blueContainer}>
+        <View style={mainTheme.blueContainer}>
             <Animated.View style={[theme.whiteContainer, { transform: [{ translateX: slideAnim }] }]}>
                 <Pressable onPress={handleBackPress} style={theme.arrowContainer}>
                     <Text style={theme.arrow}>{"<"}</Text>

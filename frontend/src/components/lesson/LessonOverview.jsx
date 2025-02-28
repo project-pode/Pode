@@ -2,8 +2,9 @@ import { Pressable, Text, View, Image, Animated } from "react-native";
 import { useNavigate, useParams, useLocation } from "react-router-native";
 import lessonService from "../../services/lessons";
 import { useState, useEffect, useRef } from "react";
-import theme from "../../themes/LessonOverviewTheme";
+import theme from "../../themes/lessonOverviewTheme";
 import LoadingView from "../LoadingView";
+import mainTheme from "../../themes/mainTheme";
 
 /**
  * LessonOverview component
@@ -53,7 +54,7 @@ const LessonOverview = () => {
     const percentage = (completedExercises / lesson.exercises.length) * 100;
 
     return (
-        <View style={theme.blueContainer}>
+        <View style={mainTheme.blueContainer}>
             <Animated.View style={[theme.whiteContainerInLessonOverview, { transform: [{ translateX: slideAnim }] }]}>
                 <View style={theme.pinkContainerInLessnOverview}>
                     <Text style={theme.overviewTitle}>

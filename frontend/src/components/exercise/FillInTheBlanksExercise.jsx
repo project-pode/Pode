@@ -1,7 +1,8 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import { View, Text, Animated, Pressable } from 'react-native';
-import theme from '../../themes/FillInTheBlanksExerciseTheme';
+import theme from '../../themes/fillInTheBlanksExerciseTheme';
 import useFillInTheBlanksAnimations from '../../hooks/useFillInTheBlanksAnimations';
+import mainTheme from "../../themes/mainTheme";
 
 /**
  * FillInTheBlanksExercise component
@@ -58,7 +59,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
             }
             // Normal case
             return (
-                <Text key={index} style={theme.exerciseDescription}>
+                <Text key={index} style={mainTheme.exerciseDescription}>
                     {item}
                 </Text>
             );

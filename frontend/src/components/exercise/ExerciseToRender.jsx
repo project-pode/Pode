@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import DropdownForm from "./DropdownForm";
 import BoxExercise from "./BoxExercise";
 import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
-import theme from '../../themes/ExerciseToRenderTheme';
+import theme from '../../themes/exerciseToRenderTheme';
 
 /**
  * ExerciseToRender component
