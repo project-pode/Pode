@@ -2,27 +2,35 @@ import mongoose, { Document } from 'mongoose';
 
 export interface IExercise extends Document {
   title: string;
-  description: string;
-  difficulty: number;
-  correctAnswer: any;
-  lesson: string;
+  description?: string;
+  correctAnswer: string | string[];
+  lesson: mongoose.Types.ObjectId;
   type: string;
   options: string[];
-  question: any;
+  question?: string | string[];  //not needed for all types of exercises
 }
 const exerciseSchema = new mongoose.Schema({
   title: {
-    type:String,
-    required:true,
+    type: String,
+    required: true,
   },
-  description: String,
-  difficulty: Number,
-  correctAnswer: mongoose.Schema.Types.Mixed, //can be any type, since we have different exercises
+  description: {
+    type: String,
+    default: '',
+  },
+  correctAnswer: {
+    type: mongoose.Schema.Types.Mixed, //can be any type, since we have different exercises
+    required: true,
+  },
   lesson: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Lesson'
+    ref: 'Lesson',
+    required: true,
   },
-  type: String,
+  type: {
+    type: String,
+    required: true,
+  },
   options: [String],
   question: mongoose.Schema.Types.Mixed, //should be any type, since blanks questions are formed as arrays
 });

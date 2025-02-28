@@ -1,13 +1,14 @@
-const app = require('../app');
-const supertest = require('supertest');
-const { createTestUser, cleanupDatabase, createTestLessonWithExercise } = require('./test_helper');
+import app from '../app';
+import supertest from 'supertest';
+import { createTestUser, cleanupDatabase, createTestLessonWithExercise } from './test_helper';
+import mongoose from 'mongoose';
 const api = supertest(app);
 
 describe('Exercises API', () => {
-    let lessonId;
-    let exerciseId;
-    let userId;
-    let token = null;
+    let lessonId: mongoose.Types.ObjectId
+    let exerciseId: mongoose.Types.ObjectId;
+    let userId: mongoose.Types.ObjectId;
+    let token: string;
 
     beforeAll(async () => {
         const lesson = await createTestLessonWithExercise();
