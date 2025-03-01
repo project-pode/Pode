@@ -1,25 +1,25 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { IUser, User } from '../models/user';
 import bcrypt from 'bcrypt';
 const router = express.Router();
 import jwt, { Secret } from 'jsonwebtoken';
 import { SECRET } from '../utils/config';
 
-router.post('/', async (request, response) => {
+router.post('/', async (request: Request, response: Response): Promise<void> => {
   const { username, name, password } = request.body;
   try {
     if (!username) {
-      return response.status(400).json({
+      response.status(400).json({
         error: 'username is required'
       });
     }
     if (!password) {
-      return response.status(400).json({
+      response.status(400).json({
         error: 'no password given'
       });
     }
     if (password.length < 3) {
-      return response.status(400).json({
+      response.status(400).json({
         error: 'password minimum length is 3 characters'
       });
     }
@@ -27,7 +27,7 @@ router.post('/', async (request, response) => {
     // Check if the username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return response.status(400).json({
+      response.status(400).json({
         error: 'This username already exists'
       });
     }
@@ -54,14 +54,14 @@ router.post('/', async (request, response) => {
 
 
     // Return the user details along with the JWT token
-    return response.status(201).json({
+    response.status(201).json({
       token,
       username: savedUser.username,
       name: savedUser.name,
       id: savedUser._id
     });
   } catch (error) {
-    return response.status(500).json({ error: "Internal server error" });
+    response.status(500).json({ error: "Internal server error" });
   }
 });
 

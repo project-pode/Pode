@@ -9,7 +9,9 @@ import loginRouter from './controllers/login';
 import usersRouter from './controllers/users';
 import lessonsRouter from './controllers/lessons';
 
-import { requestLogger, unknownEndpoint, tokenExtractor, userExtractor, errorHandler } from './utils/middleware';
+import { ErrorRequestHandler } from 'express';
+import { requestLogger, unknownEndpoint, tokenExtractor, userExtractor } from './utils/middleware';
+import { errorHandler } from './utils/middleware';
 import exercisesRouter from './controllers/exercises';
 import logger from "./utils/logger";
 
@@ -47,6 +49,6 @@ app.use('/api/login', loginRouter);
 app.use('/api/users', userExtractor, usersRouter, lessonsRouter, exercisesRouter);
 
 app.use(unknownEndpoint);
-app.use(errorHandler);
+app.use(errorHandler as ErrorRequestHandler);
 
 export default app
