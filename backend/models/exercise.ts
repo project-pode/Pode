@@ -1,13 +1,9 @@
 import mongoose, { Document } from 'mongoose';
+import { BaseExercise } from '../types';
 
-export interface IExercise extends Document {
-  title: string;
-  description?: string;
+export interface IExercise extends BaseExercise, Document {
   correctAnswer: string | string[];
-  lesson: mongoose.Types.ObjectId;
-  type: string;
-  options: string[];
-  question?: string | string[];  //not needed for all types of exercises
+  question?: string | string[];
 }
 const exerciseSchema = new mongoose.Schema({
   title: {
@@ -30,6 +26,7 @@ const exerciseSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
+    enum: ['simple', 'box', 'blanks'],
   },
   options: [String],
   question: mongoose.Schema.Types.Mixed, //should be any type, since blanks questions are formed as arrays

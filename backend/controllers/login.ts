@@ -6,7 +6,6 @@ import { User } from '../models/user';
 import { SECRET } from '../utils/config';
 const router = express.Router();
 
-
 router.post('/', async (request: Request, response: Response): Promise<void> => {
   const { username, password } = request.body;
 
