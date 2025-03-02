@@ -6,13 +6,11 @@ import mongoose from 'mongoose';
 
 describe('Lessons API', () => {
     let lessonId: mongoose.Types.ObjectId
-        let userId: mongoose.Types.ObjectId;
-        let token: string;
+    let token: string;
 
     beforeAll(async () => {
         const lesson = await createTestLesson();
         const user = await createTestUser();
-        userId = user.userId;
         lessonId = lesson.lessonId;
         token = user.token;
     });
@@ -23,7 +21,7 @@ describe('Lessons API', () => {
 
     test('should get all lessons for a user', async () => {
         const response = await api
-            .get(`/api/users/${userId}/lessons`)
+            .get(`/api/lessons`)
             .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .expect('Content-Type', /application\/json/);
@@ -34,7 +32,7 @@ describe('Lessons API', () => {
 
     test('should get a specific lesson', async () => {
         const response = await api
-            .get(`/api/users/${userId}/lessons/${lessonId}`)
+            .get(`/api/lessons/${lessonId}`)
             .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .expect('Content-Type', /application\/json/);
@@ -44,7 +42,7 @@ describe('Lessons API', () => {
 
     test('should mark a lesson as complete', async () => {
         const response = await api
-            .put(`/api/users/${userId}/lessons/${lessonId}/complete`)
+            .put(`/api/lessons/${lessonId}/complete`)
             .set('Authorization', `Bearer ${token}`)
             .send({ completed: true })
             .expect(200)
