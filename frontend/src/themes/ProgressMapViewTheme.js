@@ -3,7 +3,39 @@ import { Dimensions} from "react-native";
 const { width, height } = Dimensions.get('window');
 
 const theme = {
-    blueContainer: {  // Theme used in: LessonView
+
+    topBorder: {
+      position: 'absolute',
+      top: -100,
+      left: 0,
+      width: '100%',
+      height: '48%',  
+      resizeMode: 'contain', 
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 20,  
+      pointerEvents: 'none'
+    },
+
+    
+  bottomBorder: {
+    transform: [{ rotate: '-180deg' }],
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '50%', 
+    resizeMode: 'cover', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,  
+    pointerEvents: 'none'
+
+  },
+
+
+    
+    blueContainer: {  
         flexGrow: 1,
         flexShrink: 1,
         backgroundColor: "rgba(127,222,255,1)",
@@ -34,33 +66,40 @@ const theme = {
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
       },
-      greenButton: {    // Theme used in: LessonView
-        margin: 20,
+      greenButton: {    
+        margin: 10,
         padding: 10,
         backgroundColor: "#84DC95",
         borderRadius: 33,
         borderWidth: 6,
         borderColor: "#4A8055",
+        zIndex: 11, 
       },
       greenButtonDeselected: {
-        margin: 20,
+        margin: 10,
         padding: 10,
         backgroundColor: "#C2D6C6",
         borderRadius: 33,
         borderWidth: 6,
         borderColor: "#A2B1A5",
+        zIndex: 11,  
+
       },
       greenButtonText: {
         color: "#4A8055",
         fontSize: 45,
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
+        zIndex: 12,  
+
       },
       greenButtonTextDeselected: {
         color: "#A2B1A5",
         fontSize: 45,
         textAlign: "center",
         fontFamily: "AlfaSlabOne",
+        zIndex: 12, 
+
       },
       profileImage: {
         width: 45,
@@ -69,24 +108,30 @@ const theme = {
         marginVertical: 18,
         borderRadius: 75,
         marginBottom: 20,
-        borderWidth: 5,
+        borderWidth: 4,
+        backgroundColor: "white",
         borderColor: 'rgba(75,113,123,1)',
         alignSelf: 'auto',
         padding: 10
     },
+
     buttonsContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
+      paddingHorizontal: 20, 
+      position: 'absolute',
+      top: 0,  
+      height: '75%', 
     },
     profileButton: {
       alignSelf: 'auto',
-      padding: 10
+      padding: 30
     },
     settingsButton: {
       alignSelf: 'auto',
-      padding: 10
+      padding: 30
     },
     
 };
