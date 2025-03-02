@@ -26,7 +26,7 @@ const SingleExerciseView = () => {
     const [selectedAnswer, setSelectedAnswer] = useState([]);
     const [feedback, setFeedback] = useState('');
     const [isExerciseComplete, setIsExerciseComplete] = useState(false);
-    const { userId, lessonId, exerciseId } = useParams();
+    const { lessonId, exerciseId } = useParams();
     const navigate = useNavigate();
     const boxExerciseRef = useRef();
     const [index, setIndex] = useState(0);
@@ -51,7 +51,7 @@ const SingleExerciseView = () => {
      */
     const handleConfirm = () => {
         setShowCloseExercisePopup(false);
-        navigate(`/users/${userId}/lessons`);
+        navigate(`/lessons`);
     };
 
     /**
@@ -84,11 +84,11 @@ const SingleExerciseView = () => {
 
     useEffect(() => {
         const fetchExercise = async () => {
-            const exercise = await exerciseService.getOne(userId, lessonId, exerciseId);
+            const exercise = await exerciseService.getOne(lessonId, exerciseId);
             setExercise(exercise);
         };
         const fetchLesson = async () => {
-            const lesson = await lessonService.getLesson(userId, lessonId);
+            const lesson = await lessonService.getLesson(lessonId);
             setLesson(lesson);
         };
 
@@ -119,7 +119,7 @@ const SingleExerciseView = () => {
             correctSound.current.unloadAsync();
             incorrectSound.current.unloadAsync();
         };
-    }, [userId, lessonId, exerciseId]);
+    }, [ lessonId, exerciseId]);
 
     if (!exercise) {
         return (
@@ -141,8 +141,8 @@ const SingleExerciseView = () => {
      */
     const handleCompleteLesson = async (completedExercises) => {
         try {
-            await lessonService.completeLesson(userId, lessonId);
-            navigate(`/users/${userId}/lessons/${lessonId}/overview`, { state: { completedExercises } });
+            await lessonService.completeLesson(lessonId);
+            navigate(`/lessons/${lessonId}/overview`, { state: { completedExercises } });
         } catch (error) {
             console.error('Error completing lesson:', error);
         }
@@ -167,7 +167,7 @@ const SingleExerciseView = () => {
 
         if (isAnswerCorrect) {
             try {
-                await exerciseService.completeExercise(userId, lessonId, exerciseId);
+                await exerciseService.completeExercise(lessonId, exerciseId);
                 setFeedback('Correct answer!\nExercise completed.');
                 setIsCorrectPopup(true);
                 setShowPopup(true);
@@ -196,7 +196,7 @@ const SingleExerciseView = () => {
         if (lesson && nextIndex < lesson.exercises.length) {
             const nextExerciseID = lesson.exercises[nextIndex].id;
             animateSlide(() => { // Slide to the next
-                navigate(`/users/${userId}/lessons/${lessonId}/exercises/${nextExerciseID}`);
+                navigate(`/lessons/${lessonId}/exercises/${nextExerciseID}`);
                 setIndex(nextIndex);
                 setSelectedAnswer([]);
                 setIsExerciseComplete(false);

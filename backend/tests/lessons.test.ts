@@ -1,17 +1,16 @@
-const app = require('../app');
-const supertest = require('supertest');
+import app from '../app';
+import supertest from 'supertest';
 const api = supertest(app);
-const { createTestUser, cleanupDatabase, createTestLesson } = require('./test_helper');
+import { createTestUser, cleanupDatabase, createTestLesson } from './test_helper';
+import mongoose from 'mongoose';
 
 describe('Lessons API', () => {
-    let lessonId;
-    let userId;
-    let token = null;
+    let lessonId: mongoose.Types.ObjectId
+    let token: string;
 
     beforeAll(async () => {
         const lesson = await createTestLesson();
         const user = await createTestUser();
-        userId = user.userId;
         lessonId = lesson.lessonId;
         token = user.token;
     });
@@ -22,7 +21,7 @@ describe('Lessons API', () => {
 
     test('should get all lessons for a user', async () => {
         const response = await api
-            .get(`/api/users/${userId}/lessons`)
+            .get(`/api/lessons`)
             .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .expect('Content-Type', /application\/json/);
@@ -33,7 +32,7 @@ describe('Lessons API', () => {
 
     test('should get a specific lesson', async () => {
         const response = await api
-            .get(`/api/users/${userId}/lessons/${lessonId}`)
+            .get(`/api/lessons/${lessonId}`)
             .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .expect('Content-Type', /application\/json/);
@@ -43,7 +42,7 @@ describe('Lessons API', () => {
 
     test('should mark a lesson as complete', async () => {
         const response = await api
-            .put(`/api/users/${userId}/lessons/${lessonId}/complete`)
+            .put(`/api/lessons/${lessonId}/complete`)
             .set('Authorization', `Bearer ${token}`)
             .send({ completed: true })
             .expect(200)

@@ -1,7 +1,7 @@
-const app = require('../app');
-const User = require('../models/user');
-const supertest = require('supertest');
-const { cleanupDatabase } = require('./test_helper');
+import app from '../app';
+import { User } from '../models/user';
+import supertest from 'supertest';
+import { cleanupDatabase } from './test_helper';
 const api = supertest(app);
 
 describe('Users API', () => {

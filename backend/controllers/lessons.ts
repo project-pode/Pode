@@ -1,7 +1,11 @@
-const lessonsRouter = require('express').Router();
-const Lesson = require('../models/lesson');
+import express, { Response, Request } from 'express';
+
+import { Lesson } from '../models/lesson';
+import mongoose from 'mongoose';
+const router = express.Router();
+
 // get the users uncompleted lessons
-lessonsRouter.get('/:userId/lessons', async (request, response) => {
+router.get('/', async (_request: Request, response: Response): Promise<void> => {
     try {
         const lessons = await Lesson.find({});
         response.json(lessons); // all lessons
@@ -11,7 +15,7 @@ lessonsRouter.get('/:userId/lessons', async (request, response) => {
     }
 });
 
-lessonsRouter.get('/:userId/lessons/:lessonId', async (request, response) => {
+router.get('/:lessonId', async (request: Request, response: Response): Promise<void> => {
     //const user = await User.findById(request.params.id)
     const lesson = await Lesson.findById(request.params.lessonId).populate('exercises');
 
@@ -24,26 +28,29 @@ lessonsRouter.get('/:userId/lessons/:lessonId', async (request, response) => {
 });
 
 // PUT /api/users/:userId/lessons/:lessonId/complete
-lessonsRouter.put('/:userId/lessons/:lessonId/complete', async (request, response) => {
+router.put('/:lessonId/complete', async (request: Request, response: Response): Promise<void> => {
 
     try {
         const user = request.user;
 
         // Find the lesson
         const lesson = await Lesson.findById(request.params.lessonId).populate('exercises');
-        if (!lesson) return response.status(404).json({ error: 'Lesson not found' });
-
+        if (!lesson) {
+            response.status(404).json({ error: 'Lesson not found' });
+            return;
+        }
          // Check if all exercises are completed
         const completedExerciseIds = user.completedExercises.map(ex => ex.toString());
-        const allExercisesCompleted = lesson.exercises.every(exercise => completedExerciseIds.includes(exercise._id.toString()));
+        const allExercisesCompleted = lesson.exercises.every(exercise => completedExerciseIds.includes(exercise.id.toString()));
 
         if (!allExercisesCompleted) {
-            return response.status(400).json({ error: 'Not all exercises are completed' });
+            response.status(400).json({ error: 'Not all exercises are completed' });
         }
 
         // Mark the lesson as completed if not already
-        if (!user.completedLessons.includes(request.params.lessonId)) {
-            user.completedLessons.push(request.params.lessonId);
+        const lessonId = new mongoose.Types.ObjectId(request.params.lessonId);
+        if (!user.completedLessons.includes(lessonId)) {
+            user.completedLessons.push(lessonId);
             // Save the updated user
             await user.save();
         }
@@ -54,4 +61,4 @@ lessonsRouter.put('/:userId/lessons/:lessonId/complete', async (request, respons
     }
 });
 
-module.exports = lessonsRouter;
+export default router;

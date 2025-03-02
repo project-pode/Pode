@@ -19,7 +19,7 @@ const StartView = ({ user }) => {
 
     useEffect(() => {
         if (user) {
-            navigate(`/users/${user.id}/lessons`); // Redirect to the home page (progress map) if the user is logged in
+            navigate(`/lessons`); // Redirect to the home page (progress map) if the user is logged in
         }
     }, [user, navigate]); 
 

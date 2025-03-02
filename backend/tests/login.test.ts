@@ -1,7 +1,7 @@
-const app = require('../app');
-const supertest = require('supertest');
+import app from '../app';
+import supertest from 'supertest';
 const api = supertest(app);
-const { createTestUser, cleanupDatabase } = require('./test_helper');
+import { createTestUser, cleanupDatabase } from './test_helper';
 
 describe('Login API', () => {
     beforeAll(async () => {

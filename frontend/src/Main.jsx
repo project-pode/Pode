@@ -79,7 +79,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       await authStorage.setUser(user);
       setUser(user);
-      navigate(`/users/${user.id}/lessons`);
+      navigate("/lessons");
     } catch (exception) {
       const errorMessage = exception.response?.data?.error || 'An unexpected error occurred.';
       return errorMessage; // Return the error message
@@ -99,7 +99,7 @@ const Main = () => {
       tokenService.setToken(user.token);
       await authStorage.setUser(user);
       setUser(user);
-      navigate(`/users/${user.id}/lessons?showPopUp=true`);
+      navigate("/lessons?showPopUp=true");
     } catch (exception) {
       const errorMessage = exception.response?.data?.error || 'An unexpected error occurred.';
       return errorMessage; // Return the error message
@@ -129,10 +129,10 @@ const Main = () => {
         <Route path="/" element={<StartView user={user} />} />
         <Route path="/signUp" element={<SignUp onSignUp={handleSignUp} />} />
         <Route path="/users/:userId/profile" element={<ProfileView onLogout={handleLogout} />} />
-        <Route path="/users/:userId/lessons" element={<ProgressMapView />} />
-        <Route path="/users/:userId/lessons/:lessonId" element={<LessonView />} />
-        <Route path="/users/:userId/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView />} />
-        <Route path="/users/:userId/lessons/:lessonId/overview" element={<LessonOverview user={user} />} />
+        <Route path="/lessons" element={<ProgressMapView />} />
+        <Route path="/lessons/:lessonId" element={<LessonView />} />
+        <Route path="/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView />} />
+        <Route path="/lessons/:lessonId/overview" element={<LessonOverview user={user} />} />
       </Routes>
     </View>
   );

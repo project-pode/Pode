@@ -1,9 +1,12 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const loginRouter = require('express').Router();
-const User = require('../models/user');
+import express from 'express';
+import { Request, Response } from 'express';
+import jwt, { Secret } from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { User } from '../models/user';
+import { SECRET } from '../utils/config';
+const router = express.Router();
 
-loginRouter.post('/', async (request, response) => {
+router.post('/', async (request: Request, response: Response): Promise<void> => {
   const { username, password } = request.body;
 
   const user = await User.findOne({ username });
@@ -12,9 +15,10 @@ loginRouter.post('/', async (request, response) => {
     : await bcrypt.compare(password, user.passwordHash);
 
   if (!(user && passwordCorrect)) {
-    return response.status(401).json({
+     response.status(401).json({
       error: 'Password or username is incorrect'
     });
+    return;
   }
 
   const userForToken = {
@@ -22,12 +26,12 @@ loginRouter.post('/', async (request, response) => {
     id: user._id,
   };
 
-  const token = jwt.sign(userForToken, process.env.SECRET,
-    { expiresIn: 60000*60000 });
+  const token = jwt.sign(userForToken, SECRET as Secret,
+    { expiresIn: 60000 * 60000 });
 
   response
     .status(200)
     .send({ token, username: user.username, name: user.name, id: user._id }); // user id will be used in endpoints
 });
 
-module.exports = loginRouter;
+export default router;
