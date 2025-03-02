@@ -73,57 +73,64 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
     const handlePress = (box, index) => {
         const blankIndex = blanks.findIndex((item) => item === box);
         let newOrder = [];
-
+    
         if (blankIndex !== -1) {
+            // Remove the selected box from the blanks
             const newBlanks = [...blanks];
-            newBlanks[blankIndex] = null; // Clear the blank
+            newBlanks[blankIndex] = null;
             setBlanks(newBlanks);
-
+    
             newOrder = selectedAnswer.filter(item => item !== box);
             setSelectedAnswer(newOrder);
-
+    
+            // Reset the animation for the box
             Animated.timing(animations[index], {
                 toValue: { x: 0, y: 0 },
                 duration: 500,
                 useNativeDriver: true,
             }).start();
+    
         } else {
             newOrder = [...selectedAnswer, box];
             setSelectedAnswer(newOrder);
-
+    
             const emptyBlankIndex = blanks.indexOf(null);
-            if (
-                emptyBlankIndex !== -1 &&
-                boxLayouts.current[index] &&
-                blankLayouts.current[emptyBlankIndex]
-            ) {
-                const boxPosition = boxLayouts.current[index];
-                const blankPosition = blankLayouts.current[emptyBlankIndex];
-
-                // Calculate the offset for the animation
-                const deltaX = blankPosition.x - boxPosition.x;
-                const deltaY = blankPosition.y - boxPosition.y;
-
-                // Log values for debugging
-                console.log('Box Position:', boxPosition);
-                console.log('Blank Position:', blankPosition);
-                console.log('deltaX:', deltaX);
-                console.log('deltaY:', deltaY);
-
-                // Update the blanks state
+            if (emptyBlankIndex !== -1) {
                 const newBlanks = [...blanks];
                 newBlanks[emptyBlankIndex] = box;
                 setBlanks(newBlanks);
-
-                // Animate the box to the blank position
-                Animated.timing(animations[index], {
-                    toValue: { x: deltaX, y: deltaY },
-                    duration: 500,
-                    useNativeDriver: true,
-                }).start();
+    
+                // Wait for the re-render before measuring and animating
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        // Re-measure layouts AFTER React re-renders
+                        measureAllLayouts();
+    
+                        setTimeout(() => {
+                            if (boxLayouts.current[index] && blankLayouts.current[emptyBlankIndex]) {
+                                const boxPosition = boxLayouts.current[index];
+                                const updatedBlankPosition = blankLayouts.current[emptyBlankIndex];
+    
+                                if (!updatedBlankPosition) return;
+    
+                                const deltaX = updatedBlankPosition.x - boxPosition.x;
+                                const deltaY = updatedBlankPosition.y - boxPosition.y;
+    
+                                // Move the box to the correct position
+                                Animated.timing(animations[index], {
+                                    toValue: { x: deltaX, y: deltaY },
+                                    duration: 500,
+                                    useNativeDriver: true,
+                                }).start();
+                            }
+                        }, 125); // Small delay ensures new measurements are available
+                    }, 25);
+                });
             }
         }
     };
+    
+    
 
     /**
      * Resets all animations and measures layouts.
@@ -142,7 +149,7 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
 
         setTimeout(() => {
             measureAllLayouts();
-        }, 600); // Delay is used to prevent wonky layout calculations. Adjust as needed
+        }, ); // Delay was previously used here
     };
 
     return {

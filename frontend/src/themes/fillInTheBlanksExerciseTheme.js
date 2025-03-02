@@ -2,7 +2,7 @@ const theme = {
   blankBox: {
     backgroundColor: 'rgba(161,161,161,255)',
     borderRadius: 20,
-    padding: 10,
+    padding: 12,
     margin: 5,
     minWidth: 50,
     alignItems: 'center',
@@ -11,8 +11,10 @@ const theme = {
   blankBoxText: {
     color: 'rgba(161,161,161,255)',
     fontSize: 16,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontFamily: "Cousine",
   },
-
   pinkContainerBox: {
     marginHorizontal: 10,
     backgroundColor: "rgba(237,220,249,1)",
