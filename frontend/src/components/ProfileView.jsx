@@ -9,11 +9,20 @@ import mainTheme from '../themes/mainTheme.js';
 const avatars = [
     { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
     { name: 'avatar2', source: require('../../assets/avatars/avatar2.png') },
-    { name: 'avatar3', source: require('../../assets/avatars/avatar3.jpg') },
-    { name: 'avatar4', source: require('../../assets/avatars/avatar4.jpg') },
-    { name: 'avatar5', source: require('../../assets/avatars/avatar5.jpg') },
-    { name: 'avatar6', source: require('../../assets/avatars/avatar6.jpg') },
-];
+    { name: 'avatar3', source: require('../../assets/avatars/avatar3.png') },
+    { name: 'avatar4', source: require('../../assets/avatars/avatar4.png') },
+    { name: 'avatar5', source: require('../../assets/avatars/avatar5.png') },
+    { name: 'avatar6', source: require('../../assets/avatars/avatar6.png') },
+    { name: 'avatar7', source: require('../../assets/avatars/avatar7.png') },
+    { name: 'avatar8', source: require('../../assets/avatars/avatar8.png') },
+    { name: 'avatar9', source: require('../../assets/avatars/avatar9.png') },
+    { name: 'avatar10', source: require('../../assets/avatars/avatar10.png') },
+    { name: 'avatar11', source: require('../../assets/avatars/avatar11.png') },
+    { name: 'avatar12', source: require('../../assets/avatars/avatar12.png') },
+    { name: 'avatar13', source: require('../../assets/avatars/avatar13.png') },
+    { name: 'avatar14', source: require('../../assets/avatars/avatar14.png') },
+    { name: 'avatar15', source: require('../../assets/avatars/avatar15.png') },
+  ];
 
 /**
  * ProfileView component
