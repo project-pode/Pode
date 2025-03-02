@@ -11,7 +11,6 @@ const lessonService = useDemoService
         /**
          * Fetches all lessons for a specific user.
          * 
-         * @param {string} userId - The ID of the user.
          * @returns {Array} The list of lessons.
          */
         getLessons: async () => {
@@ -27,7 +26,6 @@ const lessonService = useDemoService
         /**
          * Fetches a specific lesson for a user.
          * 
-         * @param {string} userId - The ID of the user.
          * @param {string} lessonId - The ID of the lesson.
          * @returns {Object} The lesson data.
          */
@@ -44,7 +42,6 @@ const lessonService = useDemoService
         /**
          * Marks a specific lesson as completed for a user.
          * 
-         * @param {string} userId - The ID of the user.
          * @param {string} lessonId - The ID of the lesson.
          * @returns {Object} The response data.
          */

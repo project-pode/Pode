@@ -60,6 +60,6 @@ describe('LessonOverview', () => {
         renderComponent();
         await waitFor(() => screen.getByText('Exit'));
         fireEvent.press(screen.getByText('Exit'));
-        expect(navigateMock).toHaveBeenCalledWith('/users/1/lessons');
+        expect(navigateMock).toHaveBeenCalledWith('/lessons');
     });
 });

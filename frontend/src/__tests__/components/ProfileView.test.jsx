@@ -94,6 +94,6 @@ describe('ProfileView', () => {
         const { getByText } = renderComponent();
         await waitFor(() => getByText('testuser'));
         fireEvent.press(getByText('<'));
-        expect(navigateMock).toHaveBeenCalledWith('/users/1/lessons');
+        expect(navigateMock).toHaveBeenCalledWith('/lessons');
     });
 });

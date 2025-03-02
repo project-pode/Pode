@@ -11,7 +11,6 @@ const exerciseService = useDemoService
         /**
          * Fetches a specific exercise for a user and lesson.
          * 
-         * @param {string} userId - The ID of the user.
          * @param {string} lessonId - The ID of the lesson.
          * @param {string} exerciseId - The ID of the exercise.
          * @returns {Object} The exercise data.
@@ -28,7 +27,6 @@ const exerciseService = useDemoService
         /**
          * Marks a specific exercise as completed for a user and lesson.
          * 
-         * @param {string} userId - The ID of the user.
          * @param {string} lessonId - The ID of the lesson.
          * @param {string} exerciseId - The ID of the exercise.
          * @returns {Object} The response data.
