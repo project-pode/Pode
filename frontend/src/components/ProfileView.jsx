@@ -89,7 +89,7 @@ const ProfileView = ({ onLogout }) => {
      * Navigates back to the progress map
      */
     const handleBackPress = () => {
-        navigate(`/users/${user.id}/lessons`);
+        navigate(`/lessons`);
     };
 
     /**

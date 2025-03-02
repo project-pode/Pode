@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 const router = express.Router();
 
 // get the users uncompleted lessons
-router.get('/:userId/lessons', async (_request: Request, response: Response): Promise<void> => {
+router.get('/', async (_request: Request, response: Response): Promise<void> => {
     try {
         const lessons = await Lesson.find({});
         response.json(lessons); // all lessons
@@ -15,7 +15,7 @@ router.get('/:userId/lessons', async (_request: Request, response: Response): Pr
     }
 });
 
-router.get('/:userId/lessons/:lessonId', async (request: Request, response: Response): Promise<void> => {
+router.get('/:lessonId', async (request: Request, response: Response): Promise<void> => {
     //const user = await User.findById(request.params.id)
     const lesson = await Lesson.findById(request.params.lessonId).populate('exercises');
 
@@ -28,7 +28,7 @@ router.get('/:userId/lessons/:lessonId', async (request: Request, response: Resp
 });
 
 // PUT /api/users/:userId/lessons/:lessonId/complete
-router.put('/:userId/lessons/:lessonId/complete', async (request: Request, response: Response): Promise<void> => {
+router.put('/:lessonId/complete', async (request: Request, response: Response): Promise<void> => {
 
     try {
         const user = request.user;

@@ -4,11 +4,11 @@
     "description": "Pode backend",
     "main": "index.ts",
     "scripts": {
-        "start": "cross-env NODE_ENV=production node index.ts",
+        "start": "cross-env NODE_ENV=production ts-node index.ts",
         "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
         "dev": "cross-env NODE_ENV=development nodemon index.ts",
         "lint": "eslint .",
-        "start:test": "cross-env NODE_ENV=test node index.ts"
+        "start:test": "cross-env NODE_ENV=test ts-node index.ts"
     },
     "repository": {
         "type": "git",
@@ -30,6 +30,7 @@
         "lodash": "^4.17.21",
         "mongodb": "^6.12.0",
         "mongoose": "^8.9.5",
+        "ts-node": "^10.9.2",
         "typescript": "^5.8.2",
         "winston": "^3.17.0"
     },

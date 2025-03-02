@@ -16,9 +16,9 @@ const exerciseService = useDemoService
          * @param {string} exerciseId - The ID of the exercise.
          * @returns {Object} The exercise data.
          */
-        getOne: async (userId, lessonId, exerciseId) => {
+        getOne: async (lessonId, exerciseId) => {
             try {
-                const response = await axios.get(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}/exercises/${exerciseId}`);
+                const response = await axios.get(`${apiBaseUrl}/lessons/${lessonId}/exercises/${exerciseId}`);
                 return response.data; // The specific exercise
             } catch (error) {
                 console.error('Error fetching exercise:', error);
@@ -33,10 +33,10 @@ const exerciseService = useDemoService
          * @param {string} exerciseId - The ID of the exercise.
          * @returns {Object} The response data.
          */
-        completeExercise: async (userId, lessonId, exerciseId) => {
+        completeExercise: async (lessonId, exerciseId) => {
             try {
                 const config = tokenService.getConfig();
-                const response = await axios.put(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}/exercises/${exerciseId}/complete`, {}, config);
+                const response = await axios.put(`${apiBaseUrl}/lessons/${lessonId}/exercises/${exerciseId}/complete`, {}, config);
                 return response.data;
             } catch (error) {
                 console.error('Error marking exercise as completed:', error);

@@ -4,14 +4,14 @@ import { Lesson } from '../models/lesson';
 const router = express.Router();
 
 // Get all exercises
-router.get('/:userId/lessons/:lessonId/exercises', async (request: Request, response: Response): Promise<void> => {
+router.get('/:lessonId/exercises', async (request: Request, response: Response): Promise<void> => {
     const lesson = await Lesson.findById(request.params.lessonId);
     const exercises = await Exercise.find({ lesson });
     response.json(exercises);
 });
 
 // Get specific exercise. Id params to be changed
-router.get('/:userId/lessons/:lessonId/exercises/:exerciseId', async (request: Request, response: Response): Promise<void> => {
+router.get('/:lessonId/exercises/:exerciseId', async (request: Request, response: Response): Promise<void> => {
     const lesson = await Lesson.findById(request.params.lessonId);
     if (!lesson) {
         response.status(404).json({ error: 'Lesson not found' });
@@ -22,7 +22,7 @@ router.get('/:userId/lessons/:lessonId/exercises/:exerciseId', async (request: R
     response.json(exercise);
 });
 
-router.put('/:userId/lessons/:lessonId/exercises/:exerciseId/complete', async (request: Request, response: Response): Promise<void> => {
+router.put('/:lessonId/exercises/:exerciseId/complete', async (request: Request, response: Response): Promise<void> => {
     try {
       const user = request.user;
 

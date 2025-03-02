@@ -17,7 +17,7 @@ import mainTheme from "../../themes/mainTheme";
 const LessonOverview = () => {
     const [lesson, setLesson] = useState(null);
     const navigate = useNavigate();
-    const { userId, lessonId } = useParams();
+    const { lessonId } = useParams();
     const location = useLocation();
     const { completedExercises } = location.state || {};
     const slideAnim = useRef(new Animated.Value(300)).current; // Slide animation
@@ -27,12 +27,12 @@ const LessonOverview = () => {
      * Navigates back to the lessons overview page.
      */
     const handlePress = () => {
-        navigate(`/users/${userId}/lessons`);
+        navigate(`/lessons`);
     };
 
     useEffect(() => {
         const fetchLesson = async () => {
-            const lesson = await lessonService.getLesson(userId, lessonId);
+            const lesson = await lessonService.getLesson(lessonId);
             setLesson(lesson);
         };
 
@@ -43,7 +43,7 @@ const LessonOverview = () => {
             useNativeDriver: true,
         }).start();
         void fetchLesson();
-    }, [lessonId, userId]);
+    }, [lessonId]);
 
     if (!lesson) {
         return (

@@ -19,7 +19,7 @@ import mainTheme from "../../themes/mainTheme";
 const LessonView = () => {
     const [lesson, setLesson] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
-    const { userId, lessonId } = useParams();
+    const { lessonId } = useParams();
     const navigate = useNavigate();
 
     // Animation ref
@@ -39,7 +39,7 @@ const LessonView = () => {
      */
     const handleConfirm = () => {
         setShowPopup(false);
-        navigate(`/users/${userId}/lessons`);
+        navigate(`/lessons`);
     };
 
     /**
@@ -57,7 +57,7 @@ const LessonView = () => {
     const moveToExercise = () => {
         if (lesson && lesson.exercises && lesson.exercises.length > 0) {
             const firstExerciseId = lesson.exercises[0].id; // Get the first exercise's ID
-            navigate(`/users/${userId}/lessons/${lessonId}/exercises/${firstExerciseId}`);
+            navigate(`/lessons/${lessonId}/exercises/${firstExerciseId}`);
         } else {
             console.error("No exercises found in the lesson."); // Handle edge case
         }
@@ -65,7 +65,7 @@ const LessonView = () => {
 
     useEffect(() => {
         const fetchLesson = async () => {
-            const lesson = await lessonService.getLesson(userId, lessonId);
+            const lesson = await lessonService.getLesson(lessonId);
             setLesson(lesson);
         };
 
@@ -77,7 +77,7 @@ const LessonView = () => {
         }).start();
 
         void fetchLesson();
-    }, [userId, lessonId]);
+    }, [lessonId]);
 
     if (!lesson) {
         return (

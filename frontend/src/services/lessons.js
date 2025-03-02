@@ -14,10 +14,10 @@ const lessonService = useDemoService
          * @param {string} userId - The ID of the user.
          * @returns {Array} The list of lessons.
          */
-        getLessons: async (userId) => {
+        getLessons: async () => {
             try {
                 console.log('Fetching lessons from API');
-                const response = await axios.get(`${apiBaseUrl}/users/${userId}/lessons`);
+                const response = await axios.get(`${apiBaseUrl}/lessons`);
                 return response.data; // The list of lessons
             } catch (error) {
                 console.error('Error fetching lessons:', error);
@@ -31,10 +31,10 @@ const lessonService = useDemoService
          * @param {string} lessonId - The ID of the lesson.
          * @returns {Object} The lesson data.
          */
-        getLesson: async (userId, lessonId) => {
+        getLesson: async (lessonId) => {
             try {
                 console.log('Fetching lesson from API');
-                const response = await axios.get(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}`);
+                const response = await axios.get(`${apiBaseUrl}/lessons/${lessonId}`);
                 return response.data; // The specific lesson
             } catch (error) {
                 console.error('Error fetching lesson:', error);
@@ -48,11 +48,11 @@ const lessonService = useDemoService
          * @param {string} lessonId - The ID of the lesson.
          * @returns {Object} The response data.
          */
-        completeLesson: async (userId, lessonId) => {
+        completeLesson: async (lessonId) => {
             try {
                 console.log('Completing lesson via API');
                 const config = tokenService.getConfig();
-                const response = await axios.put(`${apiBaseUrl}/users/${userId}/lessons/${lessonId}/complete`, {}, config);
+                const response = await axios.put(`${apiBaseUrl}/lessons/${lessonId}/complete`, {}, config);
                 return response.data;
             } catch (error) {
                 console.error('Error marking lesson as completed:', error);

@@ -15,7 +15,6 @@ import { errorHandler } from './utils/middleware';
 import exercisesRouter from './controllers/exercises';
 import logger from "./utils/logger";
 
-
 declare global {
   namespace Express {
     interface Request {
@@ -46,7 +45,8 @@ app.use(requestLogger);
 app.use(tokenExtractor);
 
 app.use('/api/login', loginRouter);
-app.use('/api/users', userExtractor, usersRouter, lessonsRouter, exercisesRouter);
+app.use('/api/users', userExtractor, usersRouter);
+app.use('/api/lessons', userExtractor, lessonsRouter, exercisesRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler as ErrorRequestHandler);

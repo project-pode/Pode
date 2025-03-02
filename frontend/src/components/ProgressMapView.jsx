@@ -2,13 +2,14 @@ import { View, ImageBackground, Pressable, Text, Image, Animated } from "react-n
 import theme from "../themes/progressMapViewTheme";
 import { useEffect, useState, useRef } from "react";
 import lessonService from "../services/lessons";
-import { useNavigate, useParams, useLocation } from "react-router-native";
+import { useNavigate, useLocation } from "react-router-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import userService from "../services/users";
 import LoadingView from "./LoadingView";
 import PopUp from "./PopUp";
 import queryString from "query-string";
 import mainTheme from "../themes/mainTheme";
+import useAuthStorage from "../hooks/useAuthStorage";
 
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -33,7 +34,7 @@ const ProgressMapView = () => {
   const [lessons, setLessons] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
-  const { userId } = useParams();
+  const authStorage = useAuthStorage();
   const [avatar, setSelectedAvatar] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Track loading state
@@ -45,10 +46,13 @@ const ProgressMapView = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const fetchedUser = await userService.getOne(userId);
-        setUser(fetchedUser);
-        setSelectedAvatar(fetchedUser.avatar);
-        setCompletedLessons(fetchedUser.completedLessons || []);
+        const storageUser = await authStorage.getUser();
+        if (storageUser) {
+          const fetchedUser = await userService.getOne(storageUser.id);
+          setUser(fetchedUser);
+          setSelectedAvatar(fetchedUser.avatar);
+          setCompletedLessons(fetchedUser.completedLessons || []);
+        }
       } catch (error) {
         console.error('Error fetching user:', error);
       } finally {
@@ -58,7 +62,7 @@ const ProgressMapView = () => {
 
     const fetchLessons = async () => {
       try {
-        const lessons = await lessonService.getLessons(userId);
+        const lessons = await lessonService.getLessons();
         setLessons(lessons);
       } catch (error) {
         console.error('Error fetching lessons:', error);
@@ -83,7 +87,7 @@ const ProgressMapView = () => {
     } else {
       console.log('showPopUp is not set in query parameters');
     }
-  }, [userId, location.search]);
+  }, [location.search]);
 
   /**
    * Handles lesson press event.
@@ -101,7 +105,7 @@ const ProgressMapView = () => {
    */
   const handleStartPress = () => {
     if (selectedLesson) {
-      navigate(`/users/${userId}/lessons/${selectedLesson.id}`);
+      navigate(`/lessons/${selectedLesson.id}`);
     }
   };
 
@@ -110,7 +114,9 @@ const ProgressMapView = () => {
    * Navigates to the user's profile.
    */
   const handleProfilePress = () => {
-    navigate(`/users/${userId}/profile`);
+    if (user) {
+      navigate(`/users/${user.id}/profile`);
+    }
   };
 
   /**

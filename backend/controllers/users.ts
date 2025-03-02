@@ -65,13 +65,13 @@ router.post('/', async (request: Request, response: Response): Promise<void> => 
   }
 });
 
-router.get('/', async (_request, response) => {
+router.get('/', async (_request: Request, response: Response) => {
   const users = await User
     .find({});
   response.json(users);
 });
 
-router.get('/:id', async (request, response) => {
+router.get('/:id', async (request: Request, response: Response) => {
   const user = await User.findById(request.params.id);
   if (user) {
     response.json(user);
@@ -80,7 +80,7 @@ router.get('/:id', async (request, response) => {
   }
 });
 
-router.put('/:id', async (request, response) => {
+router.put('/:id', async (request: Request, response: Response) => {
   const user = request.user;
   if (user) {
     user.avatar = request.body.avatar;
