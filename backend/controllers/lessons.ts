@@ -1,6 +1,7 @@
 import express, { Response, Request } from 'express';
 
 import { Lesson } from '../models/lesson';
+import mongoose from 'mongoose';
 const router = express.Router();
 
 // get the users uncompleted lessons
@@ -47,8 +48,9 @@ router.put('/:userId/lessons/:lessonId/complete', async (request: Request, respo
         }
 
         // Mark the lesson as completed if not already
-        if (!user.completedLessons.includes(request.params.lessonId)) {
-            user.completedLessons.push(request.params.lessonId);
+        const lessonId = new mongoose.Types.ObjectId(request.params.lessonId);
+        if (!user.completedLessons.includes(lessonId)) {
+            user.completedLessons.push(lessonId);
             // Save the updated user
             await user.save();
         }

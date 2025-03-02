@@ -1,12 +1,12 @@
-import {Schema, model, Document} from 'mongoose';
+import mongoose, {Schema, model, Document} from 'mongoose';
 
 export interface IUser extends Document {
   username: string;
   name: string;
   passwordHash: string;
   avatar: string;
-  completedLessons: string[]; //array of lesson ids
-  completedExercises: string[]; //array of exercise ids
+  completedLessons: mongoose.Types.ObjectId[]; //array of lesson ids
+  completedExercises: mongoose.Types.ObjectId[]; //array of exercise ids
 }
 
 const userSchema = new Schema({
