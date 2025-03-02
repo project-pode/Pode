@@ -175,16 +175,17 @@ const ProgressMapView = () => {
   return (
     
     <View style={mainTheme.blueContainer}>
-      <ImageBackground source={require('../../assets/border.png')} style={theme.topBorder}>
-        <Animated.View style={[theme.buttonsContainer, { transform: [{ translateX: slideAnim }] }]}>
+      <ImageBackground source={require('../../assets/border.png')} style={theme.topBorder}/>
+    
+      <Animated.View style={[theme.buttonsContainer, { transform: [{ translateX: slideAnim }] }]}>
           <Pressable onPress={handleSettingsPress}>
             <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
           </Pressable>
           <Pressable onPress={handleProfilePress}>
             {renderAvatar(avatar)}
           </Pressable>
-        </Animated.View>
-      </ImageBackground>
+      </Animated.View>
+
       <Animated.ScrollView inverted style={[ { transform: [{ translateX: slideAnim }] }]}>
         <View contentContainerStyle={theme.cloudContainer}>
           {lessons.map((lesson, index) => (
@@ -213,8 +214,6 @@ const ProgressMapView = () => {
           ))}
         </View>
       </Animated.ScrollView>
-    
-
 
       <Pressable
         style={[
@@ -224,7 +223,7 @@ const ProgressMapView = () => {
         disabled={!selectedLesson}
       >
           <Text style={selectedLesson ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>Start</Text>
-        </Pressable>
+      </Pressable>
       <PopUp
         type="confirmation"
         visible={showPopUp}
@@ -232,7 +231,8 @@ const ProgressMapView = () => {
         onConfirm={handlePopUpConfirm}
         confirmText="Continue"
       />
-            <ImageBackground source={require('../../assets/border.png')} style={theme.bottomBorder} />
+
+      <ImageBackground source={require('../../assets/border.png')} style={theme.bottomBorder} />
 
     </View>
   );

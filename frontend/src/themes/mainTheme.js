@@ -21,12 +21,16 @@ const mainTheme = {
       borderRadius: 33,
       borderWidth: 6,
       borderColor: "#4A8055",
+      zIndex: 20,  
+
     },
     greenButtonText: {
       color: "#4A8055",
       fontSize: 45,
       textAlign: "center",
       fontFamily: "AlfaSlabOne",
+      zIndex: 25,  
+
     },
     greenButtonDeselected: {
       margin: 20,
@@ -35,12 +39,16 @@ const mainTheme = {
       borderRadius: 33,
       borderWidth: 6,
       borderColor: "#A2B1A5",
+      zIndex: 20,  
+
     },    
     greenButtonTextDeselected: {
       color: "#A2B1A5",
       fontSize: 45,
       textAlign: "center",
       fontFamily: "AlfaSlabOne",
+      zIndex: 25,  
+
     },
     titlePode: {
       color: "rgba(75,113,123,1)",

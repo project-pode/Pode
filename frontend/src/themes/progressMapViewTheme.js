@@ -48,18 +48,20 @@ const theme = {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      paddingHorizontal: 20, 
+      paddingHorizontal: 10, 
       position: 'absolute',
       top: 0,  
-      height: '75%', 
+      height: '10%', 
+      zIndex:500
     },
     profileButton: {
       alignSelf: 'auto',
-      padding: 30
+      padding: 30,
     },
+
     settingsButton: {
       alignSelf: 'auto',
-      padding: 30
+      padding: 30,
     },
 
     topBorder: {
@@ -88,7 +90,6 @@ const theme = {
     alignItems: 'center',
     zIndex: 10,  
     pointerEvents: 'none'
-
   },
     
 };
