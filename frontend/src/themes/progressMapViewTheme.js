@@ -37,8 +37,7 @@ const theme = {
         marginVertical: 18,
         borderRadius: 75,
         marginBottom: 20,
-        borderWidth: 4,
-        backgroundColor: "white",
+        borderWidth: 5,
         borderColor: 'rgba(75,113,123,1)',
         alignSelf: 'auto',
         padding: 10
@@ -48,48 +47,15 @@ const theme = {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      paddingHorizontal: 20, 
-      position: 'absolute',
-      top: 0,  
-      height: '75%', 
     },
     profileButton: {
       alignSelf: 'auto',
-      padding: 30
+      padding: 10
     },
     settingsButton: {
       alignSelf: 'auto',
-      padding: 30
+      padding: 10
     },
-
-    topBorder: {
-      position: 'absolute',
-      top: -100,
-      left: 0,
-      width: '100%',
-      height: '48%',  
-      resizeMode: 'contain', 
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 20,  
-      pointerEvents: 'none'
-    },
-
-
-  bottomBorder: {
-    transform: [{ rotate: '-180deg' }],
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    height: '50%', 
-    resizeMode: 'cover', 
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10,  
-    pointerEvents: 'none'
-
-  },
     
 };
 
