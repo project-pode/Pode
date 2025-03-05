@@ -32,24 +32,46 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         resetAnimations: resetAnimationsInternal,
     }));
 
+    const longestString = options.reduce((longest, current) => {
+        return current.length > longest.length ? current : longest;
+    }, '');
+
     /**
      * Renders the question text with blanks.
      * 
      * @returns {JSX.Element} The rendered question text
      */
+    const getBlankBoxStyle = (isFilled) => ({
+        backgroundColor: isFilled ? 'rgba(237,220,249,1)' : 'rgba(161,161,161,255)',
+        borderRadius: 20,
+        padding: 12,
+        margin: 5,
+        minWidth: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    });
+    getBlankBoxTextStyle = (isFilled) => ({
+        color: isFilled ? 'rgba(237,220,249,1)' : 'rgba(161,161,161,255)',
+        fontSize: 16,
+        textAlign: "center",
+        fontWeight: "bold",
+        fontFamily: "Cousine",
+    });
+    
+
     const renderQuestionText = () => {
         return question.map((item, index) => {
             if (item === "blank") {
                 // Insert blank box
-                //
+                const isFilled = blanks[index] !== null;
                 return (
                     <View
                         key={index}
-                        style={theme.blankBox}
+                        style={getBlankBoxStyle(isFilled)}
                         onLayout={() => {}}
                         ref={blankRefs.current[index]}
                     >
-                        <Text style={theme.blankBoxText}>{blanks[index] || '[ ]'}</Text> 
+                        <Text style={getBlankBoxTextStyle(isFilled)}>{longestString || '[ ]'}</Text> 
                     </View>
                 );
             }

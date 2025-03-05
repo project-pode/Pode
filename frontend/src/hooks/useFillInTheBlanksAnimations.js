@@ -123,7 +123,7 @@ const useFillInTheBlanksAnimations = (options, question, selectedAnswer, setSele
                                     useNativeDriver: true,
                                 }).start();
                             }
-                        }, 125); // Small delay ensures new measurements are available
+                        }, 25); // Small delay ensures new measurements are available
                     }, 25);
                 });
             }
