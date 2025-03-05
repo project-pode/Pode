@@ -50,7 +50,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
         alignItems: 'center',
         justifyContent: 'center',
     });
-    getBlankBoxTextStyle = (isFilled) => ({
+    const getBlankBoxTextStyle = (isFilled) => ({
         color: isFilled ? 'rgba(237,220,249,1)' : 'rgba(161,161,161,255)',
         fontSize: 16,
         textAlign: "center",
