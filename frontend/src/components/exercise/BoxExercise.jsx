@@ -57,7 +57,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                         {/* Each box is pressable */}
                         <Pressable
                             onPress={() => handlePress(box, index)}
-                            style={StyleSheet.absoluteFill} // Covers the entire box
+                            style={theme.pressableBox} // Covers the entire box
                         >
                             <View style={theme.centeredContent}>
                                 <Text style={theme.boxExerciseBoxText}>{box}</Text>

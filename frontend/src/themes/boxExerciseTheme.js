@@ -1,7 +1,6 @@
 const theme = {
     boxExerciseBox: {
-        minWidth: 80, 
-        height: 40, 
+        
         overflow: 'hidden', 
         margin: 20, 
         padding: 10,
@@ -19,13 +18,14 @@ const theme = {
       },
      
       dropZone: {
-        height: 100,
+        minHeight: 100,
         marginVertical: 20,
         backgroundColor: "rgba(237,220,249,1)",
         borderColor: "rgba(187,144,214,1)",
         borderRadius: 48,
         borderWidth: 7,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        flex: 1
     },
     boxesContainer: {
         flexDirection: 'row',
@@ -37,6 +37,13 @@ const theme = {
         justifyContent: 'center', // Center content vertically
         alignItems: 'center', // Center content horizontally
     },
+    pressableBox: {
+      position: 'relative', 
+      left: 0, 
+      right: 0, 
+      top: 0, 
+      bottom: 0,
+    }
 
 };
 

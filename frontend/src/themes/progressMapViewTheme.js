@@ -62,6 +62,7 @@ const theme = {
     settingsButton: {
       alignSelf: 'auto',
       padding: 30,
+      color: 'rgba(75,113,123,1)'
     },
 
     topBorder: {
