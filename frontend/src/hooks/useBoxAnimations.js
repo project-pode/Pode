@@ -1,35 +1,23 @@
-import { useRef, useEffect } from 'react';
-import { Animated } from 'react-native';
+import { useRef, useEffect, useState } from 'react';
+import { Animated, Dimensions } from 'react-native';
 
-/**
- * Custom hook to manage box animations.
- * @param {Array} options - List of options for the boxes.
- * @param {Array} selectedAnswer - List of selected answers.
- * @param {Function} setSelectedAnswer - Function to update the selected answers.
- * @returns {Object} - Contains animations, boxLayouts, dropZoneLayout, handlePress, and resetAnimationsInternal.
- */
 const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
-    // Ref to store animation values for each box
     const animations = useRef([]).current;
-    // Ref to store layouts of boxes
     const boxLayouts = useRef([]);
-    // Ref to store layout of the drop zone
     const dropZoneLayout = useRef(null);
+    const windowWidth = Dimensions.get('window').width;
+
+    const [dropZoneHeight, setDropZoneHeight] = useState(100); // Default height
 
     useEffect(() => {
-        // Initialize animations array when options change
         animations.length = 0;
         options.forEach(() => {
             animations.push(new Animated.ValueXY({ x: 0, y: 0 }));
         });
 
-        // Reset animations when options change
         resetAnimationsInternal();
     }, [options]);
 
-    /**
-     * Resets the animations of all boxes to their initial positions.
-     */
     const resetAnimationsInternal = () => {
         animations.forEach((anim) => {
             Animated.timing(anim, {
@@ -39,69 +27,52 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
             }).start();
         });
         setSelectedAnswer([]);
+        setDropZoneHeight(100); // Reset drop zone height
     };
 
-    /**
-     * Handles the press event on a box.
-     * @param {Object} box - The box object.
-     * @param {number} index - The index of the box.
-     */
     const handlePress = (box, index) => {
-        if (!animations[index]) return; // Ensure animation exists
+        if (!animations[index]) return;
 
         const isBoxInDropZone = selectedAnswer.includes(box);
         let newOrder = [];
 
         if (isBoxInDropZone) {
-            // Remove the box from the drop zone
             newOrder = selectedAnswer.filter(item => item !== box);
             setSelectedAnswer(newOrder);
-
-            // Move the box back to its initial position
             Animated.timing(animations[index], {
                 toValue: { x: 0, y: 0 },
                 duration: 500,
                 useNativeDriver: true,
             }).start();
         } else {
-            // Add the box to the drop zone
             newOrder = [...selectedAnswer, box];
             setSelectedAnswer(newOrder);
-
-            const targetIndex = newOrder.length - 1;
-            if (dropZoneLayout.current && boxLayouts.current[index]) {
-                const dropZoneX = -dropZoneLayout.current.x;
-                const dropZoneY = -dropZoneLayout.current.y;
-                const boxX = boxLayouts.current[index].x;
-                const boxY = boxLayouts.current[index].y;
-                const boxWidth = boxLayouts.current[index].width;
-
-                const targetX = Math.min(dropZoneX + targetIndex * (boxWidth + 10), dropZoneLayout.current.width - boxWidth);
-                const targetY = dropZoneY;
-
-                const deltaX = targetX - boxX;
-                const deltaY = targetY - boxY;
-
-                Animated.timing(animations[index], {
-                    toValue: { x: deltaX, y: deltaY },
-                    duration: 500,
-                    useNativeDriver: true,
-                }).start();
-            }
         }
 
-        // Update positions of boxes in the drop zone
-        newOrder.forEach((item, idx) => {
+        let accumulatedWidth = 0;
+        let currentRowY = 0;
+        let rowCount = 1;
+        const dropZoneRightEdge = windowWidth - 2 * (-dropZoneLayout.current?.x + (windowWidth * 0.05) + 28);
+
+        newOrder.forEach((item) => {
             const itemIndex = options.indexOf(item);
+            const boxWidth = boxLayouts.current[itemIndex]?.width || 0;
+
             if (boxLayouts.current[itemIndex] && dropZoneLayout.current) {
+                if (accumulatedWidth + boxWidth > dropZoneRightEdge) {
+                    currentRowY += 50;
+                    accumulatedWidth = 0;
+                    rowCount += 1; // Increase row count
+                }
+
                 const boxX = boxLayouts.current[itemIndex].x;
                 const boxY = boxLayouts.current[itemIndex].y;
-                const dropZoneX = -dropZoneLayout.current.x + 30;
-                const dropZoneY = -dropZoneLayout.current.y - 70;
-                const boxWidth = boxLayouts.current[itemIndex].width;
+                const dropZoneX = -dropZoneLayout.current.x + (windowWidth * 0.05);
+                const dropZoneY = -dropZoneLayout.current.y - 70 + currentRowY;
 
-                const targetX = dropZoneX + idx * (boxWidth + 10);
+                const targetX = dropZoneX + accumulatedWidth;
                 const targetY = dropZoneY;
+                accumulatedWidth += boxWidth + 10;
 
                 const deltaX = targetX - boxX;
                 const deltaY = targetY - boxY;
@@ -113,6 +84,12 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
                 }).start();
             }
         });
+
+        // Ensure state update triggers a re-render
+        setDropZoneHeight((prevHeight) => {
+            const newHeight = 100 + (rowCount - 1) * 60;
+            return newHeight !== prevHeight ? newHeight : prevHeight;
+        });
     };
 
     return {
@@ -121,6 +98,7 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
         dropZoneLayout,
         handlePress,
         resetAnimationsInternal,
+        dropZoneHeight,
     };
 };
 
