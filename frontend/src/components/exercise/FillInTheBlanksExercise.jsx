@@ -55,7 +55,7 @@ const FillInTheBlanksExercise = forwardRef(({ options, question, selectedAnswer,
             }
             if (item === "newLine") {
                 // Continue on a new line
-                return <View key={index} style={{ width: "100%", height: 10 }} />;
+                return <View key={index} style={{ width: "100%", height: 0 }} />;
             }
             // Normal case
             return (
