@@ -54,7 +54,7 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
         let rowCount = 1;
         const dropZoneRightEdge = windowWidth - 2 * (-dropZoneLayout.current?.x + (windowWidth * 0.05) + 28);
 
-        newOrder.forEach((item, idx) => {
+        newOrder.forEach((item) => {
             const itemIndex = options.indexOf(item);
             const boxWidth = boxLayouts.current[itemIndex]?.width || 0;
 
