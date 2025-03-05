@@ -72,6 +72,7 @@ const ProgressMapView = () => {
     const fetchLessons = async () => {
       try {
         const lessons = await lessonService.getLessons();
+        lessons.reverse(); // Reverse the order of lessons
         setLessons(lessons);
       } catch (error) {
         console.error('Error fetching lessons:', error);
