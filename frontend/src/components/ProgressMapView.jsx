@@ -185,7 +185,7 @@ const ProgressMapView = () => {
     
       <Animated.View style={[theme.buttonsContainer, { transform: [{ translateX: slideAnim }] }]}>
           <Pressable onPress={handleSettingsPress}>
-            <MaterialIcons style={theme.settingsButton} name="settings" size={40} />
+            <MaterialIcons style={theme.settingsButton} name="info" size={40} />
           </Pressable>
           <Pressable onPress={handleProfilePress}>
             {renderAvatar(avatar)}

@@ -101,7 +101,9 @@ const theme = {
         width: 134,
         borderRadius: 98,
         marginHorizontal: 20,
-        transform: [{ rotate: '-75deg' }],
+        justifyContent: 'center',
+
+       // transform: [{ rotate: '-75deg' }],
         flexGrow: 1,
       },
 };
