@@ -4,6 +4,16 @@ import FillInTheBlanksExercise from '../../components/exercise/FillInTheBlanksEx
 import useFillInTheBlanksAnimations from '../../hooks/useFillInTheBlanksAnimations';
 
 jest.mock('../../hooks/useFillInTheBlanksAnimations');
+jest.mock('../../themes/fillInTheBlanksExerciseTheme', () => ({
+    pinkContainerBox: {},
+    questionContainer: {},
+    notBlankBox: {},
+    boxExerciseBoxText: {},
+    boxesContainer: {}
+}));
+jest.mock('../../themes/mainTheme', () => ({
+    exerciseDescription: {}
+}));
 
 describe('FillInTheBlanksExercise Component', () => {
     const options = ['Word 1', 'Word 2', 'Word 3'];
@@ -13,7 +23,7 @@ describe('FillInTheBlanksExercise Component', () => {
 
     beforeEach(() => {
         useFillInTheBlanksAnimations.mockReturnValue({
-            animations: options.map(() => ({ getTranslateTransform: jest.fn() })),
+            animations: options.map(() => ({ getTranslateTransform: () => [] })),
             boxRefs: { current: options.map(() => createRef()) },
             blankRefs: { current: question.map(() => createRef()) },
             blanks: Array(question.length).fill(null),
@@ -23,7 +33,7 @@ describe('FillInTheBlanksExercise Component', () => {
     });
 
     it('renders correctly', () => {
-        const { getByText } = render(
+        const { getByTestId, getAllByText } = render(
             <FillInTheBlanksExercise 
                 options={options} 
                 question={question} 
@@ -32,13 +42,36 @@ describe('FillInTheBlanksExercise Component', () => {
             />
         );
 
+        // Test that all options are rendered in the boxes container
         options.forEach(option => {
-            expect(getByText(option)).toBeDefined();
+            const elements = getAllByText(option);
+            expect(elements.length).toBeGreaterThan(0);
         });
+
+        // Test that non-blank question parts are rendered
+        question.forEach(item => {
+            if (item !== 'blank' && item !== 'newLine') {
+                expect(getAllByText(item)[0]).toBeTruthy();
+            }
+        });
+
+        // Test that blank boxes are rendered with placeholder
+        const longestString = options.reduce((longest, current) => 
+            current.length > longest.length ? current : longest, '');
+        const blankCount = question.filter(item => item === 'blank').length;
+        const placeholderText = longestString || '[ ]';
+        const placeholders = getAllByText(placeholderText);
+        expect(placeholders.length).toBeGreaterThanOrEqual(blankCount);
     });
 
     it('handles press events', () => {
-        const { getByText } = render(
+        const mockHandlePress = jest.fn();
+        useFillInTheBlanksAnimations.mockReturnValue({
+            ...useFillInTheBlanksAnimations(),
+            handlePress: mockHandlePress
+        });
+
+        const { getAllByText } = render(
             <FillInTheBlanksExercise 
                 options={options} 
                 question={question} 
@@ -47,18 +80,27 @@ describe('FillInTheBlanksExercise Component', () => {
             />
         );
 
-        options.forEach(option => {
-            fireEvent.press(getByText(option));
+        options.forEach((option, index) => {
+            // Get all elements with this text and press the last one (which should be in the options box)
+            const elements = getAllByText(option);
+            fireEvent.press(elements[elements.length - 1]);
+            expect(mockHandlePress).toHaveBeenCalledWith(option, index);
         });
 
-        expect(useFillInTheBlanksAnimations().handlePress).toHaveBeenCalledTimes(options.length);
+        expect(mockHandlePress).toHaveBeenCalledTimes(options.length);
     });
 
-    it('resets animations', () => {
+    it('resets animations when ref method is called', () => {
+        const mockResetAnimations = jest.fn();
+        useFillInTheBlanksAnimations.mockReturnValue({
+            ...useFillInTheBlanksAnimations(),
+            resetAnimationsInternal: mockResetAnimations
+        });
+
         const ref = createRef();
         render(
             <FillInTheBlanksExercise 
-                ref={ref} 
+                ref={ref}
                 options={options} 
                 question={question} 
                 selectedAnswer={selectedAnswer} 
@@ -67,6 +109,6 @@ describe('FillInTheBlanksExercise Component', () => {
         );
 
         ref.current.resetAnimations();
-        expect(useFillInTheBlanksAnimations().resetAnimationsInternal).toHaveBeenCalled();
+        expect(mockResetAnimations).toHaveBeenCalled();
     });
 });
