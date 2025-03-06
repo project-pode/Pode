@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle } from 'react';
-import { View, Text, Animated, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Animated, Pressable } from 'react-native';
 import theme from '../../themes/boxExerciseTheme';
 import useBoxAnimations from '../../hooks/useBoxAnimations';
 
