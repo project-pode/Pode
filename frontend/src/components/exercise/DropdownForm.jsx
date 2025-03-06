@@ -44,12 +44,14 @@ const DropdownForm = ({ options, setSelectedAnswer }) => {
                     inputStyles={{
                         alignSelf: "center",
                         textAlign: "center",
-                        fontFamily: "AlfaSlabOne", // Apply font to the input text
+                        fontWeight: "bold",
+                        fontFamily: "Cousine", // Apply font to the input text
                         fontSize: 16,
                         color: 'rgba(75,113,123,1)',
                     }}
                     dropdownTextStyles={{
-                        fontFamily: "AlfaSlabOne", // Apply font to dropdown options
+                        fontWeight: "bold",
+                        fontFamily: "Cousine", // Apply font to dropdown options
                         fontSize: 16,
                         color: 'rgba(75,113,123,1)',
                         letterSpacing: 0,

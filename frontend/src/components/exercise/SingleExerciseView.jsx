@@ -98,8 +98,8 @@ const SingleExerciseView = () => {
         // Load the sound files
         const loadSounds = async () => {
             try {
-                await correctSound.current.loadAsync(require('../../../assets/sounds/correct.mp3'));
-                await incorrectSound.current.loadAsync(require('../../../assets/sounds/incorrect.mp3'));
+                await correctSound.current.loadAsync(require('../../../assets/sounds/correct_coo.mp3'));
+                await incorrectSound.current.loadAsync(require('../../../assets/sounds/incorrect_coo.mp3'));
             } catch (error) {
                 console.error('Error loading sound files:', error);
             }
