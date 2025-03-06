@@ -33,7 +33,7 @@ describe('FillInTheBlanksExercise Component', () => {
     });
 
     it('renders correctly', () => {
-        const { getByTestId, getAllByText } = render(
+        const { getAllByText } = render(
             <FillInTheBlanksExercise 
                 options={options} 
                 question={question} 
@@ -49,10 +49,10 @@ describe('FillInTheBlanksExercise Component', () => {
         });
 
         // Test that non-blank question parts are rendered
-        question.forEach(item => {
-            if (item !== 'blank' && item !== 'newLine') {
-                expect(getAllByText(item)[0]).toBeTruthy();
-            }
+        const nonBlankParts = question.filter(item => item !== 'blank' && item !== 'newLine');
+        nonBlankParts.forEach(item => {
+            const elements = getAllByText(item);
+            expect(elements[0]).toBeTruthy();
         });
 
         // Test that blank boxes are rendered with placeholder
