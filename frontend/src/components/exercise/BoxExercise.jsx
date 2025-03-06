@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle } from 'react';
-import { View, Text, Animated, Pressable } from 'react-native';
+import { View, Text, Animated, Pressable, StyleSheet } from 'react-native';
 import theme from '../../themes/boxExerciseTheme';
 import useBoxAnimations from '../../hooks/useBoxAnimations';
 
@@ -57,7 +57,7 @@ const BoxExercise = forwardRef(({ options, selectedAnswer, setSelectedAnswer }, 
                         {/* Each box is pressable */}
                         <Pressable
                             onPress={() => handlePress(box, index)}
-                            style={theme.pressableBox} // Covers the entire box
+                            style={StyleSheet.absoluteFill} // Covers the entire box
                         >
                             <View style={theme.centeredContent}>
                                 <Text style={theme.boxExerciseBoxText}>{box}</Text>
