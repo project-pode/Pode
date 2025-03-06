@@ -96,6 +96,8 @@ const theme = {
         
     },
     modalContent: {
+        flex: 1,
+        marginVertical: 30,
         width: '95%',
         backgroundColor: 'rgba(237,220,249,1)',
         position: 'relative',
