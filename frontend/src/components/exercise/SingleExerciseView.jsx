@@ -209,6 +209,7 @@ const SingleExerciseView = () => {
 
     return (
         <View style={mainTheme.blueContainer}>
+            
             <Pressable style={{ alignSelf: "flex-end", color: "rgba(75,113,123,1)" }} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
             </Pressable>

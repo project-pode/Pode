@@ -1,8 +1,8 @@
 const theme = {
     boxExerciseBox: {
-        
         overflow: 'hidden', 
-        margin: 20, 
+        marginHorizontal: 5,
+        marginVertical: 10,
         padding: 10,
         backgroundColor: "rgba(230,230,230,255)",
         borderRadius: 33,
@@ -19,7 +19,7 @@ const theme = {
      
       dropZone: {
         minHeight: 100,
-        marginVertical: 20,
+        marginVertical: 30,
         backgroundColor: "rgba(237,220,249,1)",
         borderColor: "rgba(187,144,214,1)",
         borderRadius: 48,
