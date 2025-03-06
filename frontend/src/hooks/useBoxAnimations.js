@@ -68,7 +68,7 @@ const useBoxAnimations = (options, selectedAnswer, setSelectedAnswer) => {
                 const boxX = boxLayouts.current[itemIndex].x;
                 const boxY = boxLayouts.current[itemIndex].y;
                 const dropZoneX = -dropZoneLayout.current.x + (windowWidth * 0.05);
-                const dropZoneY = -dropZoneLayout.current.y - 70 + currentRowY;
+                const dropZoneY = -dropZoneLayout.current.y - 100 + currentRowY;
 
                 const targetX = dropZoneX + accumulatedWidth;
                 const targetY = dropZoneY;
