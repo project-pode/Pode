@@ -1,6 +1,6 @@
 # Pode project
 
-## Guide for developers
+## Guide for developers (with access to prod-database)
 
 ### Be sure to have the newest Node.js version installed!
 
