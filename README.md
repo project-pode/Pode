@@ -10,6 +10,8 @@ Use .env.template as template for variables.
 
 Database URI can be retrieved from admin
 
+First, clone the repo.
+
 1. Frontend
 
 Open up a terminal.\
@@ -30,6 +32,8 @@ If everything worked fine terminal should print Server running on Port... and co
 
 
 ## Tutorial for demo version using local json-data
+
+First, clone the repo.
 
 Backend will not be needed. The demo application only uses the frontend.
 
