@@ -1,6 +1,6 @@
 # Pode project
 
-##Software requirements: 
+## Software requirements: 
 Be sure to have the newest Node.js version installed!
 
 ## Guide for developers (with access to prod-database)
