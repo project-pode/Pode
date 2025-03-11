@@ -39,7 +39,7 @@ Navigate to frontend: ```cd frontend```\
 Run ```npm install```\
 Run ```npm run demo```
 
-This app will use the data in the demoData.json-file. You are not able to login with any other accounts than the test account and you can not create new accounts.
+This app will use the data in the demoData.json-file. You are automatically logged in with the testuser and are not able to login with any other accounts than the test account and you cannot create new accounts.
 
 ### Note!
 Before switching back to developer frontend, be sure to logout. The async-storage will keep the user in the local storage and this user is not compatible with the dev-version.
