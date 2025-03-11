@@ -1,8 +1,9 @@
 # Pode project
 
-## Guide for developers (with access to prod-database)
+##Software requirements: 
+Be sure to have the newest Node.js version installed!
 
-### Be sure to have the newest Node.js version installed!
+## Guide for developers (with access to prod-database)
 
 Start by setting up env variables in .env file, both in frontend and backend. 
 Use .env.template as template for variables. 
