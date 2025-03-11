@@ -4,34 +4,54 @@ import jwt, { Secret } from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { User } from '../models/user';
 import { SECRET } from '../utils/config';
+
 const router = express.Router();
 
+/**
+ * @route   POST /
+ * @desc    Authenticate user and return a JWT token
+ * @access  Public
+ */
 router.post('/', async (request: Request, response: Response): Promise<void> => {
-  const { username, password } = request.body;
+  try {
+    const { username, password } = request.body;
 
-  const user = await User.findOne({ username });
-  const passwordCorrect = user === null
-    ? false
-    : await bcrypt.compare(password, user.passwordHash);
+    // Find the user by username
+    const user = await User.findOne({ username });
 
-  if (!(user && passwordCorrect)) {
-     response.status(401).json({
-      error: 'Password or username is incorrect'
+    // Compare provided password with stored password hash
+    const passwordCorrect = user
+      ? await bcrypt.compare(password, user.passwordHash)
+      : false;
+
+    // If authentication fails, return an error response
+    if (!(user && passwordCorrect)) {
+      response.status(401).json({ error: 'Password or username is incorrect' });
+      return;
+    }
+
+    // Create a payload for the token
+    const userForToken = {
+      username: user.username,
+      id: user._id,
+    };
+
+    // Generate JWT token with expiration
+    const token = jwt.sign(userForToken, SECRET as Secret, {
+      expiresIn: '1h', // Token expires in 1 hour
     });
-    return;
+
+    // Respond with the token and user details
+    response.status(200).json({
+      token,
+      username: user.username,
+      name: user.name,
+      id: user._id, // User ID will be used in other API endpoints
+    });
+  } catch (error) {
+    // Handle unexpected errors
+    response.status(500).json({ error: 'Internal server error' });
   }
-
-  const userForToken = {
-    username: user.username,
-    id: user._id,
-  };
-
-  const token = jwt.sign(userForToken, SECRET as Secret,
-    { expiresIn: 60000 * 60000 });
-
-  response
-    .status(200)
-    .send({ token, username: user.username, name: user.name, id: user._id }); // user id will be used in endpoints
 });
 
 export default router;

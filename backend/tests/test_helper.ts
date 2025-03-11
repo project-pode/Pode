@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 export const createTestLesson = async () => {
     const lesson = new Lesson({ title: 'Test Lesson', description: 'Test Description' });
     await lesson.save();
-    const lessonId = lesson._id;
+    const lessonId = lesson._id as mongoose.Types.ObjectId;
 
     return { lesson, lessonId };
 };

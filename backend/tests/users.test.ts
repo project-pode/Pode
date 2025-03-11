@@ -60,7 +60,7 @@ describe('Users API', () => {
             .expect(400)
             .expect('Content-Type', /application\/json/);
 
-        expect(response.body.error).toBe('no password given');
+        expect(response.body.error).toBe('No password given');
     });
 
     test('should not create a user with a password shorter than 3 characters', async () => {
@@ -76,6 +76,6 @@ describe('Users API', () => {
             .expect(400)
             .expect('Content-Type', /application\/json/);
 
-        expect(response.body.error).toBe('password minimum length is 3 characters');
+        expect(response.body.error).toBe('Password minimum length is 3 characters');
     });
 });
