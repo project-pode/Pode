@@ -10,87 +10,226 @@
         }
     ],
     "lessons": [
+    {
+      "id": "lesson1",
+      "title": "Data Types",
+      "description": "Data types are different kinds of information that we use in our code.\n\n\nThey can be\n\nWritten text - Strings\n\nWhole numbers - Integers\n\nDecimal numbers - Floats\n\nTrue/False values - Booleans",
+      "exercises": [
         {
-            "id": "1",
-            "title": "Lesson 1",
-            "description": "This is lesson 1",
-            "exercises": [
-                {
-                    "id": "1",
-                    "title": "Printing",
-                    "description": "This exercise tests your understanding of how Python handles strings",
-                    "correctAnswer": "1 + 2",
-                    "type": "simple",
-                    "options": [
-                        "3",
-                        "4",
-                        "1 + 2",
-                        "12"
-                    ],
-                    "question": "What will be displayed after running the code: print(\"1 + 2\")?",
-                    "lesson": "1"
-                },
-                {
-                    "id": "2",
-                    "title": "Printing",
-                    "description": "Fill in the blanks to complete the code to print 0 1 2 3 4",
-                    "correctAnswer": [
-                        ":",
-                        "i"
-                    ],
-                    "type": "blanks",
-                    "options": [
-                        "5",
-                        "4",
-                        "i",
-                        ":",
-                        "numbers"
-                    ],
-                    "question": [
-                        "for i in range(5)",
-                        "blank",
-                        "print",
-                        "blank",
-                        ")"
-                    ],
-                    "lesson": "1"
-                },
-                {
-                    "id": "3",
-                    "title": "Printing",
-                    "description": "Press the bubbles in the correct order to print the text “Hello world!…",
-                    "correctAnswer": [
-                        "print",
-                        "(\"Hello",
-                        "world!\")"
-                    ],
-                    "type": "box",
-                    "options": [
-                        "print",
-                        "(\"Hello",
-                        "world!\")"
-                    ],
-                    "lesson": "1"
-                }
-            ]
-        }
-    ],
-    "exercises": [
+            "id": "e1",
+            "title": "Assign the variable message with the value \"Hello\"",
+            "description": "",
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "correctAnswer": [
+              "message",
+              "=",
+              "\"Hello\""
+            ],
+            "type": "box",
+            "options": [
+              "Message",
+              "message",
+              "=",
+              "Hello",
+              "\"Hello\""
+            ],
+            "lessonTitle": "Variables"
+          },
+          {
+            "id": "e2",
+            "title": "Assign the variable birds with the value 5",
+            "description": "",
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "correctAnswer": [
+              "birds",
+              "=",
+              "5"
+            ],
+            "type": "box",
+            "options": [
+              "birds",
+              "=",
+              "\"5\"",
+              "5",
+              "\"birds\""
+            ],
+            "lessonTitle": "Variables"
+          },
+          {
+            "id": "e3",
+            "title": "Assign the variable isBlue with the value True",
+            "description": "",
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "correctAnswer": [
+              "isBlue",
+              "=",
+              "True"
+            ],
+            "type": "box",
+            "options": [
+              "true",
+              "isBlue",
+              "\"True\"",
+              "True",
+              "="
+            ],
+            "lessonTitle": "Variables"
+          },
+          {
+            "id": "e4",
+            "title": "What is the final value of x?",
+            "description": "",
+            "correctAnswer": "23",
+            "options": [
+              "28",
+              "5",
+              "23",
+              "x"
+            ],
+            "type": "simple",
+            "question": "x = 5\nx = 0\nx = 23",
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "lessonTitle": "Variables"
+          },
+          {
+            "id": "e5",
+            "title": "What is the final value of color?",
+            "description": "",
+            "correctAnswer": "\"grey\"",
+            "options": [
+              "\"green\"",
+              "\"pink\"",
+              "\"grey\"",
+              "\"blue\""
+            ],
+            "type": "simple",
+            "question": "color = \"green\"\ncolor = \"pink\"\ncolor = \"blue\"\ncolor = \"grey\"",
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "lessonTitle": "Variables"
+          }
+      ]
+    },
+    {
+      "id": "lesson2",
+      "title": "Print",
+      "description": "In programming, we use print to show text or numbers on the screen. \n\nIt makes the computer 'say' something instead of just thinking in silence. \n\n\nFor example,\n\nprint(\"Hello!\") \n\nwill output: \n\nHello!",
+      "exercises": [
         {
-            "id": "1",
-            "title": "Exercise 1",
-            "description": "This is exercise 1",
-            "correctAnswer": "1 + 2",
+            "id": "e6",
+            "title": "Press the bubbles in the correct order to get the output ",
+            "description": "hello!",
+            "difficulty": {
+              "$numberInt": "3"
+            },
+            "correctAnswer": [
+              "print(",
+              "\"hello!\"",
+              ")"
+            ],
+            "type": "box",
+            "options": [
+              "\"hello!\"",
+              "print(",
+              ")"
+            ],
+            "lessonTitle": "Print"
+          },
+          {
+            "id": "e7",
+            "title": "What is the output after running the code: ",
+            "description": "",
+            "difficulty": {
+              "$numberInt": "3"
+            },
+            "correctAnswer": "1+2",
             "type": "simple",
             "options": [
-                "3",
-                "4",
-                "1 + 2",
-                "12"
+              "3",
+              "4",
+              "1+2",
+              "12"
             ],
-            "question": "What will be displayed after running the code: print(\"1 + 2\")?",
-            "lesson": "1"
-        }
-    ]
-
+            "question": "print(\"1+2\")",
+            "lessonTitle": "Print"
+          },
+          {
+            "id": "e8",
+            "title": "Finish the print() function to make the output:",
+            "description": "Hello World!",
+            "question": [
+              "print(",
+              "blank",
+              ")"
+            ],
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "correctAnswer": [
+              "\"Hello World!\""
+            ],
+            "type": "blanks",
+            "options": [
+              "Hello World!",
+              "\"Hello World!\""
+            ],
+            "lessonTitle": "Print"
+          },
+          {
+            "id": "e9",
+            "title": "Fill in the blanks to make the output:",
+            "description": "Hello World!",
+            "question": [
+              "message =",
+              "blank",
+              "newLine",
+              "print(",
+              "blank",
+              ")"
+            ],
+            "difficulty": {
+              "$numberInt": "1"
+            },
+            "correctAnswer": [
+              "\"Hello World!\"",
+              "message"
+            ],
+            "type": "blanks",
+            "options": [
+              "\"Hello World!\"",
+              "Hello World!",
+              "message"
+            ],
+            "lessonTitle": "Print"
+          },
+          {
+            "id": "e10",
+            "title": "What is the output after running the code: ",
+            "description": "",
+            "difficulty": {
+              "$numberInt": "3"
+            },
+            "correctAnswer": "3",
+            "type": "simple",
+            "options": [
+              "3",
+              "4",
+              "1+2",
+              "12"
+            ],
+            "question": "print(1+2)",
+            "lessonTitle": "Print"
+          }
+      ]
+    }
+  ]
 }
