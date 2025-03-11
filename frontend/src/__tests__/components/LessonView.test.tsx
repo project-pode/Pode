@@ -2,6 +2,7 @@ import { render, waitFor, screen } from '@testing-library/react-native';
 import LessonView from '../../components/lesson/LessonView';
 import { MemoryRouter } from 'react-router-native';
 import lessonService from '../../services/lessons';
+import { Exercise, Lesson } from '../../types';
 
 jest.mock('expo-asset', () => ({
     Asset: {
@@ -17,11 +18,11 @@ jest.mock('expo-font', () => ({
 
 jest.mock('../../services/lessons');
 
-const mockLesson = {
+const mockLesson: Lesson = {
     id: '1',
     title: 'Test Lesson Title',
     description: 'Test Lesson Description',
-    exercises: [{ id: '1', title: 'Exercise 1' }]
+    exercises: [{ id: '1', title: 'Exercise 1' }] as Exercise[]
 };
 
 lessonService.getLesson.mockResolvedValue(mockLesson);
@@ -30,7 +31,7 @@ describe('LessonView', () => {
     it('renders lesson title and lesson description', async () => {
         render(
             <MemoryRouter>
-                <LessonView lesson={mockLesson}/>
+                <LessonView/>
             </MemoryRouter>
         );
         await waitFor(() => {

@@ -27,6 +27,7 @@ const validationSchema = yup.object().shape({
 });
 
 interface SignUpProps {
+    // eslint-disable-next-line no-unused-vars
     onSignUp: (username: string, password: string) => Promise<string | null>;
 }
 

@@ -7,6 +7,7 @@ interface TextInputProps {
     placeholder: string;
     secureTextEntry?: boolean;
     value: string;
+    // eslint-disable-next-line no-unused-vars
     onChangeText: (text: string) => void;
 }
 

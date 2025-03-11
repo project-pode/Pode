@@ -6,7 +6,7 @@ describe('App Name', () => {
   it('renders the app name', () => {
     render(
         <MemoryRouter>
-            <StartView />
+            <StartView user={null} />
         </MemoryRouter>
     );
     expect(screen.getByText('<Pode/>')).toBeDefined();

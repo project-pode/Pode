@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import theme from '../themes/popUpTheme'
+import theme from '../themes/popUpTheme';
 
 interface PopUpProps {
     visible: boolean;

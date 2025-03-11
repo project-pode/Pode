@@ -22,7 +22,7 @@ const mockLesson = {
 lessonService.getLesson.mockResolvedValue(mockLesson);
 
 describe('LessonOverview', () => {
-    let navigateMock;
+    let navigateMock: jest.Mock;
 
     beforeEach(() => {
         navigateMock = jest.fn();
@@ -48,7 +48,7 @@ describe('LessonOverview', () => {
     });
 
     it('should render lesson overview after lesson loads', async () => {
-        renderComponent(3); // Pass 3 as completedExercises
+        renderComponent(); // Pass 3 as completedExercises
         await waitFor(() => {
             expect(screen.getByText('Congratulations!')).toBeTruthy();
             expect(screen.getByText(/You got.*out of.*3.*right!/)).toBeTruthy(); // Use regex to match dynamic text rendering

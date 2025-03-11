@@ -4,6 +4,7 @@ import { Animated, Dimensions } from 'react-native';
 interface BoxAnimationsProps {
     options: string[];
     selectedAnswer: string[] | null;
+    // eslint-disable-next-line no-unused-vars
     setSelectedAnswer: (answer: string[]) => void;
 }
 

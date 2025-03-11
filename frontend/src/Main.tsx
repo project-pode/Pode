@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Constants from 'expo-constants';
 import userService from "./services/users";
 import SignIn from './components/authentication/SignIn';
-import mainTheme from './themes/mainTheme';
 import useAuthStorage from './hooks/useAuthStorage';
 import loginService from './services/login';
 import SignUp from './components/authentication/SignUp';
@@ -17,7 +16,7 @@ import StartView from './components/authentication/StartView';
 import ProfileView from './components/ProfileView';
 import demoData from './demo/demoData.json';
 import LoadingView from './components/LoadingView';
-import { LoginCredentials, User } from './types';
+import { User } from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -73,9 +72,8 @@ const Main = () => {
    * @param {string} password - The password provided by the user
    * @returns {string|null} The error message if login fails, otherwise null
    */
-  const handleLogin = async ({ username, password }: LoginCredentials) => {
+  const handleLogin = async (username: string, password: string) => {
     try {
-      console.log("elo")
       const user = await loginService.login({ username, password });
       tokenService.setToken(user.token);
       await authStorage.setUser(user);

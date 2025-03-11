@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import theme from "../../themes/signInAndSignUpTheme";
 import mainTheme from "../../themes/mainTheme";
 import * as yup from "yup";
-import { LoginCredentials } from "../../types";
 
 const initialValues = {
     username: '',
@@ -23,7 +22,8 @@ const validationSchema = yup.object().shape({
 });
 
 interface SignInProps {
-    onSignIn: ({username, password}: LoginCredentials) => Promise<string | null>;
+    // eslint-disable-next-line no-unused-vars
+    onSignIn: (username: string, password:string) => Promise<string | null>;
 }
 
 /**
@@ -48,11 +48,7 @@ const SignIn = ({ onSignIn }: SignInProps) => {
                 return;
             }
             try {
-                const credentials: LoginCredentials = {
-                    username: formik.values.username.toLowerCase(),
-                    password: formik.values.password
-                };
-                const error = await onSignIn(credentials);
+                const error = await onSignIn(formik.values.username.toLowerCase(), formik.values.password);
                 if (error) {
                     setErrorMessage(error); // Set error message from Main.jsx
                 } else {

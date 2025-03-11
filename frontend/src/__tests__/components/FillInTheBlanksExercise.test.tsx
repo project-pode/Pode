@@ -16,29 +16,29 @@ jest.mock('../../themes/mainTheme', () => ({
 }));
 
 describe('FillInTheBlanksExercise Component', () => {
-    const options = ['Word 1', 'Word 2', 'Word 3'];
-    const question = ['This is a', 'blank', 'sentence with', 'blank', 'spaces.'];
-    const selectedAnswer = null;
+    const options: string[] = ['Word 1', 'Word 2', 'Word 3'];
+    const question: string[] = ['This is a', 'blank', 'sentence with', 'blank', 'spaces.'];
+    const selectedAnswer: string | null = null;
     const setSelectedAnswer = jest.fn();
 
     beforeEach(() => {
-        useFillInTheBlanksAnimations.mockReturnValue({
-            animations: options.map(() => ({ getTranslateTransform: () => [] })),
+        (useFillInTheBlanksAnimations as jest.Mock).mockImplementation(({ options }) => ({
+            animations: options.map(() => ({ getTranslateTransform: jest.fn() })),
             boxRefs: { current: options.map(() => createRef()) },
             blankRefs: { current: question.map(() => createRef()) },
             blanks: Array(question.length).fill(null),
             handlePress: jest.fn(),
             resetAnimationsInternal: jest.fn(),
-        });
+        }));
     });
 
     it('renders correctly', () => {
         const { getAllByText } = render(
-            <FillInTheBlanksExercise 
-                options={options} 
-                question={question} 
-                selectedAnswer={selectedAnswer} 
-                setSelectedAnswer={setSelectedAnswer} 
+            <FillInTheBlanksExercise
+                options={options}
+                question={question}
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
             />
         );
 
@@ -56,7 +56,7 @@ describe('FillInTheBlanksExercise Component', () => {
         });
 
         // Test that blank boxes are rendered with placeholder
-        const longestString = options.reduce((longest, current) => 
+        const longestString = options.reduce((longest, current) =>
             current.length > longest.length ? current : longest, '');
         const blankCount = question.filter(item => item === 'blank').length;
         const placeholderText = longestString || '[ ]';
@@ -66,17 +66,17 @@ describe('FillInTheBlanksExercise Component', () => {
 
     it('handles press events', () => {
         const mockHandlePress = jest.fn();
-        useFillInTheBlanksAnimations.mockReturnValue({
-            ...useFillInTheBlanksAnimations(),
+        (useFillInTheBlanksAnimations as jest.Mock).mockReturnValue({
+            ...useFillInTheBlanksAnimations({ options, question, selectedAnswer, setSelectedAnswer }),
             handlePress: mockHandlePress
         });
 
         const { getAllByText } = render(
-            <FillInTheBlanksExercise 
-                options={options} 
-                question={question} 
-                selectedAnswer={selectedAnswer} 
-                setSelectedAnswer={setSelectedAnswer} 
+            <FillInTheBlanksExercise
+                options={options}
+                question={question}
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
             />
         );
 
@@ -92,23 +92,23 @@ describe('FillInTheBlanksExercise Component', () => {
 
     it('resets animations when ref method is called', () => {
         const mockResetAnimations = jest.fn();
-        useFillInTheBlanksAnimations.mockReturnValue({
-            ...useFillInTheBlanksAnimations(),
+        (useFillInTheBlanksAnimations as jest.Mock).mockReturnValue({
+            ...useFillInTheBlanksAnimations({ options, question, selectedAnswer, setSelectedAnswer }),
             resetAnimationsInternal: mockResetAnimations
         });
 
-        const ref = createRef();
+        const ref = createRef<{ resetAnimations: () => void }>();
         render(
-            <FillInTheBlanksExercise 
+            <FillInTheBlanksExercise
                 ref={ref}
-                options={options} 
-                question={question} 
-                selectedAnswer={selectedAnswer} 
-                setSelectedAnswer={setSelectedAnswer} 
+                options={options}
+                question={question}
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
             />
         );
 
-        ref.current.resetAnimations();
+        ref.current?.resetAnimations();
         expect(mockResetAnimations).toHaveBeenCalled();
     });
 });

@@ -8,6 +8,7 @@ interface FillInTheBlanksExerciseProps {
     options: string[];
     question: (string | "blank" | "newLine")[];
     selectedAnswer: string[] | null;
+    // eslint-disable-next-line no-unused-vars
     setSelectedAnswer: (answer: string[]) => void;
 }
 

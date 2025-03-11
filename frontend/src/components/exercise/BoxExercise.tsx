@@ -6,6 +6,7 @@ import useBoxAnimations from '../../hooks/useBoxAnimations';
 interface BoxExerciseProps {
     options: string[];
     selectedAnswer: string[] | null;
+    // eslint-disable-next-line no-unused-vars
     setSelectedAnswer: (answer: string[]) => void;
 }
 

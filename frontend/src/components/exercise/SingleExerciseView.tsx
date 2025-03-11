@@ -11,7 +11,6 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'; // Icon names can 
 import LoadingView from "../LoadingView";
 import mainTheme from "../../themes/mainTheme";
 import { Exercise, Lesson } from '../../types';
-import BoxExercise from './BoxExercise';
 /**
  * SingleExerciseView component
  * 

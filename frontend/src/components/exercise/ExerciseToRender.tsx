@@ -4,10 +4,11 @@ import BoxExercise from "./BoxExercise";
 import FillInTheBlanksExercise from "./FillInTheBlanksExercise";
 import theme from "../../themes/exerciseToRenderTheme";
 import { Exercise } from "../../types";
-
+import React from "react";
 interface ExerciseToRenderProps {
     exercise: Exercise;
     selectedAnswer: string | string[] | null;
+    // eslint-disable-next-line no-unused-vars
     setSelectedAnswer: (answer: string | string[]) => void;
     boxExerciseRef: React.RefObject<{ resetAnimations: () => void }>
 }

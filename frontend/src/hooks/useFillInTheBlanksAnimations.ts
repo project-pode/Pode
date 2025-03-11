@@ -1,10 +1,11 @@
-import { useRef, useEffect, useState, createRef } from 'react';
+import React, { useRef, useEffect, useState, createRef } from 'react';
 import { Animated, View } from 'react-native';
 
 interface FillInTheBlanksAnimationsProps {
     options: string[];
     question: string[];
     selectedAnswer: string[] | null;
+    // eslint-disable-next-line no-unused-vars
     setSelectedAnswer: (answer: string[]) => void;
 }
 

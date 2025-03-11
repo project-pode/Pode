@@ -4,6 +4,7 @@ import userService from '../../services/users';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
 import { useNavigate } from 'react-router-native';
 import theme from '../../themes/profileViewTheme';
+import '@testing-library/jest-native/extend-expect';
 
 jest.mock('../../services/users');
 jest.mock('react-router-native', () => ({
@@ -25,7 +26,7 @@ describe('ProfileView', () => {
     const navigateMock = jest.fn();
 
     beforeEach(() => {
-        useNavigate.mockReturnValue(navigateMock);
+        (useNavigate as jest.Mock).mockReturnValue(navigateMock);
     });
 
     const renderComponent = () => {

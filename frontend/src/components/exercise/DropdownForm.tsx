@@ -3,6 +3,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 interface DropdownFormProps {
     options: string[];
+    // eslint-disable-next-line no-unused-vars
     setSelectedAnswer: (answer: string) => void;
 }
 
