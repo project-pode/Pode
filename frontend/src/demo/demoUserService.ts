@@ -1,4 +1,4 @@
-import demoData from '../demo/demoData.json';
+import demoData from './demoData.json';
 
 const demoUserService = {
     /**
@@ -6,7 +6,7 @@ const demoUserService = {
      * @param {string} userId - The ID of the user.
      * @returns {Object} - The user object.
      */
-    getOne: async (userId) => {
+    getOne: async (userId: string) => {
         return demoData.users.find(user => user.id === userId);
     },
 
@@ -16,7 +16,7 @@ const demoUserService = {
      * @param {string} avatar - The new avatar.
      * @returns {Object} - The updated user object.
      */
-    updateAvatar: async (userId, avatar) => {
+    updateAvatar: async (userId: string, avatar: string) => {
         const user = demoData.users.find(user => user.id === userId);
         if (user) {
             user.avatar = avatar;

@@ -12,6 +12,7 @@ import mainTheme from "../themes/mainTheme";
 import useAuthStorage from "../hooks/useAuthStorage";
 import { Lesson, User } from "../types";
 import AuthStorage from "../utils/authStorage";
+import demoData from '../demo/demoData.json';
 
 const avatars = [
   { name: 'avatar1', source: require('../../assets/avatars/avatar1.png') },
@@ -63,6 +64,10 @@ const ProgressMapView = () => {
           setUser(fetchedUser);
           setSelectedAvatar(fetchedUser.avatar);
           setCompletedLessons(fetchedUser.completedLessons || []);
+        }
+        else { // If no user is found in storage, use demo data
+          const demoUser: User = demoData.users[0];
+          setUser(demoUser);
         }
       } catch (error) {
         console.error('Error fetching user:', error);
