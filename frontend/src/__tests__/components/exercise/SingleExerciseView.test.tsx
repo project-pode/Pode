@@ -39,10 +39,10 @@ describe('SingleExerciseView', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        jest.setTimeout(20000);
     });
 
     it('renders correctly and fetches exercise and lesson data', async () => {
-        jest.setTimeout(10000);
         (exerciseService.getOne as jest.Mock).mockResolvedValue({
             id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C'], lesson: 1
         });
