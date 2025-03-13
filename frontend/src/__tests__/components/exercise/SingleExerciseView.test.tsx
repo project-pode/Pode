@@ -43,7 +43,7 @@ describe('SingleExerciseView', () => {
 
     it('renders correctly and fetches exercise and lesson data', async () => {
         (exerciseService.getOne as jest.Mock).mockResolvedValue({
-            id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A'
+            id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C']
         });
         (lessonService.getLesson as jest.Mock).mockResolvedValue({
             id: '1', exercises: [{ id: '101' }, { id: '102' }]
