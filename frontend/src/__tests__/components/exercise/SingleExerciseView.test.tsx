@@ -44,14 +44,14 @@ describe('SingleExerciseView', () => {
     it('renders correctly and fetches exercise and lesson data', async () => {
         jest.setTimeout(10000);
         (exerciseService.getOne as jest.Mock).mockResolvedValue({
-            id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C']
+            id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C'], lesson: 1
         });
         (lessonService.getLesson as jest.Mock).mockResolvedValue({
-            id: '1', exercises: [{ id: '101' }, { id: '102' }]
+            id: '1', exercises: [{id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C'], lesson: 1}]
         });
 
         const { getByText } = render(<SingleExerciseView />);
-        await waitFor(() => expect(getByText('Test Exercise')).toBeTruthy());
+        await waitFor(() => getByText('Test Exercise'));
         expect(getByText('Test Description')).toBeTruthy();
     });
 
