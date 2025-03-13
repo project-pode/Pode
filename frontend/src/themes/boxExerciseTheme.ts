@@ -2,10 +2,9 @@ import { Theme } from "./themeTypes";
 
 const theme: Theme = {
     boxExerciseBox: {
-        minWidth: 100,
-        height: 30,
         overflow: 'hidden', 
-        margin: 20, 
+        marginHorizontal: 5,
+        marginVertical: 10,
         padding: 10,
         backgroundColor: "rgba(230,230,230,255)",
         borderRadius: 33,
@@ -22,7 +21,7 @@ const theme: Theme = {
      
       dropZone: {
         minHeight: 120,
-        marginVertical: 20,
+        marginVertical: 30,
         backgroundColor: "rgba(237,220,249,1)",
         borderColor: "rgba(187,144,214,1)",
         borderRadius: 48,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable, Animated } from 'react-native';
+import { View, Text, Pressable, Animated, ScrollView } from 'react-native';
 import { useNavigate, useParams } from 'react-router-native';
 import { Audio } from 'expo-av';
 import exerciseService from '../../services/exercises';
@@ -211,50 +211,55 @@ const SingleExerciseView = () => {
     };
 
     return (
-        <View style={mainTheme.blueContainer}>
-            <Pressable style={theme.backButton} onPress={handleBackPress}>
-                <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
-            </Pressable>
-            <Animated.View style={[theme.whiteContainerExercises, {
-                transform: [{
-                    translateX: Animated.add(slideAnim.interpolate({
-                        inputRange: [0, 0.4, 0.4001, 1],
-                        outputRange: [0, -300, 300, 0]
-                    }), slideAnimFirst)
-                }]
-            }]}>
-                <Text style={theme.exerciseTitle}>{exercise.title}</Text>
-                <Text style={mainTheme.exerciseDescription}>{exercise.description}</Text>
-                <ExerciseToRender
-                    exercise={exercise}
-                    selectedAnswer={selectedAnswer}
-                    setSelectedAnswer={setSelectedAnswer}
-                    boxExerciseRef={boxExerciseRef}
+        <ScrollView 
+            contentContainerStyle={{ flexGrow: 1 }} 
+            keyboardShouldPersistTaps="handled"
+        >
+            <View style={mainTheme.blueContainer}>
+                <Pressable style={theme.backButton} onPress={handleBackPress}>
+                    <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
+                </Pressable>
+                <Animated.View style={[theme.whiteContainerExercises, {
+                    transform: [{
+                        translateX: Animated.add(slideAnim.interpolate({
+                            inputRange: [0, 0.4, 0.4001, 1],
+                            outputRange: [0, -300, 300, 0]
+                        }), slideAnimFirst)
+                    }]
+                }]}>
+                    <Text style={theme.exerciseTitle}>{exercise.title}</Text>
+                    <Text style={mainTheme.exerciseDescription}>{exercise.description}</Text>
+                    <ExerciseToRender
+                        exercise={exercise}
+                        selectedAnswer={selectedAnswer}
+                        setSelectedAnswer={setSelectedAnswer}
+                        boxExerciseRef={boxExerciseRef}
+                    />
+                </Animated.View>
+                <PopUp
+                    type="feedback"
+                    isAnswerCorrect={isCorrectPopup}
+                    visible={showPopup}
+                    message={feedback}
+                    onClose={closePopUp}
                 />
-            </Animated.View>
-            <PopUp
-                type="feedback"
-                isAnswerCorrect={isCorrectPopup}
-                visible={showPopup}
-                message={feedback}
-                onClose={closePopUp}
-            />
                 <Pressable
                     onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                    style={selectedAnswer && selectedAnswer.length >>> 0 ? mainTheme.greenButton : mainTheme.greenButtonDeselected}
+                    style={selectedAnswer && selectedAnswer.length > 0 ? mainTheme.greenButton : mainTheme.greenButtonDeselected}
                 >
-                    <Text style={selectedAnswer && selectedAnswer.length >>> 0 ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>
+                    <Text style={selectedAnswer && selectedAnswer.length > 0 ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>
                         {isExerciseComplete ? 'Next' : 'Check'}
                     </Text>
                 </Pressable>
-            <PopUp
-                type='confirmation'
-                visible={showCloseExercisePopup}
-                message="Progress will be lost. Are you sure you want to end this lesson?"
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
-            />
-        </View>
+                <PopUp
+                    type='confirmation'
+                    visible={showCloseExercisePopup}
+                    message="Progress will be lost. Are you sure you want to end this lesson?"
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
+                />
+            </View>
+        </ScrollView>
     );
 };
 
