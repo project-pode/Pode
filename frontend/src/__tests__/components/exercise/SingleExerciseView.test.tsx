@@ -31,16 +31,29 @@ jest.mock('expo-av', () => ({
         }))
     }
 }));
-
-describe('SingleExerciseView', () => {
-    const navigate = jest.fn();
+const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
     (useParams as jest.Mock).mockReturnValue({ lessonId: '1', exerciseId: '101' });
+
+describe('SingleExerciseView', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
     });
-    
+
+    it('renders correctly and fetches exercise and lesson data', async () => {
+        (exerciseService.getOne as jest.Mock).mockResolvedValue({
+            id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C'], lesson: 1
+        });
+        (lessonService.getLesson as jest.Mock).mockResolvedValue({
+            id: '1', exercises: [{id: '101', title: 'Test Exercise', description: 'Test Description', correctAnswer: 'A', type: 'box', options: ['A', 'B', 'C'], lesson: 1}]
+        });
+
+        const { getByText } = render(<SingleExerciseView />);
+        await waitFor(() => getByText('Test Exercise'));
+        expect(getByText('Test Description')).toBeTruthy();
+    });
+
     it('shows confirmation popup when back button is pressed', async () => {
         (exerciseService.getOne as jest.Mock).mockResolvedValue({ id: '101', title: 'Exercise' });
         (lessonService.getLesson as jest.Mock).mockResolvedValue({ id: '1', exercises: [] });
