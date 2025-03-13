@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react-native';
-import StartView from '../../components/authentication/StartView';
 import { MemoryRouter } from 'react-router-native';
+import StartView from '../../../components/authentication/StartView';
 
 describe('App Name', () => {
   it('renders the app name', () => {

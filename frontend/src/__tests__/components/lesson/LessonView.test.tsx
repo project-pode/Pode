@@ -1,8 +1,8 @@
 import { render, waitFor, screen } from '@testing-library/react-native';
-import LessonView from '../../components/lesson/LessonView';
 import { MemoryRouter } from 'react-router-native';
-import lessonService from '../../services/lessons';
-import { Exercise, Lesson } from '../../types';
+import LessonView from '../../../components/lesson/LessonView';
+import { Lesson, Exercise } from '../../../types';
+import lessonService from '../../../services/lessons';
 
 jest.mock('expo-asset', () => ({
     Asset: {
@@ -16,7 +16,7 @@ jest.mock('expo-font', () => ({
     isLoading: jest.fn().mockReturnValue(false)
 }));
 
-jest.mock('../../services/lessons');
+jest.mock('../../../services/lessons');
 
 const mockLesson: Lesson = {
     id: '1',

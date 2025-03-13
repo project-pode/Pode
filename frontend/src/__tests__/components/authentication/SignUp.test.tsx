@@ -1,6 +1,6 @@
 import { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
-import SignUp from '../../components/authentication/SignUp';
 import { MemoryRouter } from 'react-router-native';
+import SignUp from '../../../components/authentication/SignUp';
 
 describe('User sign up interaction', () => {
     it('calls onSignUp with valid inputs', async () => {

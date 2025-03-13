@@ -192,7 +192,7 @@ const ProgressMapView = () => {
       <ImageBackground source={require('../../assets/border.png')} style={theme.topBorder}/>
     
       <Animated.View style={[theme.buttonsContainer, { transform: [{ translateX: slideAnim }] }]}>
-          <Pressable onPress={handleSettingsPress}>
+          <Pressable onPress={handleSettingsPress} testID='settings-button'>
             <MaterialIcons style={theme.settingsButton} name="info" size={40} />
           </Pressable>
           <Pressable onPress={handleProfilePress}>

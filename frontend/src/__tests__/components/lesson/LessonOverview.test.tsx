@@ -1,9 +1,9 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react-native';
-import LessonOverview from '../../components/lesson/LessonOverview';
+import LessonOverview from '../../../components/lesson/LessonOverview';
 import { MemoryRouter, Route, Routes } from 'react-router-native';
-import lessonService from '../../services/lessons';
+import lessonService from '../../../services/lessons';
 
-jest.mock('../../services/lessons');
+jest.mock('../../../services/lessons');
 
 jest.mock('react-router-native', () => {
     const actual = jest.requireActual('react-router-native');

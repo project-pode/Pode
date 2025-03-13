@@ -215,7 +215,7 @@ const SingleExerciseView = () => {
             contentContainerStyle={{ flexGrow: 1 }} 
         >
             <View style={mainTheme.blueContainer}>
-                <Pressable style={theme.backButton} onPress={handleBackPress}>
+                <Pressable style={theme.backButton} onPress={handleBackPress} testID='back-button'>
                     <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
                 </Pressable>
                 <Animated.View style={[theme.whiteContainerExercises, {

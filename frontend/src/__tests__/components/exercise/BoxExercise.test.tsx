@@ -1,10 +1,10 @@
 import { render, fireEvent } from '@testing-library/react-native';
 import { createRef } from 'react';
-import BoxExercise from '../../components/exercise/BoxExercise';
-import useBoxAnimations from '../../hooks/useBoxAnimations';
+import BoxExercise from '../../../components/exercise/BoxExercise';
+import useBoxAnimations from '../../../hooks/useBoxAnimations';
 
 // Mock the custom hook
-jest.mock('../../hooks/useBoxAnimations');
+jest.mock('../../../hooks/useBoxAnimations');
 
 describe('BoxExercise Component', () => {
     const options: string[] = ['Option 1', 'Option 2', 'Option 3']; // Correct options

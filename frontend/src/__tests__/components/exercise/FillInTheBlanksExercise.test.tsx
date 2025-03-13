@@ -1,17 +1,17 @@
 import { render, fireEvent } from '@testing-library/react-native';
 import { createRef } from 'react';
-import FillInTheBlanksExercise from '../../components/exercise/FillInTheBlanksExercise';
-import useFillInTheBlanksAnimations from '../../hooks/useFillInTheBlanksAnimations';
+import FillInTheBlanksExercise from '../../../components/exercise/FillInTheBlanksExercise';
+import useFillInTheBlanksAnimations from '../../../hooks/useFillInTheBlanksAnimations';
 
-jest.mock('../../hooks/useFillInTheBlanksAnimations');
-jest.mock('../../themes/fillInTheBlanksExerciseTheme', () => ({
+jest.mock('../../../hooks/useFillInTheBlanksAnimations');
+jest.mock('../../../themes/fillInTheBlanksExerciseTheme', () => ({
     pinkContainerBox: {},
     questionContainer: {},
     notBlankBox: {},
     boxExerciseBoxText: {},
     boxesContainer: {}
 }));
-jest.mock('../../themes/mainTheme', () => ({
+jest.mock('../../../themes/mainTheme', () => ({
     exerciseDescription: {}
 }));
 
