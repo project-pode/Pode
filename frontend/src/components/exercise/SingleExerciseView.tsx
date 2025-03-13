@@ -212,7 +212,7 @@ const SingleExerciseView = () => {
 
     return (
         <View style={mainTheme.blueContainer}>
-            <Pressable style={theme.backButton} onPress={handleBackPress}>
+            <Pressable testID="back-button" style={theme.backButton} onPress={handleBackPress}>
                 <MaterialIcons name="close" size={40} color="rgb(69, 100, 108)" />
             </Pressable>
             <Animated.View style={[theme.whiteContainerExercises, {
@@ -240,8 +240,9 @@ const SingleExerciseView = () => {
                 onClose={closePopUp}
             />
                 <Pressable
+                    testID="check-button"
                     onPress={isExerciseComplete ? handleNextExercise : handleComplete}
-                    style={selectedAnswer && selectedAnswer.length >>> 0 ? mainTheme.greenButton : mainTheme.greenButtonDeselected}
+                    style={selectedAnswer && selectedAnswer.length > 0 ? mainTheme.greenButton : mainTheme.greenButtonDeselected}
                 >
                     <Text style={selectedAnswer && selectedAnswer.length >>> 0 ? mainTheme.greenButtonText : mainTheme.greenButtonTextDeselected}>
                         {isExerciseComplete ? 'Next' : 'Check'}
