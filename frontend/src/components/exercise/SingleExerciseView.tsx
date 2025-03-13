@@ -213,7 +213,6 @@ const SingleExerciseView = () => {
     return (
         <ScrollView 
             contentContainerStyle={{ flexGrow: 1 }} 
-            keyboardShouldPersistTaps="handled"
         >
             <View style={mainTheme.blueContainer}>
                 <Pressable style={theme.backButton} onPress={handleBackPress}>
