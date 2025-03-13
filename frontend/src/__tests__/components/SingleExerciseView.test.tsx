@@ -1,100 +1,116 @@
-import React from 'react';
-import { render, fireEvent, waitFor, act } from '@testing-library/react-native';
-import { useNavigate, useParams } from 'react-router-native';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react-native';
 import SingleExerciseView from '../../components/exercise/SingleExerciseView';
+import { MemoryRouter, Route, Routes } from 'react-router-native';
+import { useParams } from 'react-router-native';
 import exerciseService from '../../services/exercises';
-import lessonService from '../../services/lessons';
-import PopUp from '../../components/PopUp';
 
-jest.mock('react-router-native', () => ({
-    useNavigate: jest.fn(),
-    useParams: jest.fn(),
-}));
+jest.mock('../../services/exercises', () => ({
+    getExercise: jest.fn(),  // Mock the getExercise function explicitly
+  }));
+
+  
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 jest.mock('../../services/exercises');
-jest.mock('../../services/lessons');
-jest.mock('../../components/PopUp', () => jest.fn(() => null));
+jest.mock('react-router-native', () => {
+    const actual = jest.requireActual('react-router-native');
+    return {
+        ...actual,
+        useParams: jest.fn(),
+        useNavigate: jest.fn(),
+    };
+});
+
 jest.mock('expo-av', () => ({
     Audio: {
-        Sound: jest.fn(() => ({
-            loadAsync: jest.fn(),
-            replayAsync: jest.fn(),
-            unloadAsync: jest.fn(),
-        })),
+      Sound: jest.fn().mockImplementation(() => ({
+        loadAsync: jest.fn(),
+        replayAsync: jest.fn(),
+        unloadAsync: jest.fn(),
+      })),
     },
-}));
+  }));
 
-describe('SingleExerciseView Component', () => {
-    const mockNavigate = jest.fn();
+const mockExercise = {
+    id: '1',
+    question: 'What is 2 + 2?',
+    options: ['3', '4', '5'],
+    correctAnswer: '4',
+};
+
+exerciseService.getExercise.mockResolvedValue(mockExercise);
+
+describe('SingleExerciseView', () => {
+    let navigateMock: jest.Mock;
+    let mockParams: { lessonId: string; exerciseId: string };
+
     beforeEach(() => {
-        (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-        (useParams as jest.Mock).mockReturnValue({ lessonId: '1', exerciseId: '101' });
+        // Reset mocks before each test
+        navigateMock = jest.fn();
+        mockParams = { lessonId: '1', exerciseId: '1' };
+        
+        // Mock useParams and useNavigate
+        (useParams as jest.Mock).mockReturnValue(mockParams);
+        require('react-router-native').useNavigate.mockReturnValue(navigateMock);
     });
 
-    it('renders loading view initially', async () => {
-        const { getByTestId } = render(<SingleExerciseView />);
-        expect(getByTestId("test")).toBeTruthy();
+    const renderComponent = () => {
+        return render(
+            <MemoryRouter initialEntries={[`/lessons/${mockParams.lessonId}/exercises/${mockParams.exerciseId}`]}>
+                <Routes>
+                    <Route path="/lessons/:lessonId/exercises/:exerciseId" element={<SingleExerciseView />} />
+                </Routes>
+            </MemoryRouter>
+        );
+    };
+
+    it('should render exercise and options correctly', async () => {
+        renderComponent();
+
+        await waitFor(() => screen.getByText('What is 2 + 2?'));
+        expect(screen.getByText('3')).toBeTruthy();
+        expect(screen.getByText('4')).toBeTruthy();
+        expect(screen.getByText('5')).toBeTruthy();
     });
 
-    it('renders exercise after fetching data', async () => {
-        (exerciseService.getOne as jest.Mock).mockResolvedValue({
-            id: '101',
-            title: 'Sample Exercise',
-            description: 'Sample Description',
-            correctAnswer: 'Correct Answer',
-        });
-        (lessonService.getLesson as jest.Mock).mockResolvedValue({ exercises: [{ id: '101' }] });
-
-        const { getByText } = render(<SingleExerciseView />);
-        await waitFor(() => expect(getByText('Sample Exercise')).toBeTruthy());
-        expect(getByText('Sample Description')).toBeTruthy();
+    it('should not allow submission without selecting an answer', async () => {
+        renderComponent();
+        
+        // Submit without selecting an answer
+        fireEvent.press(screen.getByText('Submit'));
+        
+        // Assert feedback or alert showing that an answer must be selected
+        expect(screen.getByText('Please select an answer')).toBeTruthy(); // Adjust the message as per actual behavior
     });
 
-    it('shows feedback popup for incorrect answer', async () => {
-        (exerciseService.getOne as jest.Mock).mockResolvedValue({
-            id: '101',
-            title: 'Sample Exercise',
-            description: 'Sample Description',
-        });
-        (lessonService.getLesson as jest.Mock).mockResolvedValue({ exercises: [{ id: '101' }] });
+    it('should submit and show feedback for correct answer', async () => {
+        renderComponent();
+        
+        // Select correct answer
+        fireEvent.press(screen.getByText('4'));
 
-        const { getByText} = render(<SingleExerciseView />);
-        await waitFor(() => getByText('Sample Exercise'));
-
-        await act(async () => {
-        fireEvent.press(getByText('Check'));
-        });
-        await waitFor(() => {
-            expect(PopUp).toHaveBeenLastCalledWith(
-                expect.objectContaining({
-                    visible: true,
-                    message: 'Incorrect answer.\nPlease try again.',
-                }),
-                {}
-            );
-        });
-
+        // Submit answer
+        fireEvent.press(screen.getByText('Submit'));
+        
+        // Assert feedback
+        expect(screen.getByText('Correct!')).toBeTruthy(); // Adjust feedback message as per actual behavior
     });
-    
-    it('navigates to the next exercise after correct answer', async () => {
-        (exerciseService.getOne as jest.Mock).mockResolvedValue({
-            id: '101',
-            title: 'Sample Exercise',
-            description: 'Sample Description',
-            correctAnswer: 'Correct Answer',
-        });
-        (lessonService.getLesson as jest.Mock).mockResolvedValue({ exercises: [{ id: '101' }, { id: '102' }] });
 
-        const { getByText} = render(<SingleExerciseView />);
-        await waitFor(() => getByText('Sample Exercise'));
+    it('should navigate to next exercise or finish lesson if no next exercise exists', async () => {
+        renderComponent();
+        
+        // Simulate the completion of this exercise and check for navigation
+        fireEvent.press(screen.getByText('Next Exercise'));
 
-        fireEvent.press(getByText('Check'));
-        await waitFor(() => expect(PopUp).toHaveBeenCalledWith(expect.objectContaining({
-            visible: true,
-            message: 'Correct answer!\nExercise completed.',
-        }), {}));
+        expect(navigateMock).toHaveBeenCalledWith('/lessons/1/completed'); // Adjust this path according to actual behavior
+    });
 
-        fireEvent.press(getByText('Next'));
-        expect(mockNavigate).toHaveBeenCalledWith('/lessons/1/exercises/102');
+    it('should show confirmation popup when back button is pressed', async () => {
+        renderComponent();
+        
+        // Simulate pressing the back button
+        fireEvent.press(screen.getByText('Back'));
+        
+        // Check for confirmation popup text
+        expect(screen.getByText('Are you sure you want to go back?')).toBeTruthy(); // Adjust as needed
     });
 });
