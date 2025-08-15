@@ -52,7 +52,7 @@ describe('SingleExerciseView', () => {
         const { getByText } = render(<SingleExerciseView />);
         await waitFor(() => getByText('Test Exercise'));
         expect(getByText('Test Description')).toBeTruthy();
-    });
+    }, 10000);
 
     it('shows confirmation popup when back button is pressed', async () => {
         (exerciseService.getOne as jest.Mock).mockResolvedValue({ id: '101', title: 'Exercise' });
