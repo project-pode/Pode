@@ -10,7 +10,7 @@ on:
 
 jobs:
   deployment_pipeline:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         part: [frontend, backend] # runs both in frontend and backend directories
