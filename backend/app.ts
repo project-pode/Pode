@@ -9,12 +9,11 @@ import loginRouter from './controllers/login';
 import usersRouter from './controllers/users'; 
 import lessonsRouter from './controllers/lessons'; 
 
-// Import error-handling and request-middleware functions
 import { ErrorRequestHandler } from 'express';
 import { requestLogger, unknownEndpoint, tokenExtractor, userExtractor } from './utils/middleware';
 import { errorHandler } from './utils/middleware';
-import exercisesRouter from './controllers/exercises';  // Router for exercise-related routes
-import logger from "./utils/logger";  // Logger utility to log messages
+import exercisesRouter from './controllers/exercises'; 
+import logger from "./utils/logger";
 
 // Extend the Express Request type to include 'user' and 'token' for all requests
 declare global {
