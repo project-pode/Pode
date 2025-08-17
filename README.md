@@ -3,6 +3,7 @@
 - Deployed as a web-application at https://pode-app.onrender.com/ (quite slow due to the free plan on Render, but speeds up on use). Use this to test the application
 - It is strongly recommended to run the web-application in device-mode on your browser (F12 + ctrl-shift-m), or from a smartphone to simulate the mobile application.
 - User instructions can be found [here](https://github.com/project-pode/Pode/blob/master/Pode_userGuide.pdf)
+- Hour log can be found [here](https://github.com/project-pode/Pode/blob/master/Hour%20log%20Benjamin%20fullstackopen%20project%20course.pdf) (Benjamin). It can be replaced and edited if other members want to publish hours.
 
 ## Software requirements: 
 Be sure to have the newest Node.js version installed!
