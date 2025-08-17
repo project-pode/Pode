@@ -36,7 +36,7 @@ Start app with ```npm run dev```
 If everything worked fine terminal should print Server running on Port... and connected to MongoDB
 
 
-## Tutorial for demo version using local json-data
+## Tutorial for demo version using local json-data. This can be used locally if wanting to test just the frontend functionality
 
 First, clone the repo.
 
