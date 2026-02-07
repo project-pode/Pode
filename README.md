@@ -1,6 +1,6 @@
 # Pode project
 - A mobile application developed with React Native and Node.js using TypeScript.
-- **NOTE: Deployment suspended for now**
+- Deployed as a web-application at https://pode-app.onrender.com/
 - It is strongly recommended to run the web-application in device-mode on your browser (F12 + ctrl-shift-m), or from a smartphone's browser to simulate the mobile application.
 - User instructions can be found [here](https://github.com/project-pode/Pode/blob/master/Pode_userGuide.pdf)
 
