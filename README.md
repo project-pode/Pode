@@ -5,7 +5,7 @@
 - User instructions can be found [here](https://github.com/project-pode/Pode/blob/master/Pode_userGuide.pdf)
 
 ## Screenshots
-The user is created with a Login/Register page where the user can either login or register themselves.
+The user is greeted with a Login/Register page where the user can either login or register themselves.
 
 <img width="200" height="420" alt="Skärmbild 2026-02-07 155744" src="https://github.com/user-attachments/assets/4d7b28b6-6a1e-4042-acf6-002849b6df76" />
 
