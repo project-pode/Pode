@@ -11,7 +11,7 @@
     "test": "jest",
     "demo": "cross-env REACT_APP_USE_DEMO_SERVICE=true expo start --clear",
     "dev": "vite",
-    "build": "vite build",
+    "build": "dist",
     "preview": "vite preview"
   },
   "dependencies": {
