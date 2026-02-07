@@ -4,6 +4,29 @@
 - It is strongly recommended to run the web-application in device-mode on your browser (F12 + ctrl-shift-m), or from a smartphone's browser to simulate the mobile application.
 - User instructions can be found [here](https://github.com/project-pode/Pode/blob/master/Pode_userGuide.pdf)
 
+## Screenshots
+The user is greated with a Login/Register page where the user can either login or register themselves.
+
+<img width="200" height="420" alt="Skärmbild 2026-02-07 155744" src="https://github.com/user-attachments/assets/4d7b28b6-6a1e-4042-acf6-002849b6df76" />
+
+The user can then choose where to start. Each cloud is one lesson.
+
+<img width="200" height="420" alt="Skärmbild 2026-02-07 161939" src="https://github.com/user-attachments/assets/5e697161-0ed6-4621-ad0a-65eb480bb821" />
+
+After choosing a lesson, Pode gives a short explination about the content of the lesson.
+
+<img width="200" height="420" alt="Skärmbild 2026-02-07 162012" src="https://github.com/user-attachments/assets/7821c863-db45-4bbb-b2bc-2c6efd470781" />
+
+Each lesson contains multiple different types of questions and exercises. From fill in the blank to dropdown tables.
+
+<img width="200" height="420" alt="Skärmbild 2026-02-07 162037" src="https://github.com/user-attachments/assets/4db86956-d30f-40aa-b2d1-485428b6a5e7" />
+<img width="200" height="420" alt="Skärmbild 2026-02-07 162118" src="https://github.com/user-attachments/assets/380eaff2-e746-4560-88b2-757439f2dcbf" />
+<img width="200" height="420" alt="Skärmbild 2026-02-07 162312" src="https://github.com/user-attachments/assets/b33ea069-062f-4e80-9287-28d4c0d1f5dc" />
+
+After the user finished a lesson, they are praised and may now move onto the next lesson.
+
+<img width="200" height="420" alt="Skärmbild 2026-02-07 162351" src="https://github.com/user-attachments/assets/ad9be167-4bd8-4492-9f97-613931d8c9b0" />
+
 ## Software requirements: 
 Be sure to have the newest Node.js version installed!
 
